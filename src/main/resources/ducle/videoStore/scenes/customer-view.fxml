@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="customerViewAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.CustomerViewController">
+   <children>
+      <Label layoutX="263.0" layoutY="192.0" text="Welcome Customer!" />
+      <Button layoutX="274.0" layoutY="265.0" mnemonicParsing="false" onAction="#onSwitchSceneCustomer" text="Login" />
+   </children>
+</AnchorPane>

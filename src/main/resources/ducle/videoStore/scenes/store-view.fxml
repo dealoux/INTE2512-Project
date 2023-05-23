@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="storeViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.StoreController">
+   <center>
+      <GridPane prefHeight="150.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="176.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="424.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Username" />
+            <Label text="Password" GridPane.rowIndex="1" />
+            <TextField fx:id="loginUsername" GridPane.columnIndex="1" />
+            <PasswordField fx:id="loginPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="loginOutputLabel" text="Please login!" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+   </center>
+   <top>
+      <Label text="Welcome to Video Store" BorderPane.alignment="CENTER" />
+   </top>
+   <bottom>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+          <Button mnemonicParsing="false" onAction="#onLoginButton" text="Login" />
+            <Separator orientation="VERTICAL" />
+            <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onLoginQuitButton" text="Quit" />
+        </items>
+      </ToolBar>
+   </bottom>
+</BorderPane>

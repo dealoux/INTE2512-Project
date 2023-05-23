@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="adminViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.AdminViewController">
+   <top>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+          <Button mnemonicParsing="false" onAction="#onLogoutAdminView" text="Logout" />
+        </items>
+      </ToolBar>
+   </top>
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Manage Items">
+            <content>
+              <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <top>
+                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                          <items>
+                            <Button mnemonicParsing="false" text="Add" />
+                              <Separator orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                              <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" text="Update" />
+                              <Separator layoutX="52.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                              <Button layoutX="52.0" layoutY="13.0" mnemonicParsing="false" text="Delete" />
+                          </items>
+                        </ToolBar>
+                     </top>
+                     <center>
+                        <VBox prefHeight="260.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <TableView prefHeight="200.0" prefWidth="200.0">
+                                <columns>
+                                  <TableColumn prefWidth="29.0" text="ID" />
+                                  <TableColumn prefWidth="270.0" text="Title" />
+                                    <TableColumn minWidth="7.0" prefWidth="43.0" text="Stock" />
+                                    <TableColumn prefWidth="78.0" text="Rental Type" />
+                                    <TableColumn prefWidth="71.0" text="Loan Type" />
+                                    <TableColumn prefWidth="43.0" text="Fee" />
+                                    <TableColumn prefWidth="65.0" text="Status" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </center>
+                     <bottom>
+                        <HBox prefHeight="35.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label prefHeight="25.0" prefWidth="37.0" text="..." />
+                           </children>
+                        </HBox>
+                     </bottom></BorderPane>
+            </content>
+          </Tab>
+          <Tab text="Untitled Tab 2">
+            <content>
+              <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

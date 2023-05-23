@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="itemViewAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.ItemViewController">
+   <children>
+      <DialogPane layoutX="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="480.0">
+          <header>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
+          </header>
+          <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
+          </content>
+          <expandableContent>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
+          </expandableContent>
+      </DialogPane>
+      <Label layoutX="260.0" layoutY="72.0" text="Welcome Item!" />
+      <ButtonBar layoutX="9.0" layoutY="346.0" prefHeight="40.0" prefWidth="567.0">
+         <buttons>
+            <Button mnemonicParsing="false" onAction="#onAddItem" prefHeight="25.0" text="Add" />
+            <Button mnemonicParsing="false" onAction="#onUpdateItem" prefHeight="25.0" text="Update" />
+            <Button mnemonicParsing="false" onAction="#onDeleteItem" text="Delete" />
+            <Button mnemonicParsing="false" onAction="#onDisplayAlltem" text="Display All" />
+            <Button mnemonicParsing="false" onAction="#onDisplayOOSItem" prefHeight="25.0" prefWidth="217.0" text="Display Out-of-stock" />
+         </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

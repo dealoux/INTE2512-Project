@@ -1,8 +1,19 @@
-package ducle.customer;
+package ducle.user.customer;
 
 import ducle.item.Item;
 
-public class Guest extends Customer{
+public class Guest extends Customer {
+    public Guest(){
+        super("Guest");
+    }
+
+    public Guest(String id, String name, String address, String phone, String username, String password) {
+        super(id, name, address, phone, "Guest", username, password);
+    }
+
+    public Guest(String id, String name, String address, String phone) {
+        super(id, name, address, phone, "Guest");
+    }
 
     // limit the rent
     @Override
