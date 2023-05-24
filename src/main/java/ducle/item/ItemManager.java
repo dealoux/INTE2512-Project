@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 
-
 public class ItemManager {
     private Map<String, Record> recordMap;
     private Map<String, DVD> dvdMap;
@@ -47,6 +46,30 @@ public class ItemManager {
         result.addAll(this.getRecordList());
         result.addAll(this.getDvdList());
         result.addAll(this.getGameList());
+
+        return result;
+    }
+
+    public List<Item> getOOSItemList(){
+        List<Item> result = new ArrayList<>();
+
+        for(Record item : recordMap.values()){
+            if(item.getStock() == 0){
+                result.add(item);
+            }
+        }
+
+        for(DVD item : dvdMap.values()){
+            if(item.getStock() == 0){
+                result.add(item);
+            }
+        }
+
+        for(Game item : gameMap.values()){
+            if(item.getStock() == 0){
+                result.add(item);
+            }
+        }
 
         return result;
     }

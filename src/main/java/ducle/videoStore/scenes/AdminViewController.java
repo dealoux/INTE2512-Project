@@ -7,13 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class AdminViewController {
     @FXML
@@ -23,12 +23,7 @@ public class AdminViewController {
         initItemTab();
     }
 
-    @FXML
-    protected void onLogoutAdminView (ActionEvent event) throws IOException {
-        new SceneSwitch(adminViewPane, "scenes/store-view.fxml");
-    }
-
-    /* Manage Items */
+    /* Manage Items tab */
     @FXML
     private TableView<Item> itemTableAdmin;
     private ObservableList<Item> items;
@@ -54,10 +49,13 @@ public class AdminViewController {
     private Button itemUpdateButton;
     @FXML
     private Button itemDeleteButton;
+    @FXML
+    private Button itemDisplayAllButton;
+    @FXML
+    private Button itemDisplayOOSButton;
 
     private void initItemTab(){
         items = FXCollections.observableArrayList(StoreRepository.getItemManager().getItemList());
-//        System.out.println(items);
         itemTableAdmin.setItems(items);
 
         // link the table cols to the items attributes
@@ -76,14 +74,72 @@ public class AdminViewController {
 
     @FXML
     protected void onItemAddButton(ActionEvent event){
+        Item item = new Item();
 
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("item-editor.fxml"));
+            DialogPane itemEditorPane = fxmlLoader.load();
+            ItemEditorController itemEditorController = fxmlLoader.getController();
+
+            itemEditorController.setItem(item);
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(itemEditorPane);
+            dialog.setTitle("Add Item");
+
+            Optional<ButtonType> buttonHandler = dialog.showAndWait();
+
+            if(buttonHandler.get() == ButtonType.OK){
+                items.add(item);
+                StoreRepository.getItemManager().addItem(item);
+            }
+        } catch (IOException e ){
+            System.out.println(e);
+        }
     }
     @FXML
     protected void onItemUpdateButton(ActionEvent event){
+        Item item = itemTableAdmin.getSelectionModel().getSelectedItem();
 
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("item-editor.fxml"));
+            DialogPane itemEditorPane = fxmlLoader.load();
+            ItemEditorController itemEditorController = fxmlLoader.getController();
+
+            itemEditorController.setItem(item);
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(itemEditorPane);
+            dialog.setTitle("Update Item");
+
+            dialog.showAndWait();
+        } catch (IOException e ){
+            System.out.println(e);
+        }
     }
+
     @FXML
     protected void onItemDeleteButton(ActionEvent event){
+        Item item = itemTableAdmin.getSelectionModel().getSelectedItem();
+        items.remove(item);
+        StoreRepository.getItemManager().removeItem(item);
+    }
 
+    @FXML
+    protected void onItemDisplayAllButton(ActionEvent event){
+        itemTableAdmin.setItems(items);
+    }
+
+    @FXML
+    protected void onItemDisplayOOSButton(ActionEvent event){
+        itemTableAdmin.setItems(FXCollections.observableArrayList(StoreRepository.getItemManager().getOOSItemList()));
+    }
+    /* Ends of Manage Items tab */
+
+    @FXML
+    protected void onLogoutAdminView (ActionEvent event) throws IOException {
+        new SceneSwitch(adminViewPane, "store-view.fxml");
     }
 }

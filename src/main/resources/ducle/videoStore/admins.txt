@@ -3,4 +3,4 @@
 # ID starts with A
 # admin accounts can not be added when the program is running so feel free to add more here
 
-A001,Duc Le,15 That St,0123456789, ducle, sudo
+A001,Duc Le,15 That St,0123456789, admin, sudo

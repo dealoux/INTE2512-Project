@@ -1,99 +1,116 @@
 package ducle.user;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public abstract class User {
-    protected String id;
-    protected String name;
-    protected String address;
-    protected String phone;
-    protected String type;
-    protected String username;
-    protected String password;
+    protected StringProperty id = new SimpleStringProperty();
+    protected StringProperty name = new SimpleStringProperty();
+    protected StringProperty address = new SimpleStringProperty();
+    protected StringProperty phone = new SimpleStringProperty();
+    protected StringProperty type = new SimpleStringProperty();
+    protected StringProperty username = new SimpleStringProperty();
+    protected StringProperty password = new SimpleStringProperty();
 
     public User(){
-        id = "";
-        name = "";
-        address = "";
-        phone = "";
-        username = "";
-        password = "";
-        type = "";
+        id.set("");
+        name.set("");
+        address.set("");
+        phone.set("");
+        setUsername("");
+        setPassword("");
+        type.set("");
     }
 
     public User(String id, String name, String address, String phone, String type, String username, String password) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.type = type;
-        this.username = username.trim();
-        this.password = password.trim();
+        this.id.set(id);
+        this.name.set(name);
+        this.address.set(address);
+        this.phone.set(phone);
+        this.type.set(type);
+        setUsername(username);
+        setPassword(password);
     }
 
     public User(String id, String name, String address, String phone, String type) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.type = type;
+        this.id.set(id);
+        this.name.set(name);
+        this.address.set(address);
+        this.phone.set(phone);
+        this.type.set(type);
     }
 
     public String getId() {
+        return id.get();
+    }
+    public StringProperty idProperty() {
         return id;
     }
-
     public void setId(String id) {
-        this.id = id;
+        this.id.set(id);
     }
 
     public String getName() {
+        return name.get();
+    }
+    public StringProperty nameProperty() {
         return name;
     }
-
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     public String getAddress() {
+        return address.get();
+    }
+    public StringProperty addressProperty() {
         return address;
     }
-
     public void setAddress(String address) {
-        this.address = address;
+        this.address.set(address);
     }
 
     public String getPhone() {
+        return phone.get();
+    }
+    public StringProperty phoneProperty() {
         return phone;
     }
-
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone.set(phone);
     }
 
     public String getType() {
+        return type.get();
+    }
+    public StringProperty typeProperty() {
         return type;
     }
-
     public void setType(String type) {
-        this.type = type;
+        this.type.set(type);
     }
 
     public String getUsername() {
+        return username.get();
+    }
+    public StringProperty usernameProperty() {
         return username;
     }
-
     public void setUsername(String username) {
-        this.username = username.trim();
+        this.username.set(username.trim());
     }
 
     public String getPassword() {
+        return password.get();
+    }
+    public StringProperty passwordProperty() {
         return password;
     }
-
     public void setPassword(String password) {
-        this.password = password.trim();
+        this.password.set(password.trim());
     }
 
     public String toString() {
-        return "\nid: " + id + ", name: " + name + ", address: " + address + ", phone: " + phone + ", type: " + type + ", username: " + username + ", password: " + password;
+        return getId() + "," + getName() + "," + getAddress() + "," + getPhone() + "," + getType() + ", " + getUsername() + ", " + getPassword();
     }
 }

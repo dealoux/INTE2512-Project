@@ -11,7 +11,7 @@ public abstract class Customer extends User {
     protected Map<String, Item> rentalList;
     public Customer(String type){
         super();
-        this.type = type;
+        setType(type);
         rentalList = new HashMap<>();
     }
 
