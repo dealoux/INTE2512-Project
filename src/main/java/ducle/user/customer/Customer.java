@@ -63,12 +63,12 @@ public abstract class Customer extends User {
         return result;
     }
 
+    @Override
     public String toString(){
         String result = super.toString();
-        result += "\nRental items";
 
         for(Item item : rentalList.values()){
-            result += item.toString();
+            result += "\n" + item.getId();
         }
 
         return result;

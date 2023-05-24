@@ -198,7 +198,7 @@ public class ItemManager {
 
         List<Item> items = getItemList();
         for(Item item : items){
-            result +=  item.toString();
+            result +=  item.toString() + "\n";
         }
 
         return result;

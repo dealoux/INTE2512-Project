@@ -3,7 +3,7 @@ package ducle.user;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public abstract class User {
+public abstract class User implements Comparable<User> {
     protected StringProperty id = new SimpleStringProperty();
     protected StringProperty name = new SimpleStringProperty();
     protected StringProperty address = new SimpleStringProperty();
@@ -110,6 +110,12 @@ public abstract class User {
         this.password.set(password.trim());
     }
 
+    @Override
+    public int compareTo(User user) {
+        return getId().compareTo(user.getId());
+    }
+
+    @Override
     public String toString() {
         return getId() + "," + getName() + "," + getAddress() + "," + getPhone() + "," + getType() + ", " + getUsername() + ", " + getPassword();
     }

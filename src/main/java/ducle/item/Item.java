@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Item {
+public class Item implements Comparable<Item> {
     protected StringProperty id = new SimpleStringProperty();
     protected StringProperty title = new SimpleStringProperty();
     protected StringProperty rentalType = new SimpleStringProperty();
@@ -156,6 +156,12 @@ public class Item {
         return rentalStatusList;
     }
 
+    @Override
+    public int compareTo(Item item) {
+        return getId().compareTo(item.getId());
+    }
+
+    @Override
     public String toString(){
         return getId() + "," + getTitle() + "," + getRentalType() + "," + getLoanType() + "," + getStock() + "," + fee.get() + (getGenre().isEmpty()? "" : "," + getGenre());
     }

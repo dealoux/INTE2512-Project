@@ -313,12 +313,12 @@ public class UserManager {
 
         List<Customer> customers = getCustomerList();
         for(Customer customer : customers){
-            result +=  customer.toString();
+            result += customer.toString() + "\n";
         }
 
         List<Admin> admins = getAdminList();
         for(Admin admin: admins){
-            result += admin.toString();
+            result += admin.toString() + "\n";
         }
 
         return result;
