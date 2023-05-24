@@ -3,6 +3,8 @@ package ducle.user.customer;
 import ducle.item.Item;
 import ducle.videoStore.StoreRepository;
 
+import java.util.Map;
+
 public class Guest extends Customer {
     public Guest(){
         super("Guest");
@@ -10,6 +12,10 @@ public class Guest extends Customer {
 
     public Guest(String id, String name, String address, String phone, String username, String password) {
         super(id, name, address, phone, "Guest", username, password);
+    }
+
+    public Guest(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList) {
+        super(id, name, address, phone, "Guest", username, password, rentalList);
     }
 
     public Guest(String id, String name, String address, String phone) {

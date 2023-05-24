@@ -20,6 +20,11 @@ public abstract class Customer extends User {
         rentalList = new HashMap<>();
     }
 
+    public Customer(String id, String name, String address, String phone, String type, String username, String password, Map<String, Item> rentalList) {
+        super(id, name, address, phone, type, username, password);
+        this.rentalList = rentalList;
+    }
+
     public Customer(String id, String name, String address, String phone, String type) {
         super(id, name, address, phone, type);
         rentalList = new HashMap<>();

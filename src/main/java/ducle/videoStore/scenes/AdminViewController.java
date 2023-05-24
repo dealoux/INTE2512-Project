@@ -28,6 +28,8 @@ public class AdminViewController {
     private TableView<Item> itemTableAdmin;
     private ObservableList<Item> items;
     @FXML
+    private Label manageItemOutput;
+    @FXML
     private TableColumn<Item, String> itemIdAdmin;
     @FXML
     private TableColumn<Item, String> itemTitleAdmin;
@@ -92,7 +94,7 @@ public class AdminViewController {
 
             if(buttonHandler.get() == ButtonType.OK){
                 items.add(item);
-                StoreRepository.getItemManager().addItem(item);
+                manageItemOutput.setText(StoreRepository.getItemManager().addItem(item));
             }
         } catch (IOException e ){
             System.out.println(e);
@@ -114,6 +116,8 @@ public class AdminViewController {
             dialog.setDialogPane(itemEditorPane);
             dialog.setTitle("Update Item");
 
+            manageItemOutput.setText("Updated " + item.getRentalType() + " " + item.getId());
+
             dialog.showAndWait();
         } catch (IOException e ){
             System.out.println(e);
@@ -122,21 +126,40 @@ public class AdminViewController {
 
     @FXML
     protected void onItemDeleteButton(ActionEvent event){
-        Item item = itemTableAdmin.getSelectionModel().getSelectedItem();
-        items.remove(item);
-        StoreRepository.getItemManager().removeItem(item);
+        Optional<ButtonType> confirmation = confirmationDialog(
+                "Confirm delete",
+                "Delete confirmation",
+                "Are you sure you would like to delete the selected student?");
+
+        if(confirmation.get() == ButtonType.OK){
+            Item item = itemTableAdmin.getSelectionModel().getSelectedItem();
+            items.remove(itemTableAdmin.getSelectionModel().getSelectedItem());
+            manageItemOutput.setText(StoreRepository.getItemManager().removeItem(item));
+        }
+
     }
 
     @FXML
     protected void onItemDisplayAllButton(ActionEvent event){
         itemTableAdmin.setItems(items);
+        manageItemOutput.setText("Displayed all items");
     }
 
     @FXML
     protected void onItemDisplayOOSButton(ActionEvent event){
         itemTableAdmin.setItems(FXCollections.observableArrayList(StoreRepository.getItemManager().getOOSItemList()));
+        manageItemOutput.setText("Displayed all out-of-stock items");
     }
     /* Ends of Manage Items tab */
+
+    private Optional<ButtonType> confirmationDialog(String title, String header, String context){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(context);
+
+        return alert.showAndWait();
+    }
 
     @FXML
     protected void onLogoutAdminView (ActionEvent event) throws IOException {

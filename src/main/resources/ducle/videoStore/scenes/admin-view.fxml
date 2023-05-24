@@ -53,7 +53,7 @@
                      <bottom>
                         <HBox prefHeight="35.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label prefHeight="25.0" prefWidth="37.0" text="..." />
+                              <Label fx:id="manageItemOutput" prefHeight="17.0" prefWidth="1100" text="..." />
                            </children>
                         </HBox>
                      </bottom></BorderPane>

@@ -76,7 +76,7 @@ public class ItemManager {
 
     public String addRecord(Record item){
         recordMap.put(item.getId(), item);
-        return "Added record " + item.getId();
+        return "Added Record " + item.getId();
     }
 
     public String addDvd(DVD item){
@@ -86,20 +86,22 @@ public class ItemManager {
 
     public String addGame(Game item){
         gameMap.put(item.getId(), item);
-        return "Added game " + item.getId();
+        return "Added Game " + item.getId();
     }
 
     public String addItem(Item item){
         String result = "";
 
-        if(item instanceof Record){
-            result = addRecord((Record) item);
-        }
-        else if(item instanceof DVD){
-            result = addDvd((DVD) item);
-        }
-        else if(item instanceof Game){
-            result = addGame((Game) item);
+        switch (item.getRentalType()){
+            case "Record":
+                result = addRecord(new Record(item.getId(), item.getTitle(), item.getLoanType(), item.getStock(), item.getFee(), item.getGenre()));
+                break;
+            case "DVD":
+                result = addDvd(new DVD(item.getId(), item.getTitle(), item.getLoanType(), item.getStock(), item.getFee(), item.getGenre()));
+                break;
+            case "Game":
+                result = addGame(new Game(item.getId(), item.getTitle(), item.getLoanType(), item.getStock(), item.getFee()));
+                break;
         }
 
         return result;

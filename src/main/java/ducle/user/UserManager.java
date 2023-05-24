@@ -88,14 +88,16 @@ public class UserManager {
     public String addCustomer(Customer customer){
         String result = "";
 
-        if(customer instanceof Regular){
-            result = addRegular((Regular) customer);
-        }
-        else if(customer instanceof VIP){
-            result = addVip((VIP) customer);
-        }
-        else if(customer instanceof Guest){
-            result = addGuest((Guest) customer);
+        switch (customer.getType()){
+            case "Regular":
+                result = addRegular(new Regular(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalList()));
+                break;
+            case "VIP":
+                result = addVip(new VIP(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalList()));
+                break;
+            case "Guest":
+                result = addGuest(new Guest(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalList()));
+                break;
         }
 
         return result;
