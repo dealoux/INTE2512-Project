@@ -157,6 +157,6 @@ public class Item {
     }
 
     public String toString(){
-        return getId() + "," + getTitle() + "," + getRentalType() + "," + getLoanType() + "," + getStock() + "," + fee.get() + ((getGenre().length() > 0)? "," + getGenre() : "");
+        return getId() + "," + getTitle() + "," + getRentalType() + "," + getLoanType() + "," + getStock() + "," + fee.get() + (getGenre().isEmpty()? "" : "," + getGenre());
     }
 }

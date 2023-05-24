@@ -5,6 +5,8 @@ import ducle.videoStore.StoreRepository;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,6 +48,8 @@ public class AdminViewController {
     @FXML
     private TableColumn<Item, String> itemStatusAdmin;
     @FXML
+    private TextField itemSearchAdmin;
+    @FXML
     private Button itemAddButton;
     @FXML
     private Button itemUpdateButton;
@@ -58,7 +62,7 @@ public class AdminViewController {
 
     private void initItemTab(){
         items = FXCollections.observableArrayList(StoreRepository.getItemManager().getItemList());
-        itemTableAdmin.setItems(items);
+        itemFilter(items);
 
         // link the table cols to the items attributes
         itemIdAdmin.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -72,6 +76,45 @@ public class AdminViewController {
 
         // Disable the delete button if nothing is selected
         itemDeleteButton.disableProperty().bind(Bindings.isNull(itemTableAdmin.getSelectionModel().selectedItemProperty()));
+    }
+
+    private void itemFilter(ObservableList<Item> items){
+        FilteredList<Item> filteredItems = new FilteredList<>(items, b -> true);
+        itemSearchAdmin.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredItems.setPredicate(item -> {
+                // No search keywords
+                if(newValue.isBlank()){
+                    return true;
+                }
+
+                String searchKeyword = newValue.toLowerCase();
+
+                // check for a match in item id
+                if(item.getId().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }
+                // check for a match in item title
+                else if(item.getTitle().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }
+                // check for a match in item rental type
+                else if(item.getRentalType().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }
+                // check for a match in item genre
+                else if(item.getGenre().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }
+                // no match is found
+                else{
+                    return false;
+                }
+            });
+        });
+
+        SortedList<Item> sortedItems = new SortedList<>(filteredItems);
+        sortedItems.comparatorProperty().bind(itemTableAdmin.comparatorProperty());
+        itemTableAdmin.setItems(sortedItems);
     }
 
     @FXML
@@ -140,13 +183,13 @@ public class AdminViewController {
 
     @FXML
     protected void onItemDisplayAllButton(ActionEvent event){
-        itemTableAdmin.setItems(items);
+        itemFilter(items);
         manageItemOutput.setText("Displayed all items");
     }
 
     @FXML
     protected void onItemDisplayOOSButton(ActionEvent event){
-        itemTableAdmin.setItems(FXCollections.observableArrayList(StoreRepository.getItemManager().getOOSItemList()));
+        itemFilter(FXCollections.observableArrayList(StoreRepository.getItemManager().getOOSItemList()));
         manageItemOutput.setText("Displayed all out-of-stock items");
     }
     /* Ends of Manage Items tab */
