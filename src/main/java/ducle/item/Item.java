@@ -50,7 +50,7 @@ public abstract class Item {
     }
 
     public String getFee() {
-        return fee;
+        return "$"+fee;
     }
 
     public void setFee(String fee) {
@@ -90,6 +90,6 @@ public abstract class Item {
     }
 
     public String toString(){
-        return "\nid: " + this.id + ", title: " + this.title + ", rental type: " + rentalType + ", loan type: " + loanType + ", stock: "+ stock + ", fee: " + fee + ", status: " + rentalStatus;
+        return "\nid: " + this.id + ", title: " + this.title + ", rental type: " + rentalType + ", loan type: " + loanType + ", stock: "+ stock + ", fee: " + getFee() + ", status: " + rentalStatus;
     }
 }

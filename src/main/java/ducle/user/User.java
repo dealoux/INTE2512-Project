@@ -25,8 +25,8 @@ public abstract class User {
         this.address = address;
         this.phone = phone;
         this.type = type;
-        this.username = username;
-        this.password = password;
+        this.username = username.trim();
+        this.password = password.trim();
     }
 
     public User(String id, String name, String address, String phone, String type) {
@@ -82,7 +82,7 @@ public abstract class User {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.trim();
     }
 
     public String getPassword() {
@@ -90,7 +90,7 @@ public abstract class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password.trim();
     }
 
     public String toString() {

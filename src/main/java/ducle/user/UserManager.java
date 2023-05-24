@@ -129,6 +129,82 @@ public class UserManager {
         return result;
     }
 
+    public Admin searchAdminByUsername(String username){
+        Admin result = null;
+
+        for(Admin admin : adminMap.values()){
+            if(admin.getUsername().equals(username)){
+                result = admin;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public Regular searchRegularByUsername(String username){
+        Regular result = null;
+
+        for(Regular customer : regularMap.values()){
+            if(customer.getUsername().equals(username)){
+                result = customer;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public VIP searchVipByUsername(String username){
+        VIP result = null;
+
+        for(VIP customer : vipMap.values()){
+            if(customer.getUsername().equals(username)){
+                result = customer;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public Guest searchGuestByUsername(String username){
+        Guest result = null;
+
+        for(Guest customer : guestMap.values()){
+            if(customer.getUsername().equals(username)){
+                result = customer;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public Customer searchCustomerByUsername(String username){
+        Customer result = searchRegularByUsername(username);
+
+        if(result == null){
+            result = searchVipByUsername(username);
+        }
+
+        if(result == null){
+            result = searchGuestByUsername(username);
+        }
+
+        return result;
+    }
+
+    public User searchUserByUsername(String username){
+        User result = searchAdminByUsername(username);
+
+        if(result == null){
+            result = searchCustomerByUsername(username);
+        }
+
+        return result;
+    }
+
     public String removeAdmin(String id){
         String result;
 
