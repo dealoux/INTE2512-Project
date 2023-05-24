@@ -4,6 +4,7 @@ public abstract class Item {
     protected String id;
     protected String title;
     protected String rentalType;
+    protected String genre;
     protected String loanType;
     protected int stock;
     protected String fee;
@@ -13,16 +14,18 @@ public abstract class Item {
         id = "";
         title = "";
         rentalType = "";
+        genre = "";
         loanType = "";
         stock = 0;
         fee = "";
-        this.rentalStatus = "Available";
+        rentalStatus = "Available";
     }
 
-    public Item(String id, String title, String rentalType, String loanType, int stock, String fee) {
+    public Item(String id, String title, String rentalType, String loanType, int stock, String fee, String genre) {
         this.id = id;
         this.title = title;
         this.rentalType = rentalType;
+        this.genre = genre;
         this.loanType = loanType;
         this.stock = stock;
         this.fee = fee;
@@ -49,12 +52,20 @@ public abstract class Item {
         this.title = title;
     }
 
-    public String getFee() {
-        return "$"+fee;
+    public String getRentalType() {
+        return rentalType;
     }
 
-    public void setFee(String fee) {
-        this.fee = fee;
+    public void setRentalType(String rentalType) {
+        this.rentalType = rentalType;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getGenre() {
+        return genre;
     }
 
     public String getLoanType() {
@@ -65,20 +76,20 @@ public abstract class Item {
         this.loanType = loanType;
     }
 
-    public String getRentalType() {
-        return rentalType;
-    }
-
-    public void setRentalType(String rentalType) {
-        this.rentalType = rentalType;
-    }
-
     public int getStock() {
         return stock;
     }
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getFee() {
+        return "$"+fee;
+    }
+
+    public void setFee(String fee) {
+        this.fee = fee;
     }
 
     public void setRentalStatus(String rentalStatus) {
@@ -90,6 +101,6 @@ public abstract class Item {
     }
 
     public String toString(){
-        return "\nid: " + this.id + ", title: " + this.title + ", rental type: " + rentalType + ", loan type: " + loanType + ", stock: "+ stock + ", fee: " + getFee() + ", status: " + rentalStatus;
+        return "\nid: " + this.id + ", title: " + this.title + ", rental type: " + rentalType + ", genre: " + genre + ", loan type: " + loanType + ", stock: "+ stock + ", fee: " + getFee() + ", status: " + rentalStatus;
     }
 }

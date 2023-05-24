@@ -1,6 +1,6 @@
 package ducle.item;
 
-public class Record extends GenreBasedItem {
+public class Record extends Item {
     public Record(){
         super();
         this.rentalType = "Record";

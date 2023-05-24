@@ -37,11 +37,13 @@ public class AdminViewController {
     @FXML
     private TableColumn<Item, String> itemTitleAdmin;
     @FXML
-    private TableColumn<Item, Integer> itemStockAdmin;
-    @FXML
     private TableColumn<Item, String> itemRentalTypeAdmin;
     @FXML
+    private TableColumn<Item, String> itemGenreAdmin;
+    @FXML
     private TableColumn<Item, String> itemLoanTypeAdmin;
+    @FXML
+    private TableColumn<Item, Integer> itemStockAdmin;
     @FXML
     private TableColumn<Item, String> itemFeeAdmin;
     @FXML
@@ -63,6 +65,7 @@ public class AdminViewController {
         itemTitleAdmin.setCellValueFactory(new PropertyValueFactory<>("title"));
         itemStockAdmin.setCellValueFactory(new PropertyValueFactory<>("stock"));
         itemRentalTypeAdmin.setCellValueFactory(new PropertyValueFactory<>("rentalType"));
+        itemGenreAdmin.setCellValueFactory(new PropertyValueFactory<>("genre"));
         itemLoanTypeAdmin.setCellValueFactory(new PropertyValueFactory<>("loanType"));
         itemFeeAdmin.setCellValueFactory(new PropertyValueFactory<>("fee"));
         itemStatusAdmin.setCellValueFactory(new PropertyValueFactory<>("rentalStatus"));

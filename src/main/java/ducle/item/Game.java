@@ -7,6 +7,6 @@ public class Game extends Item{
     }
 
     public Game(String id, String title, String loanType, int stock, String fee) {
-        super(id, title, "Game", loanType, stock, fee);
+        super(id, title, "Game", loanType, stock, fee, "");
     }
 }

@@ -1,6 +1,6 @@
 package ducle.item;
 
-public class DVD extends GenreBasedItem {
+public class DVD extends Item {
     public DVD(){
         super();
         this.rentalType = "DVD";
