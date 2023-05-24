@@ -59,13 +59,13 @@ public class AdminViewController {
         itemTableAdmin.setItems(items);
 
         // link the table cols to the items attributes
-        itemIdAdmin.setCellValueFactory(new PropertyValueFactory<>("getId"));
-        itemTitleAdmin.setCellValueFactory(new PropertyValueFactory<>("getTitle"));
-        itemStockAdmin.setCellValueFactory(new PropertyValueFactory<>("getStock"));
-        itemRentalTypeAdmin.setCellValueFactory(new PropertyValueFactory<>("getRentalType"));
-        itemLoanTypeAdmin.setCellValueFactory(new PropertyValueFactory<>("getLoanType"));
-        itemFeeAdmin.setCellValueFactory(new PropertyValueFactory<>("getFee"));
-        itemStatusAdmin.setCellValueFactory(new PropertyValueFactory<>("getRentalStatus"));
+        itemIdAdmin.setCellValueFactory(new PropertyValueFactory<>("id"));
+        itemTitleAdmin.setCellValueFactory(new PropertyValueFactory<>("title"));
+        itemStockAdmin.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        itemRentalTypeAdmin.setCellValueFactory(new PropertyValueFactory<>("rentalType"));
+        itemLoanTypeAdmin.setCellValueFactory(new PropertyValueFactory<>("loanType"));
+        itemFeeAdmin.setCellValueFactory(new PropertyValueFactory<>("fee"));
+        itemStatusAdmin.setCellValueFactory(new PropertyValueFactory<>("rentalStatus"));
 
         // Disable the delete button if nothing is selected
         itemDeleteButton.disableProperty().bind(Bindings.isNull(itemTableAdmin.getSelectionModel().selectedItemProperty()));
