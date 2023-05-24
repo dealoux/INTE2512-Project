@@ -45,10 +45,10 @@ public class StoreController {
                 }
                 else{
                     if(user instanceof Admin){
-                        new SceneSwitch(storeViewPane, "admin-view.fxml");
+                        SceneUtilities.sceneSwitch(storeViewPane, "admin-view.fxml");
                     }
                     else if(user instanceof Customer){
-                        new SceneSwitch(storeViewPane, "customer-view.fxml");
+                        SceneUtilities.sceneSwitch(storeViewPane, "customer-view.fxml");
                     }
                 }
             }

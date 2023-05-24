@@ -126,7 +126,7 @@ public class AdminViewController {
 
     @FXML
     protected void onItemDeleteButton(ActionEvent event){
-        Optional<ButtonType> confirmation = confirmationDialog(
+        Optional<ButtonType> confirmation = SceneUtilities.confirmationDialog(
                 "Confirm delete",
                 "Delete confirmation",
                 "Are you sure you would like to delete the selected student?");
@@ -136,7 +136,6 @@ public class AdminViewController {
             items.remove(itemTableAdmin.getSelectionModel().getSelectedItem());
             manageItemOutput.setText(StoreRepository.getItemManager().removeItem(item));
         }
-
     }
 
     @FXML
@@ -152,17 +151,8 @@ public class AdminViewController {
     }
     /* Ends of Manage Items tab */
 
-    private Optional<ButtonType> confirmationDialog(String title, String header, String context){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(context);
-
-        return alert.showAndWait();
-    }
-
     @FXML
     protected void onLogoutAdminView (ActionEvent event) throws IOException {
-        new SceneSwitch(adminViewPane, "store-view.fxml");
+        SceneUtilities.sceneSwitch(adminViewPane, "store-view.fxml");
     }
 }
