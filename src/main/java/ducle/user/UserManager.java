@@ -66,22 +66,22 @@ public class UserManager {
     }
 
     public String addAdmin(Admin admin){
-        adminMap.put(admin.getId(), admin);
+        adminMap.put(admin.getUsername(), admin);
         return "Added admin " + admin.getId();
     }
 
     public String addRegular(Regular customer){
-        regularMap.put(customer.getId(), customer);
+        regularMap.put(customer.getUsername(), customer);
         return "Added regular customer " + customer.getId();
     }
 
     public String addVip(VIP customer){
-        vipMap.put(customer.getId(), customer);
+        vipMap.put(customer.getUsername(), customer);
         return "Added VIP customer " + customer.getId();
     }
 
     public String addGuest(Guest customer){
-        guestMap.put(customer.getId(), customer);
+        guestMap.put(customer.getUsername(), customer);
         return "Added Guest customer " + customer.getId();
     }
 
@@ -101,95 +101,19 @@ public class UserManager {
         return result;
     }
 
-    public Admin searchAdmin(String id){
-        return adminMap.get(id);
-    }
-
-    public Customer searchCustomer(String id){
-        Customer result = regularMap.get(id);
-
-        if(result == null){
-            result = vipMap.get(id);
-        }
-
-        if(result == null){
-            result = guestMap.get(id);
-        }
-
-        return result;
-    }
-
-    public User searchUser(String id){
-        User result = searchAdmin(id);
-
-        if(result == null){
-            result = searchCustomer(id);
-        }
-
-        return result;
-    }
-
     public Admin searchAdminByUsername(String username){
-        Admin result = null;
-
-        for(Admin admin : adminMap.values()){
-            if(admin.getUsername().equals(username)){
-                result = admin;
-                break;
-            }
-        }
-
-        return result;
-    }
-
-    public Regular searchRegularByUsername(String username){
-        Regular result = null;
-
-        for(Regular customer : regularMap.values()){
-            if(customer.getUsername().equals(username)){
-                result = customer;
-                break;
-            }
-        }
-
-        return result;
-    }
-
-    public VIP searchVipByUsername(String username){
-        VIP result = null;
-
-        for(VIP customer : vipMap.values()){
-            if(customer.getUsername().equals(username)){
-                result = customer;
-                break;
-            }
-        }
-
-        return result;
-    }
-
-    public Guest searchGuestByUsername(String username){
-        Guest result = null;
-
-        for(Guest customer : guestMap.values()){
-            if(customer.getUsername().equals(username)){
-                result = customer;
-                break;
-            }
-        }
-
-        return result;
+        return adminMap.get(username);
     }
 
     public Customer searchCustomerByUsername(String username){
-        Customer result = searchRegularByUsername(username);
+        Customer result = regularMap.get(username);
 
         if(result == null){
-            result = searchVipByUsername(username);
+            result = vipMap.get(username);
         }
 
         if(result == null){
-            result = searchGuestByUsername(username);
+            result = guestMap.get(username);
         }
 
         return result;
@@ -200,6 +124,82 @@ public class UserManager {
 
         if(result == null){
             result = searchCustomerByUsername(username);
+        }
+
+        return result;
+    }
+
+    public Admin searchAdminById(String id){
+        Admin result = null;
+
+        for(Admin admin : adminMap.values()){
+            if(admin.getUsername().equals(id)){
+                result = admin;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public Regular searchRegularById(String id){
+        Regular result = null;
+
+        for(Regular customer : regularMap.values()){
+            if(customer.getUsername().equals(id)){
+                result = customer;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public VIP searchVipById(String id){
+        VIP result = null;
+
+        for(VIP customer : vipMap.values()){
+            if(customer.getUsername().equals(id)){
+                result = customer;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public Guest searchGuestById(String id){
+        Guest result = null;
+
+        for(Guest customer : guestMap.values()){
+            if(customer.getUsername().equals(id)){
+                result = customer;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public Customer searchCustomerById(String id){
+        Customer result = searchRegularById(id);
+
+        if(result == null){
+            result = searchVipById(id);
+        }
+
+        if(result == null){
+            result = searchGuestById(id);
+        }
+
+        return result;
+    }
+
+    public User searchUserById(String id){
+        User result = searchAdminById(id);
+
+        if(result == null){
+            result = searchCustomerById(id);
         }
 
         return result;
@@ -280,7 +280,7 @@ public class UserManager {
 
     public String removeCustomer(String id){
         String result;
-        Customer customer = searchCustomer(id);
+        Customer customer = searchCustomerByUsername(id);
 
         if(customer != null){
             result = removeCustomer(customer);
