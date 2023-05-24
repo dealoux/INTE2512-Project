@@ -3,25 +3,40 @@ package ducle.videoStore;
 import ducle.item.DVD;
 import ducle.item.Game;
 import ducle.item.Record;
+import ducle.user.Admin;
+import ducle.user.UserManager;
 import ducle.user.customer.*;
 import ducle.item.ItemManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class StoreRepository {
     private static ItemManager itemManager;
-    private static CustomerManager customerManager;
+    private static UserManager userManager;
 
     public StoreRepository(){
         itemManager = new ItemManager();
-        customerManager = new CustomerManager();
+        userManager = new UserManager();
 
-        initItems();
-        initCustomers();
+        try {
+            initItems();
+            initUsers();
+        } catch (FileNotFoundException e){
+            System.out.println("Database files not found");
+        }
+
+//        System.out.println(itemManager.toString());
+//        System.out.println(userManager.toString());
     }
 
-    private void initItems(){
-        Scanner scanner = new Scanner("items.txt");
+    private String dataSourcePath(String fileName){
+        return "src/main/resources/ducle/videoStore/" + fileName;
+    }
+
+    private void initItems() throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(dataSourcePath("items.txt")));
         while (scanner.hasNextLine()){
             String line = scanner.nextLine();
 
@@ -43,8 +58,25 @@ public class StoreRepository {
         }
     }
 
-    private void initCustomers(){
-        Scanner scanner = new Scanner("customers.txt");
+    private void initUsers() throws FileNotFoundException{
+        initAdmins();
+        initCustomers();
+    }
+
+    private void initAdmins() throws FileNotFoundException{
+        Scanner scanner = new Scanner(new File(dataSourcePath("admins.txt")));
+        while (scanner.hasNextLine()){
+            String line = scanner.nextLine();
+
+            if (line.startsWith("A")) {
+                String[] adminArr = line.split(",");
+                userManager.addAdmin(new Admin(adminArr[0], adminArr[1], adminArr[2], adminArr[3], adminArr[4], adminArr[5]));
+            }
+        }
+    }
+
+    private void initCustomers() throws FileNotFoundException{
+        Scanner scanner = new Scanner(new File(dataSourcePath("customers.txt")));
         while (scanner.hasNextLine()){
             String line = scanner.nextLine();
 
@@ -55,16 +87,15 @@ public class StoreRepository {
                 switch (customerArr[5]){
                     case "Guest":
                         customer = new Guest(customerArr[0], customerArr[1], customerArr[2], customerArr[3], customerArr[6], customerArr[7]);
-                        customerManager.addGuest((Guest) customer);
+                        userManager.addGuest((Guest) customer);
                         break;
                     case "Regular":
                         customer = new Regular(customerArr[0], customerArr[1], customerArr[2], customerArr[3], customerArr[6], customerArr[7]);
-                        customerManager.addRegular((Regular) customer);
+                        userManager.addRegular((Regular) customer);
                         break;
                     case "VIP":
                         customer = new VIP(customerArr[0], customerArr[1], customerArr[2], customerArr[3], customerArr[6], customerArr[7]);
-//                        customerManager.addVip((VIP) customer);
-                        customerManager.addCustomer(customer);
+                        userManager.addVip((VIP) customer);
                         break;
                 }
 
@@ -79,7 +110,7 @@ public class StoreRepository {
         return itemManager;
     }
 
-    public static CustomerManager getCustomerManager() {
-        return customerManager;
+    public static UserManager getUserManager() {
+        return userManager;
     }
 }

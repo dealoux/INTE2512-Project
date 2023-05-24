@@ -1,19 +1,13 @@
 package ducle.item;
 
 public abstract class Item {
-    public enum RentalStatus {
-        BORROWED,
-        AVAILABLE,
-        DEFAULT,
-    }
-
     protected String id;
     protected String title;
     protected String rentalType;
     protected String loanType;
     protected int stock;
     protected String fee;
-    protected RentalStatus rentalStatus;
+    protected String rentalStatus;
 
     public Item(){
         id = "";
@@ -21,8 +15,8 @@ public abstract class Item {
         rentalType = "";
         loanType = "";
         stock = 0;
-        fee = "0";
-
+        fee = "";
+        this.rentalStatus = "Available";
     }
 
     public Item(String id, String title, String rentalType, String loanType, int stock, String fee) {
@@ -32,8 +26,7 @@ public abstract class Item {
         this.loanType = loanType;
         this.stock = stock;
         this.fee = fee;
-
-        this.rentalStatus = RentalStatus.DEFAULT;
+        this.rentalStatus = "Available";
     }
 
     public String getId() {
@@ -88,11 +81,15 @@ public abstract class Item {
         this.stock = stock;
     }
 
-    public void setRentalStatus(RentalStatus rentalStatus) {
+    public void setRentalStatus(String rentalStatus) {
         this.rentalStatus = rentalStatus;
     }
 
-    public RentalStatus getRentalStatus() {
+    public String getRentalStatus() {
         return rentalStatus;
+    }
+
+    public String toString(){
+        return "\nid: " + this.id + ", title: " + this.title + ", rental type: " + rentalType + ", loan type: " + loanType + ", stock: "+ stock + ", fee: " + fee + ", status: " + rentalStatus;
     }
 }

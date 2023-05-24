@@ -31,15 +31,15 @@
                      <center>
                         <VBox prefHeight="260.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TableView prefHeight="200.0" prefWidth="200.0">
+                              <TableView fx:id="itemTableAdmin" prefHeight="200.0" prefWidth="200.0">
                                 <columns>
-                                  <TableColumn prefWidth="29.0" text="ID" />
-                                  <TableColumn prefWidth="270.0" text="Title" />
-                                    <TableColumn minWidth="7.0" prefWidth="43.0" text="Stock" />
-                                    <TableColumn prefWidth="78.0" text="Rental Type" />
-                                    <TableColumn prefWidth="71.0" text="Loan Type" />
-                                    <TableColumn prefWidth="43.0" text="Fee" />
-                                    <TableColumn prefWidth="65.0" text="Status" />
+                                  <TableColumn fx:id="itemIdAdmin" prefWidth="29.0" text="ID" />
+                                  <TableColumn fx:id="itemTitleAdmin" prefWidth="270.0" text="Title" />
+                                    <TableColumn fx:id="itemStockAdmin" minWidth="7.0" prefWidth="43.0" text="Stock" />
+                                    <TableColumn fx:id="itemRentalTypeAdmin" prefWidth="78.0" text="Rental Type" />
+                                    <TableColumn fx:id="itemLoanTypeAdmin" prefWidth="71.0" text="Loan Type" />
+                                    <TableColumn fx:id="itemFeeAdmin" prefWidth="43.0" text="Fee" />
+                                    <TableColumn fx:id="itemStatusAdmin" prefWidth="65.0" text="Status" />
                                 </columns>
                               </TableView>
                            </children>

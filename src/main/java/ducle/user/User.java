@@ -92,4 +92,8 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String toString() {
+        return "\nid: " + id + ", name: " + name + ", address: " + address + ", phone: " + phone + ", type: " + type + ", username: " + username + ", password: " + password;
+    }
 }

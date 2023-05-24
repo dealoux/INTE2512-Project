@@ -5,9 +5,10 @@ import ducle.user.User;
 import ducle.videoStore.StoreRepository;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Customer extends User {
-    protected HashMap<String, Item> rentalList;
+    protected Map<String, Item> rentalList;
     public Customer(String type){
         super();
         this.type = type;
@@ -24,7 +25,7 @@ public abstract class Customer extends User {
         rentalList = new HashMap<>();
     }
 
-    public HashMap<String, Item> getRentalList() {
+    public Map<String, Item> getRentalList() {
         return rentalList;
     }
 
@@ -52,6 +53,17 @@ public abstract class Customer extends User {
         }
         else{
             result = item.getTitle() + " is out of stock";
+        }
+
+        return result;
+    }
+
+    public String toString(){
+        String result = super.toString();
+        result += "\nRental items";
+
+        for(Item item : rentalList.values()){
+            result += item.toString();
         }
 
         return result;

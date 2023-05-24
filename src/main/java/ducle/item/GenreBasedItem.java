@@ -20,4 +20,10 @@ public abstract class GenreBasedItem extends Item{
     public String getGenre() {
         return genre;
     }
+
+    public String toString(){
+        String result = super.toString();
+        result += ", genre: " + genre;
+        return result;
+    }
 }

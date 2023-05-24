@@ -1,42 +1,68 @@
 package ducle.item;
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+
 
 public class ItemManager {
-    private HashMap<String, Record> recordList;
-    private HashMap<String, DVD> dvdList;
-    private HashMap<String, Game> gameList;
+    private Map<String, Record> recordMap;
+    private Map<String, DVD> dvdMap;
+    private Map<String, Game> gameMap;
 
     public ItemManager(){
-        recordList = new HashMap<>();
-        dvdList = new HashMap<>();
-        gameList = new HashMap<>();
+        recordMap = new HashMap<>();
+        dvdMap = new HashMap<>();
+        gameMap = new HashMap<>();
+    }
+    
+    public Map<String, Record> getRecordMap() {
+        return recordMap;
     }
 
-    public HashMap<String, Record> getRecordList() {
-        return recordList;
+    public Map<String, DVD> getDvdMap() {
+        return dvdMap;
     }
 
-    public HashMap<String, DVD> getDvdList() {
-        return dvdList;
+    public Map<String, Game> getGameMap() {
+        return gameMap;
     }
 
-    public HashMap<String, Game> getGameList() {
-        return gameList;
+    public List<Record> getRecordList(){
+        return new ArrayList<>(recordMap.values());
+    }
+
+    public List<DVD> getDvdList(){
+        return new ArrayList<>(dvdMap.values());
+    }
+
+    public List<Game> getGameList(){
+        return new ArrayList<>(gameMap.values());
+    }
+
+    public List<Item> getItemList(){
+        List<Item> result = new ArrayList<>();
+
+        result.addAll(this.getRecordList());
+        result.addAll(this.getDvdList());
+        result.addAll(this.getGameList());
+
+        return result;
     }
 
     public String addRecord(Record item){
-        recordList.put(item.getId(), item);
+        recordMap.put(item.getId(), item);
         return "Added record " + item.getId();
     }
 
     public String addDvd(DVD item){
-        dvdList.put(item.getId(), item);
+        dvdMap.put(item.getId(), item);
         return "Added DVD " + item.getId();
     }
 
     public String addGame(Game item){
-        gameList.put(item.getId(), item);
+        gameMap.put(item.getId(), item);
         return "Added game " + item.getId();
     }
 
@@ -57,14 +83,14 @@ public class ItemManager {
     }
 
     public Item searchItem(String id){
-        Item result = recordList.get(id);
+        Item result = recordMap.get(id);
 
         if(result == null){
-            result = dvdList.get(id);
+            result = dvdMap.get(id);
         }
 
         if(result == null){
-            result = gameList.get(id);
+            result = gameMap.get(id);
         }
 
         return result;
@@ -72,7 +98,7 @@ public class ItemManager {
 
     public String removeRecord(String id){
         String result;
-        Record item = recordList.remove(id);
+        Record item = recordMap.remove(id);
 
         if(item != null){
             result = "Removed record " + item.getId();
@@ -86,7 +112,7 @@ public class ItemManager {
 
     public String removeDvd(String id){
         String result;
-        DVD item = dvdList.remove(id);
+        DVD item = dvdMap.remove(id);
 
         if(item != null){
             result = "Removed DVD " + item.getId();
@@ -100,7 +126,7 @@ public class ItemManager {
 
     public String removeGame(String id){
         String result;
-        Game item = gameList.remove(id);
+        Game item = gameMap.remove(id);
 
         if(item != null){
             result = "Removed Game " + item.getId();
@@ -140,5 +166,16 @@ public class ItemManager {
         }
 
         return  result;
+    }
+
+    public String toString(){
+        String result = "";
+
+        List<Item> items = getItemList();
+        for(Item item : items){
+            result +=  item.toString();
+        }
+
+        return result;
     }
 }
