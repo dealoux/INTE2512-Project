@@ -25,28 +25,35 @@ public class ItemManager {
         return gameList;
     }
 
-    public void addRecord(Record item){
-        recordList.put(item.id, item);
+    public String addRecord(Record item){
+        recordList.put(item.getId(), item);
+        return "Added record " + item.getId();
     }
 
-    public void addDvd(DVD item){
-        dvdList.put(item.id, item);
+    public String addDvd(DVD item){
+        dvdList.put(item.getId(), item);
+        return "Added DVD " + item.getId();
     }
 
-    public void addGame(Game item){
-        gameList.put(item.id, item);
+    public String addGame(Game item){
+        gameList.put(item.getId(), item);
+        return "Added game " + item.getId();
     }
 
-    public void addItem(Item item){
+    public String addItem(Item item){
+        String result = "";
+
         if(item instanceof Record){
-            addRecord((Record) item);
+            result = addRecord((Record) item);
         }
         else if(item instanceof DVD){
-            addDvd((DVD) item);
+            result = addDvd((DVD) item);
         }
         else if(item instanceof Game){
-            addGame((Game) item);
+            result = addGame((Game) item);
         }
+
+        return result;
     }
 
     public Item searchItem(String id){
@@ -63,31 +70,75 @@ public class ItemManager {
         return result;
     }
 
-    public void removeRecord(String id){
-        recordList.remove(id);
+    public String removeRecord(String id){
+        String result;
+        Record item = recordList.remove(id);
+
+        if(item != null){
+            result = "Removed record " + item.getId();
+        }
+        else{
+            result = "Could not find any record with id " + id;
+        }
+
+        return result;
     }
 
-    public void removeDvd(String id){
-        dvdList.remove(id);
+    public String removeDvd(String id){
+        String result;
+        DVD item = dvdList.remove(id);
+
+        if(item != null){
+            result = "Removed DVD " + item.getId();
+        }
+        else{
+            result = "Could not find any DVD with id " + id;
+        }
+
+        return result;
     }
 
-    public void removeGame(String id){
-        gameList.remove(id);
+    public String removeGame(String id){
+        String result;
+        Game item = gameList.remove(id);
+
+        if(item != null){
+            result = "Removed Game " + item.getId();
+        }
+        else{
+            result = "Could not find any Game with id " + id;
+        }
+
+        return result;
     }
 
-    public void removeItem(Item item){
+    public String removeItem(Item item){
+        String result = "";
+
         if(item instanceof Record){
-            removeRecord(item.id);
+            result = removeRecord(item.getId());
         }
         else if(item instanceof DVD){
-            removeDvd(item.id);
+            result = removeDvd(item.getId());
         }
         else if(item instanceof Game){
-            removeGame(item.id);
+            result = removeGame(item.getId());
         }
+
+        return result;
     }
 
-    public void removeItem(String id){
-        removeItem(searchItem(id));
+    public String removeItem(String id){
+        String result;
+        Item item = searchItem(id);
+
+        if (item != null){
+            result = removeItem(item);
+        }
+        else{
+            result = "Could not find any item with id " + id;
+        }
+
+        return  result;
     }
 }

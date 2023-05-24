@@ -1,25 +1,23 @@
 package ducle.item;
 
 public abstract class GenreBasedItem extends Item{
-    public enum Genre {
-        ACTION,
-        HORROR,
-        DRAMA,
-        COMEDY,
-        DEFAULT,
-    }
-
-    protected Genre genre;
+    protected String genre;
 
     public GenreBasedItem(){
-        genre = Genre.DEFAULT;
+        super();
+        this.genre = "";
     }
 
-    public void setGenre(Genre genre) {
+    public GenreBasedItem(String id, String title, String rentalType, String loanType, int stock, String fee, String genre) {
+        super(id, title, rentalType, loanType, stock, fee);
         this.genre = genre;
     }
 
-    public Genre getGenre() {
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getGenre() {
         return genre;
     }
 }

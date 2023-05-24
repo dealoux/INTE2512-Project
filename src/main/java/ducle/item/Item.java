@@ -1,19 +1,6 @@
 package ducle.item;
 
 public abstract class Item {
-    public enum RentalType {
-        DVD,
-        RECORD,
-        GAME,
-        DEFAULT,
-    }
-
-    public enum LoanType {
-        TWO_DAY,
-        ONE_WEEK,
-        DEFAULT,
-    }
-
     public enum RentalStatus {
         BORROWED,
         AVAILABLE,
@@ -22,20 +9,31 @@ public abstract class Item {
 
     protected String id;
     protected String title;
-    protected RentalType rentalType;
-    protected LoanType loanType;
+    protected String rentalType;
+    protected String loanType;
     protected int stock;
-    protected float fee;
+    protected String fee;
     protected RentalStatus rentalStatus;
 
     public Item(){
         id = "";
         title = "";
-        rentalType = RentalType.DEFAULT;
-        loanType = LoanType.DEFAULT;
+        rentalType = "";
+        loanType = "";
         stock = 0;
-        fee = 0f;
-        rentalStatus = RentalStatus.DEFAULT;
+        fee = "0";
+
+    }
+
+    public Item(String id, String title, String rentalType, String loanType, int stock, String fee) {
+        this.id = id;
+        this.title = title;
+        this.rentalType = rentalType;
+        this.loanType = loanType;
+        this.stock = stock;
+        this.fee = fee;
+
+        this.rentalStatus = RentalStatus.DEFAULT;
     }
 
     public String getId() {
@@ -58,27 +56,27 @@ public abstract class Item {
         this.title = title;
     }
 
-    public float getFee() {
+    public String getFee() {
         return fee;
     }
 
-    public void setFee(float fee) {
+    public void setFee(String fee) {
         this.fee = fee;
     }
 
-    public LoanType getLoanType() {
+    public String getLoanType() {
         return loanType;
     }
 
-    public void setLoanType(LoanType loanType) {
+    public void setLoanType(String loanType) {
         this.loanType = loanType;
     }
 
-    public RentalType getRentalType() {
+    public String getRentalType() {
         return rentalType;
     }
 
-    public void setRentalType(RentalType rentalType) {
+    public void setRentalType(String rentalType) {
         this.rentalType = rentalType;
     }
 

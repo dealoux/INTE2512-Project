@@ -20,11 +20,11 @@
                      <top>
                         <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                           <items>
-                            <Button mnemonicParsing="false" text="Add" />
+                            <Button fx:id="itemAddButton" mnemonicParsing="false" onAction="#onItemAddButton" text="Add" />
                               <Separator orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
-                              <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" text="Update" />
+                              <Button fx:id="itemUpdateButton" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onItemUpdateButton" text="Update" />
                               <Separator layoutX="52.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
-                              <Button layoutX="52.0" layoutY="13.0" mnemonicParsing="false" text="Delete" />
+                              <Button fx:id="itemDeleteButton" layoutX="52.0" layoutY="13.0" mnemonicParsing="false" onAction="#onItemDeleteButton" text="Delete" />
                           </items>
                         </ToolBar>
                      </top>

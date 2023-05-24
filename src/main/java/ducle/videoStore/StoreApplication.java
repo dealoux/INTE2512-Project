@@ -18,6 +18,7 @@ public class StoreApplication extends Application {
     }
 
     public static void main(String[] args) {
+        new StoreRepository(); // initialize the store database
         launch();
     }
 }

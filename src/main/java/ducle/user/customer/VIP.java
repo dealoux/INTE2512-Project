@@ -5,7 +5,7 @@ import ducle.item.Item;
 public class VIP extends Customer {
     protected int rewardPoints;
 
-    public VIP(){
+    public VIP() {
         super("VIP");
         rewardPoints = 0;
     }
@@ -29,9 +29,16 @@ public class VIP extends Customer {
     }
 
     @Override
-    public boolean rent(Item item) {
-        boolean result = super.rent(item);
-        rewardPoints += (result) ? 10 : 0;
+    public String rent(String itemId) {
+        String result = super.rent(itemId);
+        rewardPoints += (result.startsWith("Rented")) ? 10 : 0;
+        return result;
+    }
+
+    @Override
+    public String rent(Item item) {
+        String result = super.rent(item);
+        rewardPoints += (result.startsWith("Rented")) ? 10 : 0;
         return result;
     }
 }

@@ -1,6 +1,7 @@
 package ducle.user.customer;
 
 import ducle.item.Item;
+import ducle.videoStore.StoreRepository;
 
 public class Guest extends Customer {
     public Guest(){
@@ -17,20 +18,33 @@ public class Guest extends Customer {
 
     // limit the rent
     @Override
-    public boolean rent(Item item) {
-        boolean result = true;
+    public String rent(String itemId) {
+        String result;
+        Item item = StoreRepository.getItemManager().searchItem(itemId);
 
-        if(item.getLoanType() == Item.LoanType.TWO_DAY){
-            result = false;
-            System.out.println("A guest customer can not borrow 2-day items, please choose a one-week item, thank you!");
+        if(item != null){
+            result = rent(item);
+        }
+        else{
+            result = "Could not find any item with id " + itemId;
+        }
+
+        return  result;
+    }
+
+    @Override
+    public String rent(Item item) {
+        String result;
+
+        if(item.getLoanType().equals("2-day")){
+            result = ("A guest customer can not borrow 2-day items, please choose a one-week item, thank you!");
         }
         else{
             if(rentalList.size() < 2){
-                super.rent(item);
+                result = super.rent(item);
             }
             else{
-                result = false;
-                System.out.println("You have reached your rental limit!");
+                result = ("You have reached your rental limit!");
             }
         }
 
