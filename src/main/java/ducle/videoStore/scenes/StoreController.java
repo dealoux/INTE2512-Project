@@ -15,6 +15,7 @@ package ducle.videoStore.scenes;
 import ducle.user.Admin;
 import ducle.user.User;
 import ducle.user.customer.Customer;
+import ducle.videoStore.StoreApplication;
 import ducle.videoStore.StoreRepository;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -23,6 +24,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -36,6 +39,18 @@ public class StoreController {
     private TextField loginUsername;
     @FXML
     private PasswordField loginPassword;
+
+    @FXML
+    public void initialize(){
+        ImageView logo1 = new ImageView(new Image(StoreApplication.class.getResource("pictures/logo1.jpg").toString()));
+        ImageView logo2 = new ImageView(new Image(StoreApplication.class.getResource("pictures/logo2.jpg").toString()));
+        logo1.setFitWidth(475);
+        logo1.setFitHeight(650);
+        logo2.setFitWidth(575);
+        logo2.setFitHeight(650);
+        storeViewPane.setLeft(logo1);
+        storeViewPane.setRight(logo2);
+    }
 
     private void loginErrorMsg(){
         loginOutputLabel.setText("Invalid Username or Password, please try again!");
