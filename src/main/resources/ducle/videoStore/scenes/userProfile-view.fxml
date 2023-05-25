@@ -4,18 +4,18 @@
 <?import javafx.scene.layout.*?>
 
 
-<GridPane prefHeight="241.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.UserProfileController">
+<GridPane prefHeight="240.0" prefWidth="600.0" alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.UserProfileController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="176.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="424.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="295.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="424.0" minWidth="10.0" prefWidth="424.0" />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="43.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="43.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
       <RowConstraints />
       <RowConstraints />
   </rowConstraints>
@@ -28,11 +28,11 @@
        <Label text="Username" GridPane.rowIndex="5" />
        <Label text="Password" GridPane.rowIndex="6" />
        <TextField fx:id="userIdProfile" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-       <TextField fx:id="userNameProfile" prefHeight="25.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+       <TextField fx:id="userNameProfile" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
        <TextField fx:id="userAddressProfile" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
        <TextField fx:id="userPhoneProfile" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
        <ComboBox fx:id="userTypeProfile" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-       <TextField fx:id="userUsernameProfile" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-       <PasswordField fx:id="userPasswordProfile" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+       <TextField fx:id="userUsernameProfile" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+       <PasswordField fx:id="userPasswordProfile" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
    </children>
 </GridPane>

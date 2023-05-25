@@ -134,6 +134,7 @@ public abstract class User implements Comparable<User> {
         return userTypeList;
     }
 
+    // users are sorted based on their IDs
     @Override
     public int compareTo(User user) {
         return getId().compareTo(user.getId());

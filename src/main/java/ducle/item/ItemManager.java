@@ -87,6 +87,7 @@ public class ItemManager {
             }
         }
 
+        Collections.sort(result);
         return result;
     }
 
@@ -111,6 +112,7 @@ public class ItemManager {
             }
         }
 
+        Collections.sort(result);
         return result;
     }
 

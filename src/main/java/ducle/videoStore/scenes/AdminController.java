@@ -38,7 +38,9 @@ public class AdminController {
             fxmlLoader.setLocation(SceneUtilities.class.getResource("userProfile-view.fxml"));
 
             Tab newTab = new Tab("Profile");
-            newTab.setContent(fxmlLoader.load());
+            BorderPane profilePane = new BorderPane();
+            profilePane.setTop(fxmlLoader.load());
+            newTab.setContent(profilePane);
             userProfileController = fxmlLoader.getController();
 
             adminTabPane.getTabs().add(newTab);

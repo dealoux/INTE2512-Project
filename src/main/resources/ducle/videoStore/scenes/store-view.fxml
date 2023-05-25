@@ -4,8 +4,20 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane fx:id="storeViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.StoreController">
+   <bottom>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <Button mnemonicParsing="false" onAction="#onLoginButton" text="Login" />
+            <Separator orientation="VERTICAL" />
+            <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onLoginQuitButton" text="Quit" />
+        </items>
+      </ToolBar>
+   </bottom>
+   <left>
+      <Label text="Welcome to Video Store" BorderPane.alignment="CENTER" />
+   </left>
    <center>
-      <GridPane prefHeight="150.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+      <GridPane alignment="CENTER" prefHeight="150.0" prefWidth="300.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="176.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="424.0" />
@@ -24,16 +36,4 @@
          </children>
       </GridPane>
    </center>
-   <top>
-      <Label text="Welcome to Video Store" BorderPane.alignment="CENTER" />
-   </top>
-   <bottom>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <items>
-          <Button mnemonicParsing="false" onAction="#onLoginButton" text="Login" />
-            <Separator orientation="VERTICAL" />
-            <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onLoginQuitButton" text="Quit" />
-        </items>
-      </ToolBar>
-   </bottom>
 </BorderPane>

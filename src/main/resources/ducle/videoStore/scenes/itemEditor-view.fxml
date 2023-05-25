@@ -5,7 +5,7 @@
 
 <DialogPane fx:id="itemEditorPane" expanded="true" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.ItemEditorController">
    <header>
-      <Label fx:id="itemEditorOutputLabel" text="Feel free to make changes to the item!" />
+      <Label fx:id="itemEditorOutputLabel" text="Feel free to make changes to the item!" alignment="CENTER" />
    </header>
    <content>
       <GridPane prefHeight="241.0" prefWidth="580.0">
