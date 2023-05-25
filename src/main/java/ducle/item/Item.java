@@ -178,6 +178,10 @@ public class Item implements Comparable<Item> {
         return getId().compareTo(item.getId());
     }
 
+    public String print(){
+        return "[" + getId() + "] " + getTitle();
+    }
+
     @Override
     public String toString(){
         return getId() + "," + getTitle() + "," + getRentalType() + "," + getLoanType() + "," + getStock() + "," + fee.get() + (getGenre().isEmpty()? "" : "," + getGenre());

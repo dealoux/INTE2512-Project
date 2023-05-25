@@ -81,10 +81,10 @@ public class Customer extends User {
             toBeRented.setStock(toBeRented.getStock()+1);
             item.decreaseStock();
 
-            result = "Rented a copy of " + item.getTitle();
+            result = "Rented a copy of item " + item.print();
         }
         else{
-            result = "Item " + item.getId() + " is out of stock";
+            result = "Item " + item.print() + " is out of stock";
         }
 
         return result;
@@ -98,7 +98,7 @@ public class Customer extends User {
             result = returnItem(item);
         }
         else{
-            result = "Could not find any item id " + itemId + " in the rental list";
+            result = "Could not find any item with id " + itemId + " in the rental list";
         }
 
         return result;
@@ -114,7 +114,7 @@ public class Customer extends User {
             rentalMap.remove(itemRented.getId());
         }
 
-        return "Returned a copy of item " + itemRented.getId();
+        return "Returned a copy of item " + itemRented.print();
     }
 
     public String returnItemMultiple(String itemId){
@@ -142,7 +142,7 @@ public class Customer extends User {
         }
 
         rentalMap.remove(itemRented.getId());
-        return "Returned " + count + (count > 1 ? " copies" : " copy") + " of item " + itemRented.getId();
+        return "Returned " + count + (count > 1 ? " copies" : " copy") + " of item " + itemRented.print();
     }
 
     public String returnAllItem(){
