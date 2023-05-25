@@ -19,7 +19,7 @@ public class Item implements Comparable<Item> {
     protected StringProperty fee = new SimpleStringProperty();
     protected StringProperty rentalStatus = new SimpleStringProperty();
 
-    private static List<String> rentalTypeList = new ArrayList<>(
+    protected static List<String> rentalTypeList = new ArrayList<>(
             Arrays.asList("DVD", "Record", "Game")
     );
 
@@ -154,6 +154,19 @@ public class Item implements Comparable<Item> {
 
     public static List<String> getRentalStatusList() {
         return rentalStatusList;
+    }
+
+    public void decreaseStock(){
+        setStock(getStock()-1);
+
+        if(getStock() == 0){
+            setRentalStatus("Borrowed");
+        }
+    }
+
+    public void increaseStock(){
+        setStock(getStock()+1);
+        setRentalStatus("Available");
     }
 
     @Override

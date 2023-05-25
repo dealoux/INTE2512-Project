@@ -3,6 +3,10 @@ package ducle.user;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public abstract class User implements Comparable<User> {
     protected StringProperty id = new SimpleStringProperty();
     protected StringProperty name = new SimpleStringProperty();
@@ -11,6 +15,10 @@ public abstract class User implements Comparable<User> {
     protected StringProperty type = new SimpleStringProperty();
     protected StringProperty username = new SimpleStringProperty();
     protected StringProperty password = new SimpleStringProperty();
+
+    protected static List<String> userTypeList = new ArrayList<>(
+            Arrays.asList("Admin")
+    );
 
     public User(){
         id.set("");
@@ -108,6 +116,10 @@ public abstract class User implements Comparable<User> {
     }
     public void setPassword(String password) {
         this.password.set(password.trim());
+    }
+
+    public static List<String> getUserTypeList() {
+        return userTypeList;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package ducle.user;
 
+import ducle.item.Item;
 import ducle.user.customer.Customer;
 import ducle.user.customer.Guest;
 import ducle.user.customer.Regular;
@@ -228,6 +229,7 @@ public class UserManager {
 
         if(customer != null){
             result = "Removed Regular " + customer.getId();
+            customer.returnAllItem();
         }
         else{
             result = "Could not find any Regular with id " + id;
@@ -242,6 +244,7 @@ public class UserManager {
 
         if(customer != null){
             result = "Removed VIP " + customer.getId();
+            customer.returnAllItem();
         }
         else{
             result = "Could not find any VIP with id " + id;
@@ -256,6 +259,7 @@ public class UserManager {
 
         if(customer != null){
             result = "Removed Guest " + customer.getId();
+            customer.returnAllItem();
         }
         else{
             result = "Could not find any Guest with id " + id;
