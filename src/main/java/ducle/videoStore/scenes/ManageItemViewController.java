@@ -1,8 +1,10 @@
 package ducle.videoStore.scenes;
 
 import ducle.item.Item;
+import ducle.user.customer.Customer;
 import ducle.videoStore.StoreRepository;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +13,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class ManageItemViewController {
@@ -29,9 +34,9 @@ public class ManageItemViewController {
     @FXML
     private Button itemDeleteButton;
     @FXML
-    private Button itemDisplayAllButton;
-    @FXML
-    private Button itemDisplayOOSButton;
+    private ComboBox<String> itemDisplayComboBox;
+
+    private List<String> displayComboList = new ArrayList<>(Arrays.asList("All", "Out-of-stock", "In-stock"));
 
     public void initialize(){
         try{
@@ -46,6 +51,9 @@ public class ManageItemViewController {
 
         items = SceneUtilities.getObsItemList();
         SceneUtilities.itemFilter(items, itemSearchAdmin, itemTableAdmin);
+
+        itemDisplayComboBox.setItems(FXCollections.observableArrayList(displayComboList));
+        itemDisplayComboBox.setValue("All");
 
         // Disable the delete, update buttons if nothing is selected
         itemDeleteButton.disableProperty().bind(Bindings.isNull(itemTableAdmin.getSelectionModel().selectedItemProperty()));
@@ -117,14 +125,24 @@ public class ManageItemViewController {
     }
 
     @FXML
-    protected void onItemDisplayAllButton(ActionEvent event){
-        SceneUtilities.itemFilter(items, itemSearchAdmin, itemTableAdmin);
-        manageItemOutput.setText("Displayed all items");
-    }
+    protected void onItemDisplayComboBox(ActionEvent event){
+        String result = "Displayed all ";
 
-    @FXML
-    protected void onItemDisplayOOSButton(ActionEvent event){
-        SceneUtilities.itemFilter(SceneUtilities.getObsOOSItemList(), itemSearchAdmin, itemTableAdmin);
-        manageItemOutput.setText("Displayed all out-of-stock items");
+        switch (itemDisplayComboBox.getSelectionModel().getSelectedItem()){
+            case "All":
+                SceneUtilities.itemFilter(items, itemSearchAdmin, itemTableAdmin);
+                result += "items";
+                break;
+            case "Out-of-stock":
+                SceneUtilities.itemFilter(SceneUtilities.getObsOOSItemList(), itemSearchAdmin, itemTableAdmin);
+                result += "out-of-stock items";
+                break;
+            case "In-stock":
+                SceneUtilities.itemFilter(SceneUtilities.getObsISItemList(), itemSearchAdmin, itemTableAdmin);
+                result += "in-stock customers";
+                break;
+        }
+
+        manageItemOutput.setText(result);
     }
 }

@@ -37,14 +37,24 @@ public class VIP extends Customer {
     @Override
     public String rent(String itemId) {
         String result = super.rent(itemId);
-        rewardPoints += (result.startsWith("Rented")) ? 10 : 0;
+
+        if(result.startsWith("Rented")){
+            rewardPoints += 10;
+            result += ", total rewards point: " + rewardPoints;
+        }
+
         return result;
     }
 
     @Override
     public String rent(Item item) {
         String result = super.rent(item);
-        rewardPoints += (result.startsWith("Rented")) ? 10 : 0;
+
+        if(result.startsWith("Rented")){
+            rewardPoints += 10;
+            result += ", total rewards point: " + rewardPoints;
+        }
+
         return result;
     }
 }

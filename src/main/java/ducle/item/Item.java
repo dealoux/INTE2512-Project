@@ -20,11 +20,11 @@ public class Item implements Comparable<Item> {
     protected StringProperty rentalStatus = new SimpleStringProperty();
 
     protected static List<String> rentalTypeList = new ArrayList<>(
-            Arrays.asList("DVD", "Record", "Game")
+            Arrays.asList("Record", "DVD", "Game")
     );
 
     private static List<String> genreList = new ArrayList<>(
-            Arrays.asList("Action", "Horror", "Drama", "Comedy", "")
+            Arrays.asList("","Action", "Horror", "Drama", "Comedy")
     );
 
     private static List<String> loanTypeList = new ArrayList<>(
@@ -32,7 +32,7 @@ public class Item implements Comparable<Item> {
     );
 
     private static List<String> rentalStatusList = new ArrayList<>(
-            Arrays.asList("Available", "Borrowed")
+            Arrays.asList("Available", "Not Available")
     );
 
     public Item(){
@@ -43,7 +43,7 @@ public class Item implements Comparable<Item> {
         loanType.set("");
         stock.set(1);
         fee.set("");
-        rentalStatus.set("Available");
+        rentalStatus.set(rentalStatusList.get(0)); // default to available
     }
 
     public Item(String id, String title, String rentalType, String loanType, int stock, String fee, String genre) {
@@ -54,7 +54,7 @@ public class Item implements Comparable<Item> {
         this.loanType.set(loanType);
         this.stock.set(stock);
         this.fee.set(fee);
-        this.rentalStatus.set("Available");
+        rentalStatus.set(rentalStatusList.get(0)); // default to available
     }
 
     public String getId() {
@@ -160,13 +160,13 @@ public class Item implements Comparable<Item> {
         setStock(getStock()-1);
 
         if(getStock() == 0){
-            setRentalStatus("Borrowed");
+            setRentalStatus(rentalStatusList.get(1));
         }
     }
 
     public void increaseStock(){
         setStock(getStock()+1);
-        setRentalStatus("Available");
+        setRentalStatus(rentalStatusList.get(0));
     }
 
     public Item createCopy(){

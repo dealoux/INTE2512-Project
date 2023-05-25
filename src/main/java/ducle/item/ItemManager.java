@@ -150,7 +150,7 @@ public class ItemManager {
         Record item = recordMap.remove(id);
 
         if(item != null){
-            result = "Removed record " + item.getId();
+            result = "Removed record " + item.print();
         }
         else{
             result = "Could not find any record with id " + id;
@@ -164,7 +164,7 @@ public class ItemManager {
         DVD item = dvdMap.remove(id);
 
         if(item != null){
-            result = "Removed DVD " + item.getId();
+            result = "Removed DVD " + item.print();
         }
         else{
             result = "Could not find any DVD with id " + id;
@@ -178,7 +178,7 @@ public class ItemManager {
         Game item = gameMap.remove(id);
 
         if(item != null){
-            result = "Removed Game " + item.getId();
+            result = "Removed Game " + item.print();
         }
         else{
             result = "Could not find any Game with id " + id;

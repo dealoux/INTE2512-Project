@@ -2,6 +2,9 @@ package ducle.videoStore.scenes;
 
 import ducle.item.Item;
 import ducle.user.customer.Customer;
+import ducle.user.customer.Guest;
+import ducle.user.customer.Regular;
+import ducle.user.customer.VIP;
 import ducle.videoStore.StoreRepository;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -15,6 +18,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ManageCustomerViewController {
@@ -46,14 +51,9 @@ public class ManageCustomerViewController {
     @FXML
     private Button cusDeleteButton;
     @FXML
-    private Button cusDisplayAllButton;
-    @FXML
-    private Button cusDisplayGroupButton;
+    private ComboBox<String> cusDisplayComboBox;
 
     public void initialize(){
-        customers = FXCollections.observableArrayList(StoreRepository.getUserManager().getCustomerList());
-        customerFilter(customers);
-
         // link the table cols to the items attributes
         cusIdAdmin.setCellValueFactory(new PropertyValueFactory<>("id"));
         cusNameAdmin.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -62,6 +62,15 @@ public class ManageCustomerViewController {
         cusTypeAdmin.setCellValueFactory(new PropertyValueFactory<>("type"));
         cusUsernameAdmin.setCellValueFactory(new PropertyValueFactory<>("username"));
         cusPasswordAdmin.setCellValueFactory(new PropertyValueFactory<>("password"));
+
+        customers = FXCollections.observableArrayList(StoreRepository.getUserManager().getCustomerList());
+        customerFilter(customers);
+
+        List<String> displayComboList = new ArrayList<>();
+        displayComboList.add("All");
+        displayComboList.addAll(Customer.getCustomerTypeList());
+        cusDisplayComboBox.setItems(FXCollections.observableArrayList(displayComboList));
+        cusDisplayComboBox.setValue("All");
 
         // Disable the delete button if nothing is selected
         cusDeleteButton.disableProperty().bind(Bindings.isNull(cusTableAdmin.getSelectionModel().selectedItemProperty()));
@@ -157,9 +166,24 @@ public class ManageCustomerViewController {
             dialog.setDialogPane(userEditorPane);
             dialog.setTitle("Update Customer");
 
-            manageCusOutput.setText("Updated " + customer.getType() + " customer " + customer.getId());
-
             dialog.showAndWait();
+
+            // handle class change if needed
+            if(!customer.getClass().toString().equalsIgnoreCase(customer.getType())){
+                switch (customer.getType()){
+                    case "Regular":
+                        StoreRepository.getUserManager().addRegular(new Regular(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                        break;
+                    case "VIP":
+                        StoreRepository.getUserManager().addVip(new VIP(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                        break;
+                    case "Guest":
+                        StoreRepository.getUserManager().addGuest(new Guest(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                        break;
+                }
+            }
+
+            manageCusOutput.setText("Updated " + customer.getType() + " customer " + customer.getId());
         } catch (IOException e ){
             System.out.println(e);
         }
@@ -170,7 +194,7 @@ public class ManageCustomerViewController {
         Optional<ButtonType> confirmation = SceneUtilities.confirmationDialog(
                 "Confirm delete",
                 "Delete confirmation",
-                "Are you sure you would like to delete the selected customer?\nAny items in the user inventory will be returned to the store");
+                "Any items in the user inventory will be returned to the store\nAre you sure you would like to delete the selected customer?");
 
         if(confirmation.get() == ButtonType.OK){
             Customer customer = cusTableAdmin.getSelectionModel().getSelectedItem();
@@ -180,14 +204,28 @@ public class ManageCustomerViewController {
     }
 
     @FXML
-    protected void onCusDisplayAllButton(ActionEvent event){
-        customerFilter(customers);
-        manageCusOutput.setText("Displayed all customers");
-    }
+    protected void onCusDisplayComboBox(ActionEvent event){
+        String result = "Displayed all ";
 
-    @FXML
-    protected void onCusDisplayGroupButton(ActionEvent event){
-//        customerFilter(FXCollections.observableArrayList(StoreRepository.getItemManager().getOOSItemList()));
-        manageCusOutput.setText("Displayed group of customers");
+        switch (cusDisplayComboBox.getSelectionModel().getSelectedItem()){
+            case "All":
+                customerFilter(customers);
+                result += "customers";
+                break;
+            case "Regular":
+                customerFilter(FXCollections.observableArrayList(StoreRepository.getUserManager().getRegularList()));
+                result += "regular customers";
+                break;
+            case "VIP":
+                customerFilter(FXCollections.observableArrayList(StoreRepository.getUserManager().getVipList()));
+                result += "VIP customers";
+                break;
+            case "Guest":
+                customerFilter(FXCollections.observableArrayList(StoreRepository.getUserManager().getGuestList()));
+                result += "guest customers";
+                break;
+        }
+
+        manageCusOutput.setText(result);
     }
 }

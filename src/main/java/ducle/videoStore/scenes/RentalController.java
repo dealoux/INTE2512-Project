@@ -14,6 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class RentalController {
     @FXML
@@ -31,10 +34,8 @@ public class RentalController {
     @FXML
     private Button rentButton;
     @FXML
-    private Button browseStoreDisplayAllButton;
-    @FXML
-    private Button browseStoreDisplayISButton;
-
+    private ComboBox<String> storeDisplayComboBox;
+    private List<String> displayComboList = new ArrayList<>(Arrays.asList("All", "Out-of-stock", "In-stock"));
     @FXML
     private BorderPane browseInventoryPane;
     @FXML
@@ -79,6 +80,9 @@ public class RentalController {
             System.out.println(e);
         }
 
+        storeDisplayComboBox.setItems(FXCollections.observableArrayList(displayComboList));
+        storeDisplayComboBox.setValue("All");
+
         // Disable the delete button if nothing is selected
         rentButton.disableProperty().bind(Bindings.isNull(itemTableStore.getSelectionModel().selectedItemProperty()));
     }
@@ -121,15 +125,25 @@ public class RentalController {
     }
 
     @FXML
-    protected void onBrowseStoreDisplayAllButton(ActionEvent event){
-        SceneUtilities.itemFilter(itemsStore, itemSearchStore, itemTableStore);
-        rentalOutput.setText("Displayed all items");
-    }
+    protected void onStoreDisplayComboBox(ActionEvent event){
+        String result = "Displayed all ";
 
-    @FXML
-    protected void onBrowseStoreDisplayISButton(ActionEvent event){
-        SceneUtilities.itemFilter(SceneUtilities.getObsISItemList(), itemSearchStore, itemTableStore);
-        rentalOutput.setText("Displayed all in-stock items");
+        switch (storeDisplayComboBox.getSelectionModel().getSelectedItem()){
+            case "All":
+                SceneUtilities.itemFilter(itemsStore, itemSearchStore, itemTableStore);
+                result += "items";
+                break;
+            case "Out-of-stock":
+                SceneUtilities.itemFilter(SceneUtilities.getObsOOSItemList(), itemSearchStore, itemTableStore);
+                result += "out-of-stock items";
+                break;
+            case "In-stock":
+                SceneUtilities.itemFilter(SceneUtilities.getObsISItemList(), itemSearchStore, itemTableStore);
+                result += "in-stock customers";
+                break;
+        }
+
+        rentalOutput.setText(result);
     }
 
     @FXML
