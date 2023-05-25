@@ -26,10 +26,6 @@ public class UserProfileController {
     @FXML
     private PasswordField userPasswordProfile;
 
-    public void initialize(){
-//        userTypeEditor.setItems(FXCollections.observableArrayList(Customer.getCustomerTypeList()));
-    }
-
     public void setUser(User user){
         if(user instanceof Admin){
             userTypeProfile.setItems(FXCollections.observableArrayList(User.getUserTypeList()));
@@ -45,5 +41,9 @@ public class UserProfileController {
         userTypeProfile.valueProperty().bindBidirectional(user.typeProperty());
         userUsernameProfile.textProperty().bindBidirectional(user.usernameProperty());
         userPasswordProfile.textProperty().bindBidirectional(user.passwordProperty());
+    }
+
+    public void disableTypeSelection(){
+        userTypeProfile.setDisable(true);
     }
 }

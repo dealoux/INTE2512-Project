@@ -34,12 +34,13 @@ public class AdminViewController {
         }
     }
 
+    public void setUser(User user){
+        userProfileController.setUser(user);
+        userProfileController.disableTypeSelection();
+    }
+
     @FXML
     protected void onLogoutAdminView (ActionEvent event) throws IOException {
         SceneUtilities.sceneSwitch(adminViewPane, "store-view.fxml");
-    }
-
-    public void setUser(User user){
-        userProfileController.setUser(user);
     }
 }

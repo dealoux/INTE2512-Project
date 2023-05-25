@@ -3,9 +3,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="customerViewAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.CustomerViewController">
-   <children>
-      <Label layoutX="263.0" layoutY="192.0" text="Welcome Customer!" />
-      <Button layoutX="274.0" layoutY="265.0" mnemonicParsing="false" onAction="#onSwitchSceneCustomer" text="Login" />
-   </children>
-</AnchorPane>
+<BorderPane fx:id="customerViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.CustomerViewController">
+   <top>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <items>
+            <Button mnemonicParsing="false" onAction="#onLogoutCustomerView" text="Logout" />
+         </items>
+      </ToolBar>
+   </top>
+   <center>
+      <TabPane fx:id="customerTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+         <tabs>
+         </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

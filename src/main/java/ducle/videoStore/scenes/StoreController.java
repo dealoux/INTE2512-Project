@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
@@ -60,7 +59,17 @@ public class StoreController {
                         }
                     }
                     else if(user instanceof Customer){
-                        SceneUtilities.sceneSwitch(storeViewPane, "customer-view.fxml");
+                        try{
+                            FXMLLoader fxmlLoader = new FXMLLoader();
+                            fxmlLoader.setLocation(SceneUtilities.class.getResource("customer-view.fxml"));
+                            BorderPane customerViewPane = fxmlLoader.load();
+                            CustomerViewController customerViewController = fxmlLoader.getController();
+                            customerViewController.setUser(user);
+
+                            SceneUtilities.sceneSwitch(storeViewPane, customerViewPane);
+                        } catch (IOException e ){
+                            System.out.println(e);
+                        }
                     }
                 }
             }
