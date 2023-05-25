@@ -5,13 +5,13 @@
 
 <TableView fx:id="itemTableStore" prefHeight="655.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.ItemTableController">
   <columns>
-    <TableColumn fx:id="itemIdStore" prefWidth="102.0" text="ID" />
-    <TableColumn fx:id="itemTitleStore" prefWidth="554.0" text="Title" />
-      <TableColumn fx:id="itemRentalTypeStore" prefWidth="101.0" text="Rental Type" />
-      <TableColumn fx:id="itemGenreStore" prefWidth="95.0" text="Genre" />
-      <TableColumn fx:id="itemLoanTypeStore" prefWidth="99.0" text="Loan Type" />
-      <TableColumn fx:id="itemStockStore" minWidth="7.0" prefWidth="60.0" text="Stock" />
-      <TableColumn fx:id="itemFeeStore" maxWidth="104.0" minWidth="-1.0" prefWidth="65.0" text="Fee" />
-      <TableColumn fx:id="itemStatusStore" prefWidth="123.0" text="Status" />
+    <TableColumn fx:id="itemIdStore" prefWidth="100.0" text="ID" />
+    <TableColumn fx:id="itemTitleStore" prefWidth="560.0" text="Title" />
+    <TableColumn fx:id="itemRentalTypeStore" prefWidth="100.0" text="Rental Type" />
+    <TableColumn fx:id="itemGenreStore" prefWidth="100.0" text="Genre" />
+    <TableColumn fx:id="itemLoanTypeStore" prefWidth="100.0" text="Loan Type" />
+    <TableColumn fx:id="itemStockStore" prefWidth="60.0" text="Stock" />
+    <TableColumn fx:id="itemFeeStore" prefWidth="65.0" text="Fee" />
+    <TableColumn fx:id="itemStatusStore" prefWidth="100.0" text="Status" />
   </columns>
 </TableView>

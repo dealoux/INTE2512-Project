@@ -90,13 +90,13 @@ public class UserManager {
 
         switch (customer.getType()){
             case "Regular":
-                result = addRegular(new Regular(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalList()));
+                result = addRegular(new Regular(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
                 break;
             case "VIP":
-                result = addVip(new VIP(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalList()));
+                result = addVip(new VIP(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
                 break;
             case "Guest":
-                result = addGuest(new Guest(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalList()));
+                result = addGuest(new Guest(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
                 break;
         }
 

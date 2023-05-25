@@ -1,13 +1,14 @@
 package ducle.user.customer;
 
 import ducle.item.Item;
+import ducle.item.Record;
 import ducle.user.User;
 import ducle.videoStore.StoreRepository;
 
 import java.util.*;
 
 public class Customer extends User {
-    protected Map<String, Item> rentalList;
+    protected Map<String, Item> rentalMap;
     protected static List<String> customerTypeList = new ArrayList<>(
             Arrays.asList("Guest", "Regular", "VIP")
     );
@@ -15,32 +16,36 @@ public class Customer extends User {
     public Customer(){
         super();
         setType("");
-        rentalList = new HashMap<>();
+        rentalMap = new HashMap<>();
     }
 
     public Customer(String type){
         super();
         setType(type);
-        rentalList = new HashMap<>();
+        rentalMap = new HashMap<>();
     }
 
     public Customer(String id, String name, String address, String phone, String type, String username, String password) {
         super(id, name, address, phone, type, username, password);
-        rentalList = new HashMap<>();
+        rentalMap = new HashMap<>();
     }
 
     public Customer(String id, String name, String address, String phone, String type, String username, String password, Map<String, Item> rentalList) {
         super(id, name, address, phone, type, username, password);
-        this.rentalList = rentalList;
+        this.rentalMap = rentalList;
     }
 
     public Customer(String id, String name, String address, String phone, String type) {
         super(id, name, address, phone, type);
-        rentalList = new HashMap<>();
+        rentalMap = new HashMap<>();
     }
 
-    public Map<String, Item> getRentalList() {
-        return rentalList;
+    public Map<String, Item> getRentalMap() {
+        return rentalMap;
+    }
+
+    public List<Item> getRentalList() {
+        return new ArrayList<>(rentalMap.values());
     }
 
     public static List<String> getCustomerTypeList() {
@@ -65,12 +70,12 @@ public class Customer extends User {
         String result;
 
         if(item.getStock() > 0){
-            Item toBeRented = rentalList.get(item.getId());
+            Item toBeRented = rentalMap.get(item.getId());
 
             if(toBeRented == null){
                 toBeRented = item.createCopy();
                 toBeRented.setStock(0);
-                rentalList.put(toBeRented.getId(), toBeRented);
+                rentalMap.put(toBeRented.getId(), toBeRented);
             }
 
             toBeRented.setStock(toBeRented.getStock()+1);
@@ -87,7 +92,7 @@ public class Customer extends User {
 
     public String returnItem(String itemId){
         String result;
-        Item item = rentalList.get(itemId);
+        Item item = rentalMap.get(itemId);
 
         if(item != null){
             result = returnItem(item);
@@ -100,6 +105,33 @@ public class Customer extends User {
     }
 
     public String returnItem(Item itemRented){
+        Item itemInStore = StoreRepository.getItemManager().searchItem(itemRented.getId());
+
+        itemRented.setStock(itemRented.getStock()-1);
+        itemInStore.increaseStock();
+
+        if(itemRented.getStock() == 0){
+            rentalMap.remove(itemRented.getId());
+        }
+
+        return "Returned a copy of item " + itemRented.getId();
+    }
+
+    public String returnItemMultiple(String itemId){
+        String result;
+        Item item = rentalMap.get(itemId);
+
+        if(item != null){
+            result = returnItemMultiple(item);
+        }
+        else{
+            result = "Could not find any item id " + itemId + " in the rental list";
+        }
+
+        return result;
+    }
+
+    public String returnItemMultiple(Item itemRented){
         int count = 0;
         Item itemInStore = StoreRepository.getItemManager().searchItem(itemRented.getId());
 
@@ -109,12 +141,12 @@ public class Customer extends User {
             count++;
         }
 
-        rentalList.remove(itemRented.getId());
-        return "Returned " + count + (count > 1 ? "copies" : "copy") + " of item " + itemRented.getId();
+        rentalMap.remove(itemRented.getId());
+        return "Returned " + count + (count > 1 ? " copies" : " copy") + " of item " + itemRented.getId();
     }
 
     public String returnAllItem(){
-        for(Item itemRented: rentalList.values()){
+        for(Item itemRented: rentalMap.values()){
             Item itemInStore = StoreRepository.getItemManager().searchItem(itemRented.getId());
 
             while(itemRented.getStock() > 0){
@@ -123,7 +155,7 @@ public class Customer extends User {
             }
         }
 
-        rentalList.clear();
+        rentalMap.clear();
         return "Returned all item";
     }
 
@@ -131,7 +163,7 @@ public class Customer extends User {
     public String toString(){
         String result = super.toString();
 
-        for(String itemId : rentalList.keySet()){
+        for(String itemId : rentalMap.keySet()){
             result += "\n" + itemId;
         }
 

@@ -3,7 +3,6 @@ package ducle.videoStore.scenes;
 import ducle.item.Item;
 import ducle.videoStore.StoreRepository;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,10 +44,10 @@ public class ManageItemViewController {
             System.out.println(e);
         }
 
-        items = FXCollections.observableArrayList(StoreRepository.getItemManager().getItemList());
+        items = SceneUtilities.getObsItemList();
         SceneUtilities.itemFilter(items, itemSearchAdmin, itemTableAdmin);
 
-        // Disable the delete button if nothing is selected
+        // Disable the delete, update buttons if nothing is selected
         itemDeleteButton.disableProperty().bind(Bindings.isNull(itemTableAdmin.getSelectionModel().selectedItemProperty()));
         itemUpdateButton.disableProperty().bind(Bindings.isNull(itemTableAdmin.getSelectionModel().selectedItemProperty()));
     }
@@ -125,7 +124,7 @@ public class ManageItemViewController {
 
     @FXML
     protected void onItemDisplayOOSButton(ActionEvent event){
-        SceneUtilities.itemFilter(FXCollections.observableArrayList(StoreRepository.getItemManager().getOOSItemList()), itemSearchAdmin, itemTableAdmin);
+        SceneUtilities.itemFilter(SceneUtilities.getObsOOSItemList(), itemSearchAdmin, itemTableAdmin);
         manageItemOutput.setText("Displayed all out-of-stock items");
     }
 }

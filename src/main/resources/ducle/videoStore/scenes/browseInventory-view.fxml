@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane fx:id="browseInventoryPane" minHeight="0.0" minWidth="0.0" prefHeight="375" prefWidth="1200" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.BrowseInventoryController">
+   <top>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <Label text="Search" />
+            <TextField fx:id="itemSearchInventory" prefHeight="25.0" prefWidth="224.0" promptText="Keywords..." />
+            <Separator layoutX="52.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+            <Button fx:id="returnButton" mnemonicParsing="false" onAction="#onReturnButton" text="Return" />
+            <Button fx:id="returnMultipleButton" mnemonicParsing="false" onAction="#onReturnMultipleButton" text="Return Multiple" />
+            <Button fx:id="returnAllButton" mnemonicParsing="false" onAction="#onReturnAllButton" text="Return All" />
+        </items>
+      </ToolBar>
+   </top>
+   <center>
+       <TableView fx:id="itemTableInventory" prefHeight="655.0" prefWidth="1200.0">
+           <columns>
+               <TableColumn fx:id="itemIdInventory" prefWidth="100.0" text="ID" />
+               <TableColumn fx:id="itemTitleInventory" prefWidth="560.0" text="Title" />
+               <TableColumn fx:id="itemRentalTypeInventory" prefWidth="100.0" text="Rental Type" />
+               <TableColumn fx:id="itemGenreInventory" prefWidth="100.0" text="Genre" />
+               <TableColumn fx:id="itemLoanTypeInventory" prefWidth="100.0" text="Loan Type" />
+               <TableColumn fx:id="itemQuantity" minWidth="7.0" prefWidth="60.0" text="Quantity" />
+           </columns>
+       </TableView>
+   </center>
+   <bottom>
+      <HBox prefHeight="15.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="browseInventoryOutput" prefHeight="15.0" prefWidth="1100" text="..." />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

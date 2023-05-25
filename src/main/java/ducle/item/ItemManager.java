@@ -74,6 +74,30 @@ public class ItemManager {
         return result;
     }
 
+    public List<Item> getISItemList(){
+        List<Item> result = new ArrayList<>();
+
+        for(Record item : recordMap.values()){
+            if(item.getStock() > 0){
+                result.add(item);
+            }
+        }
+
+        for(DVD item : dvdMap.values()){
+            if(item.getStock() > 0){
+                result.add(item);
+            }
+        }
+
+        for(Game item : gameMap.values()){
+            if(item.getStock() > 0){
+                result.add(item);
+            }
+        }
+
+        return result;
+    }
+
     public String addRecord(Record item){
         recordMap.put(item.getId(), item);
         return "Added Record " + item.getId();

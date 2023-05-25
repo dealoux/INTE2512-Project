@@ -45,7 +45,7 @@ public class Guest extends Customer {
             result = ("A guest customer can not borrow 2-day items, please choose a one-week item, thank you!");
         }
         else{
-            if(rentalList.size() < 2){
+            if(rentalMap.size() < 2){
                 result = super.rent(item);
             }
             else{

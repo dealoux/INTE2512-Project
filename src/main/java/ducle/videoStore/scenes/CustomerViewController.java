@@ -1,6 +1,7 @@
 package ducle.videoStore.scenes;
 
 import ducle.user.User;
+import ducle.user.customer.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +16,21 @@ public class CustomerViewController {
     @FXML
     private TabPane customerTabPane;
     private UserProfileController userProfileController;
+    private RentalController rentalController;
 
     public void initialize(){
-        SceneUtilities.addTab(customerTabPane,"manageItem-view.fxml", "Browse");
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(SceneUtilities.class.getResource("rental-view.fxml"));
+
+            Tab newTab = new Tab("Rental");
+            newTab.setContent(fxmlLoader.load());
+            rentalController = fxmlLoader.getController();
+
+            customerTabPane.getTabs().add(newTab);
+        } catch (IOException e ){
+            System.out.println(e);
+        }
 
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -36,6 +49,7 @@ public class CustomerViewController {
     public void setUser(User user){
         userProfileController.setUser(user);
         userProfileController.disableTypeSelection();
+        rentalController.setCustomer((Customer) user);
     }
 
     @FXML

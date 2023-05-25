@@ -1,6 +1,8 @@
 package ducle.videoStore.scenes;
 
 import ducle.item.Item;
+import ducle.videoStore.StoreRepository;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -75,6 +77,18 @@ public class SceneUtilities {
         SortedList<Item> sortedItems = new SortedList<>(filteredItems);
         sortedItems.comparatorProperty().bind(tableView.comparatorProperty());
         tableView.setItems(sortedItems);
+    }
+
+    public static ObservableList<Item> getObsItemList(){
+        return FXCollections.observableArrayList(StoreRepository.getItemManager().getItemList());
+    }
+
+    public static ObservableList<Item> getObsOOSItemList(){
+        return FXCollections.observableArrayList(StoreRepository.getItemManager().getOOSItemList());
+    }
+
+    public static ObservableList<Item> getObsISItemList(){
+        return FXCollections.observableArrayList(StoreRepository.getItemManager().getISItemList());
     }
 
     public static Optional<ButtonType> confirmationDialog(String title, String header, String context){
