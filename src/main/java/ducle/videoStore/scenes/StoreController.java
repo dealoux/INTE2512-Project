@@ -1,3 +1,15 @@
+/*
+  RMIT University Vietnam
+  Course: INTE2512 Object-Oriented Programming
+  Semester: 202301
+  Assessment: Project
+  Author: Le Minh Duc
+  ID: s4000577
+  Created  date: 29/05/2023
+  Acknowledgement: I have acknowledged that all the resources here are the course materials as well as my own experiences
+  Purpose: Controller for store-view, main view when the program starts, login screen
+*/
+
 package ducle.videoStore.scenes;
 
 import ducle.user.Admin;

@@ -1,3 +1,15 @@
+/*
+  RMIT University Vietnam
+  Course: INTE2512 Object-Oriented Programming
+  Semester: 202301
+  Assessment: Project
+  Author: Le Minh Duc
+  ID: s4000577
+  Created  date: 29/05/2023
+  Acknowledgement: I have acknowledged that all the resources here are the course materials as well as my own experiences
+  Purpose: This class represents the blueprint for all regular customers
+*/
+
 package ducle.user.customer;
 
 import ducle.item.Item;

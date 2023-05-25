@@ -1,3 +1,15 @@
+/*
+  RMIT University Vietnam
+  Course: INTE2512 Object-Oriented Programming
+  Semester: 202301
+  Assessment: Project
+  Author: Le Minh Duc
+  ID: s4000577
+  Created  date: 29/05/2023
+  Acknowledgement: I have acknowledged that all the resources here are the course materials as well as my own experiences
+  Purpose: This class has the utilities functions to handle all the users data gained from the database (.txt files)
+*/
+
 package ducle.user;
 
 import ducle.user.customer.Customer;
@@ -5,10 +17,7 @@ import ducle.user.customer.Guest;
 import ducle.user.customer.Regular;
 import ducle.user.customer.VIP;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserManager {
     private Map<String, Admin> adminMap;
@@ -40,19 +49,27 @@ public class UserManager {
     }
 
     public List<Admin> getAdminList(){
-        return new ArrayList<>(adminMap.values());
+        List<Admin> result = new ArrayList<>(adminMap.values());
+        Collections.sort(result);
+        return result;
     }
 
     public List<Regular> getRegularList(){
-        return new ArrayList<>(regularMap.values());
+        List<Regular> result = new ArrayList<>(regularMap.values());
+        Collections.sort(result);
+        return result;
     }
 
     public List<VIP> getVipList(){
-        return new ArrayList<>(vipMap.values());
+        List<VIP> result = new ArrayList<>(vipMap.values());
+        Collections.sort(result);
+        return result;
     }
 
     public List<Guest> getGuestList(){
-        return new ArrayList<>(guestMap.values());
+        List<Guest> result = new ArrayList<>(guestMap.values());
+        Collections.sort(result);
+        return result;
     }
 
     public List<Customer> getCustomerList(){
@@ -62,6 +79,7 @@ public class UserManager {
         result.addAll(this.getVipList());
         result.addAll(this.getGuestList());
 
+        Collections.sort(result);
         return result;
     }
 

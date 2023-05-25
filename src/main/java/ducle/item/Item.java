@@ -1,3 +1,15 @@
+/*
+  RMIT University Vietnam
+  Course: INTE2512 Object-Oriented Programming
+  Semester: 202301
+  Assessment: Project
+  Author: Le Minh Duc
+  ID: s4000577
+  Created  date: 29/05/2023
+  Acknowledgement: I have acknowledged that all the resources here are the course materials as well as my own experiences
+  Purpose: This class represents the base blueprint for all items
+*/
+
 package ducle.item;
 
 import javafx.beans.property.IntegerProperty;
@@ -19,6 +31,7 @@ public class Item implements Comparable<Item> {
     protected StringProperty fee = new SimpleStringProperty();
     protected StringProperty rentalStatus = new SimpleStringProperty();
 
+    // treat as constants
     protected static List<String> rentalTypeList = new ArrayList<>(
             Arrays.asList("Record", "DVD", "Game")
     );
@@ -159,6 +172,7 @@ public class Item implements Comparable<Item> {
     public void decreaseStock(){
         setStock(getStock()-1);
 
+        // if stock is 0, change the status to not available
         if(getStock() == 0){
             setRentalStatus(rentalStatusList.get(1));
         }
@@ -166,13 +180,15 @@ public class Item implements Comparable<Item> {
 
     public void increaseStock(){
         setStock(getStock()+1);
-        setRentalStatus(rentalStatusList.get(0));
+        setRentalStatus(rentalStatusList.get(0)); // item should be available for lend
     }
 
+    // returns a shallow copy of this item
     public Item createCopy(){
         return new Item(getId(), getTitle(), getRentalType(), getLoanType(), getStock(), getFee(), getGenre());
     }
 
+    // items are sorted by ID
     @Override
     public int compareTo(Item item) {
         return getId().compareTo(item.getId());

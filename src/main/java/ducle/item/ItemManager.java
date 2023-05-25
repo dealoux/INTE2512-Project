@@ -1,9 +1,18 @@
+/*
+  RMIT University Vietnam
+  Course: INTE2512 Object-Oriented Programming
+  Semester: 202301
+  Assessment: Project
+  Author: Le Minh Duc
+  ID: s4000577
+  Created  date: 29/05/2023
+  Acknowledgement: I have acknowledged that all the resources here are the course materials as well as my own experiences
+  Purpose: This class has the utilities functions to handle all the items data gained from the database (.txt files)
+*/
+
 package ducle.item;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ItemManager {
     private Map<String, Record> recordMap;
@@ -29,15 +38,21 @@ public class ItemManager {
     }
 
     public List<Record> getRecordList(){
-        return new ArrayList<>(recordMap.values());
+        List<Record> result = new ArrayList<>(recordMap.values());
+        Collections.sort(result);
+        return result;
     }
 
     public List<DVD> getDvdList(){
-        return new ArrayList<>(dvdMap.values());
+        List<DVD> result = new ArrayList<>(dvdMap.values());
+        Collections.sort(result);
+        return result;
     }
 
     public List<Game> getGameList(){
-        return new ArrayList<>(gameMap.values());
+        List<Game> result = new ArrayList<>(gameMap.values());
+        Collections.sort(result);
+        return result;
     }
 
     public List<Item> getItemList(){
@@ -47,6 +62,7 @@ public class ItemManager {
         result.addAll(this.getDvdList());
         result.addAll(this.getGameList());
 
+        Collections.sort(result);
         return result;
     }
 
