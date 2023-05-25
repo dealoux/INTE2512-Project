@@ -16,7 +16,7 @@ public class UserEditorController {
     public void initialize(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("user-profile.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("userProfile-view.fxml"));
             userEditorPane.setContent(fxmlLoader.load());
             userProfileController = fxmlLoader.getController();
         } catch (IOException e ){
