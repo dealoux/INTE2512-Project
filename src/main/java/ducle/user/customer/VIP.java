@@ -39,7 +39,16 @@ public class VIP extends Customer {
         String result = super.rent(itemId);
 
         if(result.startsWith("Rented")){
-            rewardPoints += 10;
+            if(rewardPoints >= 100){
+                Item rented = rentalMap.get(itemId);
+                rented.setFee("Free");
+                rewardPoints -= 100;
+                result += " for free";
+            }
+            else {
+                rewardPoints += 10;
+            }
+
             result += ", total rewards point: " + rewardPoints;
         }
 
@@ -51,7 +60,16 @@ public class VIP extends Customer {
         String result = super.rent(item);
 
         if(result.startsWith("Rented")){
-            rewardPoints += 10;
+            if(rewardPoints >= 100){
+                Item rented = rentalMap.get(item.getId());
+                rented.setFee("Free");
+                rewardPoints -= 100;
+                result += " for free";
+            }
+            else {
+                rewardPoints += 10;
+            }
+
             result += ", total rewards point: " + rewardPoints;
         }
 

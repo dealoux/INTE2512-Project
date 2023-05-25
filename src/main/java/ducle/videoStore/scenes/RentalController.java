@@ -61,6 +61,8 @@ public class RentalController {
     @FXML
     private TableColumn<Item, String> itemLoanTypeInventory;
     @FXML
+    private TableColumn<Item, Integer> itemFee;
+    @FXML
     private TableColumn<Item, Integer> itemQuantity;
 
     @FXML
@@ -93,6 +95,7 @@ public class RentalController {
         itemRentalTypeInventory.setCellValueFactory(new PropertyValueFactory<>("rentalType"));
         itemGenreInventory.setCellValueFactory(new PropertyValueFactory<>("genre"));
         itemLoanTypeInventory.setCellValueFactory(new PropertyValueFactory<>("loanType"));
+        itemFee.setCellValueFactory(new PropertyValueFactory<>("fee"));
         itemQuantity.setCellValueFactory(new PropertyValueFactory<>("stock"));
 
         // Disable the return/return multiple buttons if nothing is selected
