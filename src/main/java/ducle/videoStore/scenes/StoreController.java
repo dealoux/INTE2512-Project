@@ -7,10 +7,8 @@ import ducle.videoStore.StoreRepository;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
@@ -47,17 +45,7 @@ public class StoreController {
                 }
                 else{
                     if(user instanceof Admin){
-                        try{
-                            FXMLLoader fxmlLoader = new FXMLLoader();
-                            fxmlLoader.setLocation(SceneUtilities.class.getResource("admin-view.fxml"));
-                            BorderPane adminViewPane = fxmlLoader.load();
-                            AdminViewController adminViewController = fxmlLoader.getController();
-                            adminViewController.setUser(user);
-
-                            SceneUtilities.sceneSwitch(storeViewPane, adminViewPane);
-                        } catch (IOException e ){
-                            System.out.println(e);
-                        }
+                        SceneUtilities.sceneSwitch(storeViewPane, "admin-view.fxml");
                     }
                     else if(user instanceof Customer){
                         SceneUtilities.sceneSwitch(storeViewPane, "customer-view.fxml");

@@ -12,8 +12,103 @@
       </ToolBar>
    </top>
    <center>
-      <TabPane fx:id="adminTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
+          <Tab text="Manage Items">
+            <content>
+              <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <top>
+                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                          <items>
+                              <Label text="Search" />
+                              <TextField fx:id="itemSearchAdmin" prefHeight="25.0" prefWidth="224.0" promptText="Keywords..." />
+                              <Separator layoutX="52.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                            <Button fx:id="itemAddButton" mnemonicParsing="false" onAction="#onItemAddButton" text="Add" />
+                              <Separator orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                              <Button fx:id="itemUpdateButton" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onItemUpdateButton" text="Update" />
+                              <Separator layoutX="52.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                              <Button fx:id="itemDeleteButton" layoutX="52.0" layoutY="13.0" mnemonicParsing="false" onAction="#onItemDeleteButton" text="Delete" />
+                              <Separator layoutX="121.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                              <Button fx:id="itemDisplayAllButton" layoutX="131.0" layoutY="13.0" mnemonicParsing="false" onAction="#onItemDisplayAllButton" text="Display All" />
+                              <Separator layoutX="186.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                              <Button fx:id="itemDisplayOOSButton" layoutX="196.0" layoutY="13.0" mnemonicParsing="false" onAction="#onItemDisplayOOSButton" text="Display Out-of-stock" />
+                          </items>
+                        </ToolBar>
+                     </top>
+                     <center>
+                        <VBox prefHeight="260.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <TableView fx:id="itemTableAdmin" prefHeight="655.0" prefWidth="1200.0">
+                                <columns>
+                                  <TableColumn fx:id="itemIdAdmin" prefWidth="102.0" text="ID" />
+                                  <TableColumn fx:id="itemTitleAdmin" prefWidth="554.0" text="Title" />
+                                    <TableColumn fx:id="itemRentalTypeAdmin" prefWidth="101.0" text="Rental Type" />
+                                    <TableColumn fx:id="itemGenreAdmin" prefWidth="95.0" text="Genre" />
+                                    <TableColumn fx:id="itemLoanTypeAdmin" prefWidth="99.0" text="Loan Type" />
+                                    <TableColumn fx:id="itemStockAdmin" minWidth="7.0" prefWidth="60.0" text="Stock" />
+                                    <TableColumn fx:id="itemFeeAdmin" maxWidth="104.0" minWidth="-1.0" prefWidth="65.0" text="Fee" />
+                                    <TableColumn fx:id="itemStatusAdmin" prefWidth="123.0" text="Status" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </center>
+                     <bottom>
+                        <HBox prefHeight="35.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label fx:id="manageItemOutput" prefHeight="17.0" prefWidth="1100" text="..." />
+                           </children>
+                        </HBox>
+                     </bottom></BorderPane>
+            </content>
+          </Tab>
+            <Tab text="Manage Customers">
+                <content>
+                    <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <top>
+                            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <items>
+                                    <Label text="Search" />
+                                    <TextField fx:id="cusSearch" prefHeight="25.0" prefWidth="224.0" promptText="Keywords..." />
+                                    <Separator layoutX="52.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                                    <Button fx:id="cusAddButton" mnemonicParsing="false" onAction="#onCusAddButton" text="Add" />
+                                    <Separator orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                                    <Button fx:id="cusUpdateButton" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onCusUpdateButton" text="Update" />
+                                    <Separator layoutX="52.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                                    <Button fx:id="cusDeleteButton" layoutX="52.0" layoutY="13.0" mnemonicParsing="false" onAction="#onCusDeleteButton" text="Delete" />
+                                    <Separator layoutX="121.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                                    <Button fx:id="cusDisplayAllButton" layoutX="131.0" layoutY="13.0" mnemonicParsing="false" onAction="#onCusDisplayAllButton" text="Display All" />
+                                    <Separator layoutX="186.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
+                                    <Button fx:id="cusDisplayGroupButton" layoutX="196.0" layoutY="13.0" mnemonicParsing="false" onAction="#onCusDisplayGroupButton" text="Display Group" />
+                                </items>
+                            </ToolBar>
+                        </top>
+                        <center>
+                            <VBox prefHeight="260.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <TableView fx:id="cusTableAdmin" prefHeight="655.0" prefWidth="1200.0">
+                                        <columns>
+                                            <TableColumn fx:id="cusIdAdmin" prefWidth="102.0" text="ID" />
+                                            <TableColumn fx:id="cusNameAdmin" prefWidth="284.0" text="Name" />
+                                            <TableColumn fx:id="cusAddressAdmin" prefWidth="280.0" text="Address" />
+                                            <TableColumn fx:id="cusPhoneAdmin" prefWidth="154.0" text="Phone" />
+                                            <TableColumn fx:id="cusTypeAdmin" prefWidth="73.0" text="Type" />
+                                            <TableColumn fx:id="cusUsernameAdmin" minWidth="7.0" prefWidth="154.0" text="Username" />
+                                            <TableColumn fx:id="cusPasswordAdmin" maxWidth="188.0" minWidth="-1.0" prefWidth="152.0" text="Password" />
+                                        </columns>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </center>
+                        <bottom>
+                            <HBox prefHeight="35.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <Label fx:id="manageCusOutput" prefHeight="17.0" prefWidth="1100" text="..." />
+                                </children>
+                            </HBox>
+                        </bottom></BorderPane>
+                </content>
+            </Tab>
         </tabs>
       </TabPane>
    </center>

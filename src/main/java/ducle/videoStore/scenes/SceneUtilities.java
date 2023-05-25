@@ -3,8 +3,6 @@ package ducle.videoStore.scenes;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -16,25 +14,6 @@ public class SceneUtilities {
         BorderPane nextPane = FXMLLoader.load(Objects.requireNonNull(SceneUtilities.class.getResource(fxml)));
         currentPane.getChildren().removeAll();
         currentPane.getChildren().setAll(nextPane);
-    }
-
-    public static void sceneSwitch(BorderPane currentPane, BorderPane nextPane){
-        currentPane.getChildren().removeAll();
-        currentPane.getChildren().setAll(nextPane);
-    }
-
-    public static void addTab(TabPane parent, String src, String title){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(SceneUtilities.class.getResource(src));
-
-            Tab newTab = new Tab(title);
-            newTab.setContent(fxmlLoader.load());
-
-            parent.getTabs().add(newTab);
-        } catch (IOException e ){
-            System.out.println(e);
-        }
     }
 
     public static Optional<ButtonType> confirmationDialog(String title, String header, String context){
