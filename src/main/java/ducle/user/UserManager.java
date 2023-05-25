@@ -1,6 +1,5 @@
 package ducle.user;
 
-import ducle.item.Item;
 import ducle.user.customer.Customer;
 import ducle.user.customer.Guest;
 import ducle.user.customer.Regular;
