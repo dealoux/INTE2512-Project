@@ -50,7 +50,7 @@ public class StoreController {
                             FXMLLoader fxmlLoader = new FXMLLoader();
                             fxmlLoader.setLocation(SceneUtilities.class.getResource("admin-view.fxml"));
                             BorderPane adminViewPane = fxmlLoader.load();
-                            AdminViewController adminViewController = fxmlLoader.getController();
+                            AdminController adminViewController = fxmlLoader.getController();
                             adminViewController.setUser(user);
 
                             SceneUtilities.sceneSwitch(storeViewPane, adminViewPane);
@@ -63,7 +63,7 @@ public class StoreController {
                             FXMLLoader fxmlLoader = new FXMLLoader();
                             fxmlLoader.setLocation(SceneUtilities.class.getResource("customer-view.fxml"));
                             BorderPane customerViewPane = fxmlLoader.load();
-                            CustomerViewController customerViewController = fxmlLoader.getController();
+                            CustomerController customerViewController = fxmlLoader.getController();
                             customerViewController.setUser(user);
 
                             SceneUtilities.sceneSwitch(storeViewPane, customerViewPane);

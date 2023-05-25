@@ -43,7 +43,7 @@ public class VIP extends Customer {
                 Item rented = rentalMap.get(itemId);
                 rented.setFee("Free");
                 rewardPoints -= 100;
-                result += " for free";
+                result += ", for free";
             }
             else {
                 rewardPoints += 10;
@@ -64,7 +64,7 @@ public class VIP extends Customer {
                 Item rented = rentalMap.get(item.getId());
                 rented.setFee("Free");
                 rewardPoints -= 100;
-                result += " for free";
+                result += ", for free";
             }
             else {
                 rewardPoints += 10;

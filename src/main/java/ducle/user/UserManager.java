@@ -311,7 +311,18 @@ public class UserManager {
         return result;
     }
 
-    public String toString(){
+    public String printAdmins(){
+        String result = "";
+
+        List<Admin> admins = getAdminList();
+        for(Admin admin: admins){
+            result += admin.toString() + "\n";
+        }
+
+        return result;
+    }
+
+    public String printCustomers(){
         String result = "";
 
         List<Customer> customers = getCustomerList();
@@ -319,10 +330,14 @@ public class UserManager {
             result += customer.toString() + "\n";
         }
 
-        List<Admin> admins = getAdminList();
-        for(Admin admin: admins){
-            result += admin.toString() + "\n";
-        }
+        return result;
+    }
+
+    public String toString(){
+        String result = "";
+
+        result += printCustomers();
+        result += printAdmins();
 
         return result;
     }

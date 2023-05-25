@@ -1,7 +1,6 @@
 package ducle.videoStore.scenes;
 
 import ducle.item.Item;
-import ducle.user.customer.Customer;
 import ducle.videoStore.StoreRepository;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -18,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class ManageItemViewController {
+public class ManageItemController {
     @FXML
     private BorderPane manageItemPane;
     private TableView<Item> itemTableAdmin;
@@ -139,7 +138,7 @@ public class ManageItemViewController {
                 break;
             case "In-stock":
                 SceneUtilities.itemFilter(SceneUtilities.getObsISItemList(), itemSearchAdmin, itemTableAdmin);
-                result += "in-stock customers";
+                result += "in-stock items";
                 break;
         }
 

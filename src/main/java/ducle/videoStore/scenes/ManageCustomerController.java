@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ManageCustomerViewController {
+public class ManageCustomerController {
     @FXML
     private TableView<Customer> cusTableAdmin;
     private ObservableList<Customer> customers;

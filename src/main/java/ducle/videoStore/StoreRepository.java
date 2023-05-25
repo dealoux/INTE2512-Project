@@ -10,6 +10,8 @@ import ducle.user.UserManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class StoreRepository {
@@ -25,14 +27,16 @@ public class StoreRepository {
             initUsers();
         } catch (FileNotFoundException e){
             System.out.println("Database files not found");
+            e.printStackTrace();
         }
-
-//        System.out.println(itemManager.toString());
-//        System.out.println(userManager.toString());
     }
 
-    private String dataSourcePath(String fileName){
+    private static String dataSourcePath(String fileName){
         return "src/main/resources/ducle/videoStore/" + fileName;
+    }
+
+    private static String dataOutputPath(String fileName){
+        return "src/main/resources/ducle/videoStore/output/" + fileName;
     }
 
     private void initItems() throws FileNotFoundException {
@@ -103,6 +107,56 @@ public class StoreRepository {
                     customer.rent(scanner.nextLine());
                 }
             }
+        }
+    }
+
+    public static void saveData(){
+        saveItems();
+        saveUser();
+    }
+
+    public static void saveItems(){
+        try{
+            File output = new File(dataOutputPath("items.txt"));
+            output.createNewFile();
+            FileWriter writer = new FileWriter(output.getPath());
+            String data = itemManager.toString();
+            writer.write(data);
+            writer.close();
+            System.out.println("Saved items data to " + output.getPath());
+        } catch (IOException e){
+            System.out.println("An error has occurred when trying save items");
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveUser(){
+        // customers
+        try{
+            File output = new File(dataOutputPath("customers.txt"));
+            output.createNewFile();
+            FileWriter writer = new FileWriter(output.getPath());
+            String data = userManager.printCustomers();
+            writer.write(data);
+            writer.close();
+            System.out.println("Saved customers data to " + output.getPath());
+        } catch (IOException e){
+            System.out.println("An error has occurred when trying save customers");
+            e.printStackTrace();
+        }
+
+        // admins
+        try{
+            File output = new File(dataOutputPath("admins.txt"));
+            output.createNewFile();
+            FileWriter writer = new FileWriter(output.getPath());
+            String data = userManager.printAdmins();
+            writer.write(data);
+            writer.close();
+            System.out.println("Saved admins data to " + output.getPath());
+        } catch (IOException e){
+            System.out.println("An error has occurred when trying save admins");
+            e.printStackTrace();
         }
     }
 

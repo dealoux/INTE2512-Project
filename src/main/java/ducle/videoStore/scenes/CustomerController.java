@@ -2,6 +2,7 @@ package ducle.videoStore.scenes;
 
 import ducle.user.User;
 import ducle.user.customer.Customer;
+import ducle.videoStore.StoreRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-public class CustomerViewController {
+public class CustomerController {
     @FXML
     private BorderPane customerViewPane;
     @FXML
@@ -55,5 +56,6 @@ public class CustomerViewController {
     @FXML
     protected void onLogoutCustomerView (ActionEvent event) throws IOException {
         SceneUtilities.sceneSwitch(customerViewPane, "store-view.fxml");
+        StoreRepository.saveData();
     }
 }

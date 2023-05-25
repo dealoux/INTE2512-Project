@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class RentalController {
     @FXML
@@ -142,7 +143,7 @@ public class RentalController {
                 break;
             case "In-stock":
                 SceneUtilities.itemFilter(SceneUtilities.getObsISItemList(), itemSearchStore, itemTableStore);
-                result += "in-stock customers";
+                result += "in-stock items";
                 break;
         }
 
@@ -160,13 +161,28 @@ public class RentalController {
     @FXML
     protected void onReturnMultipleButton(ActionEvent event){
         Item item = itemTableInventory.getSelectionModel().getSelectedItem();
-        rentalOutput.setText(customer.returnItemMultiple(item));
-        refreshInventoryTable();
+
+        Optional<ButtonType> confirmation = SceneUtilities.confirmationDialog(
+                "Confirm return of multiple copies",
+                "Return confirmation",
+                "Are you sure you would like to return every copies of " + item.print());
+
+        if(confirmation.get() == ButtonType.OK){
+            rentalOutput.setText(customer.returnItemMultiple(item));
+            refreshInventoryTable();
+        }
     }
 
     @FXML
     protected void onReturnAllButton(ActionEvent event){
-        rentalOutput.setText(customer.returnAllItem());
-        refreshInventoryTable();
+        Optional<ButtonType> confirmation = SceneUtilities.confirmationDialog(
+                "Confirm return of every items in inventory",
+                "Return confirmation",
+                "Are you sure you would like to return every items in your inventory?");
+
+        if(confirmation.get() == ButtonType.OK){
+            rentalOutput.setText(customer.returnAllItem());
+            refreshInventoryTable();
+        }
     }
 }

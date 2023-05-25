@@ -17,8 +17,7 @@ import java.util.Optional;
 public class SceneUtilities {
     public static void sceneSwitch(BorderPane currentPane, String fxml) throws IOException {
         BorderPane nextPane = FXMLLoader.load(Objects.requireNonNull(SceneUtilities.class.getResource(fxml)));
-        currentPane.getChildren().removeAll();
-        currentPane.getChildren().setAll(nextPane);
+        sceneSwitch(currentPane, nextPane);
     }
 
     public static void sceneSwitch(BorderPane currentPane, BorderPane nextPane){

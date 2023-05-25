@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane minHeight="0.0" minWidth="0.0" prefHeight="800" prefWidth="1200" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.ManageCustomerViewController">
+<BorderPane minHeight="0.0" minWidth="0.0" prefHeight="800" prefWidth="1200" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.ManageCustomerController">
       <top>
           <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
@@ -24,13 +24,13 @@
       <center>
           <TableView fx:id="cusTableAdmin" prefHeight="655.0" prefWidth="1200.0">
               <columns>
-                  <TableColumn fx:id="cusIdAdmin" prefWidth="102.0" text="ID" />
-                  <TableColumn fx:id="cusNameAdmin" prefWidth="284.0" text="Name" />
-                  <TableColumn fx:id="cusAddressAdmin" prefWidth="280.0" text="Address" />
-                  <TableColumn fx:id="cusPhoneAdmin" prefWidth="154.0" text="Phone" />
-                  <TableColumn fx:id="cusTypeAdmin" prefWidth="73.0" text="Type" />
-                  <TableColumn fx:id="cusUsernameAdmin" minWidth="7.0" prefWidth="154.0" text="Username" />
-                  <TableColumn fx:id="cusPasswordAdmin" maxWidth="188.0" minWidth="-1.0" prefWidth="152.0" text="Password" />
+                  <TableColumn fx:id="cusIdAdmin" prefWidth="100.0" text="ID" />
+                  <TableColumn fx:id="cusNameAdmin" prefWidth="280.0" text="Name" />
+                  <TableColumn fx:id="cusAddressAdmin" prefWidth="290.0" text="Address" />
+                  <TableColumn fx:id="cusPhoneAdmin" prefWidth="150.0" text="Phone" />
+                  <TableColumn fx:id="cusTypeAdmin" prefWidth="70.0" text="Type" />
+                  <TableColumn fx:id="cusUsernameAdmin" prefWidth="150.0" text="Username" />
+                  <TableColumn fx:id="cusPasswordAdmin" prefWidth="150.0" text="Password" />
               </columns>
           </TableView>
       </center>

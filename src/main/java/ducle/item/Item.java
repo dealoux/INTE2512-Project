@@ -121,7 +121,7 @@ public class Item implements Comparable<Item> {
     }
 
     public String getFee() {
-        return "$"+fee.get();
+        return fee.get();
     }
     public StringProperty feeProperty() {
         return fee;
@@ -184,6 +184,6 @@ public class Item implements Comparable<Item> {
 
     @Override
     public String toString(){
-        return getId() + "," + getTitle() + "," + getRentalType() + "," + getLoanType() + "," + getStock() + "," + fee.get() + (getGenre().isEmpty()? "" : "," + getGenre());
+        return getId() + "," + getTitle() + "," + getRentalType() + "," + getLoanType() + "," + getStock() + "," + getFee() + (getGenre().isEmpty()? "" : "," + getGenre());
     }
 }

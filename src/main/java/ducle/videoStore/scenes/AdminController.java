@@ -1,6 +1,7 @@
 package ducle.videoStore.scenes;
 
 import ducle.user.User;
+import ducle.videoStore.StoreRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-public class AdminViewController {
+public class AdminController {
     @FXML
     private BorderPane adminViewPane;
     @FXML
@@ -42,5 +43,6 @@ public class AdminViewController {
     @FXML
     protected void onLogoutAdminView (ActionEvent event) throws IOException {
         SceneUtilities.sceneSwitch(adminViewPane, "store-view.fxml");
+        StoreRepository.saveData();
     }
 }
