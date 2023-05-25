@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<BorderPane minHeight="0.0" minWidth="0.0" prefHeight="800" prefWidth="1200" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.ManageItemViewController">
+<BorderPane fx:id="manageItemPane" minHeight="0.0" minWidth="0.0" prefHeight="800" prefWidth="1200" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducle.videoStore.scenes.ManageItemViewController">
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
@@ -24,22 +24,6 @@
       </ToolBar>
    </top>
    <center>
-      <VBox prefHeight="260.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <TableView fx:id="itemTableAdmin" prefHeight="655.0" prefWidth="1200.0">
-              <columns>
-                <TableColumn fx:id="itemIdAdmin" prefWidth="102.0" text="ID" />
-                <TableColumn fx:id="itemTitleAdmin" prefWidth="554.0" text="Title" />
-                  <TableColumn fx:id="itemRentalTypeAdmin" prefWidth="101.0" text="Rental Type" />
-                  <TableColumn fx:id="itemGenreAdmin" prefWidth="95.0" text="Genre" />
-                  <TableColumn fx:id="itemLoanTypeAdmin" prefWidth="99.0" text="Loan Type" />
-                  <TableColumn fx:id="itemStockAdmin" minWidth="7.0" prefWidth="60.0" text="Stock" />
-                  <TableColumn fx:id="itemFeeAdmin" maxWidth="104.0" minWidth="-1.0" prefWidth="65.0" text="Fee" />
-                  <TableColumn fx:id="itemStatusAdmin" prefWidth="123.0" text="Status" />
-              </columns>
-            </TableView>
-         </children>
-      </VBox>
    </center>
    <bottom>
       <HBox prefHeight="35.0" prefWidth="600.0" BorderPane.alignment="CENTER">
