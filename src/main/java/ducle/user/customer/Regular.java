@@ -1,6 +1,7 @@
 package ducle.user.customer;
 
-import java.util.List;
+import ducle.item.Item;
+import java.util.Map;
 
 public class Regular extends Customer {
     public Regular(){
@@ -11,7 +12,7 @@ public class Regular extends Customer {
         super(id, name, address, phone, "Regular", username, password);
     }
 
-    public Regular(String id, String name, String address, String phone, String username, String password, List<String> rentalList) {
+    public Regular(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList) {
         super(id, name, address, phone, "Regular", username, password, rentalList);
     }
 

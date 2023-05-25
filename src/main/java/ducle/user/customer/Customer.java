@@ -7,7 +7,7 @@ import ducle.videoStore.StoreRepository;
 import java.util.*;
 
 public class Customer extends User {
-    protected List<String> rentalList;
+    protected Map<String, Item> rentalList;
     protected static List<String> customerTypeList = new ArrayList<>(
             Arrays.asList("Guest", "Regular", "VIP")
     );
@@ -15,31 +15,31 @@ public class Customer extends User {
     public Customer(){
         super();
         setType("");
-        rentalList = new ArrayList<>();
+        rentalList = new HashMap<>();
     }
 
     public Customer(String type){
         super();
         setType(type);
-        rentalList = new ArrayList<>();
+        rentalList = new HashMap<>();
     }
 
     public Customer(String id, String name, String address, String phone, String type, String username, String password) {
         super(id, name, address, phone, type, username, password);
-        rentalList = new ArrayList<>();
+        rentalList = new HashMap<>();
     }
 
-    public Customer(String id, String name, String address, String phone, String type, String username, String password, List<String> rentalList) {
+    public Customer(String id, String name, String address, String phone, String type, String username, String password, Map<String, Item> rentalList) {
         super(id, name, address, phone, type, username, password);
         this.rentalList = rentalList;
     }
 
     public Customer(String id, String name, String address, String phone, String type) {
         super(id, name, address, phone, type);
-        rentalList = new ArrayList<>();
+        rentalList = new HashMap<>();
     }
 
-    public List<String> getRentalList() {
+    public Map<String, Item> getRentalList() {
         return rentalList;
     }
 
@@ -65,12 +65,21 @@ public class Customer extends User {
         String result;
 
         if(item.getStock() > 0){
+            Item toBeRented = rentalList.get(item.getId());
+
+            if(toBeRented == null){
+                toBeRented = item.createCopy();
+                toBeRented.setStock(0);
+                rentalList.put(toBeRented.getId(), toBeRented);
+            }
+
+            toBeRented.setStock(toBeRented.getStock()+1);
             item.decreaseStock();
-            rentalList.add(item.getId());
+
             result = "Rented a copy of " + item.getTitle();
         }
         else{
-            result = item.getTitle() + " is out of stock";
+            result = "Item " + item.getId() + " is out of stock";
         }
 
         return result;
@@ -78,9 +87,10 @@ public class Customer extends User {
 
     public String returnItem(String itemId){
         String result;
+        Item item = rentalList.get(itemId);
 
-        if(rentalList.contains(itemId)){
-            result = returnItem(StoreRepository.getItemManager().searchItem(itemId));
+        if(item != null){
+            result = returnItem(item);
         }
         else{
             result = "Could not find any item id " + itemId + " in the rental list";
@@ -89,16 +99,28 @@ public class Customer extends User {
         return result;
     }
 
-    public String returnItem(Item item){
-        item.increaseStock();
-        rentalList.remove(item.getId());
-        return "Returned item " + item.getId();
+    public String returnItem(Item itemRented){
+        int count = 0;
+        Item itemInStore = StoreRepository.getItemManager().searchItem(itemRented.getId());
+
+        while(itemRented.getStock() > 0){
+            itemRented.setStock(itemRented.getStock()-1);
+            itemInStore.increaseStock();
+            count++;
+        }
+
+        rentalList.remove(itemRented.getId());
+        return "Returned " + count + (count > 1 ? "copies" : "copy") + " of item " + itemRented.getId();
     }
 
     public String returnAllItem(){
-        for(String itemId: rentalList){
-            Item item = StoreRepository.getItemManager().searchItem(itemId);
-            item.increaseStock();
+        for(Item itemRented: rentalList.values()){
+            Item itemInStore = StoreRepository.getItemManager().searchItem(itemRented.getId());
+
+            while(itemRented.getStock() > 0){
+                itemRented.setStock(itemRented.getStock()-1);
+                itemInStore.increaseStock();
+            }
         }
 
         rentalList.clear();
@@ -109,7 +131,7 @@ public class Customer extends User {
     public String toString(){
         String result = super.toString();
 
-        for(String itemId : rentalList){
+        for(String itemId : rentalList.keySet()){
             result += "\n" + itemId;
         }
 

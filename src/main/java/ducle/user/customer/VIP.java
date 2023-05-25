@@ -1,8 +1,7 @@
 package ducle.user.customer;
 
 import ducle.item.Item;
-
-import java.util.List;
+import java.util.Map;
 
 public class VIP extends Customer {
     protected int rewardPoints;
@@ -17,7 +16,7 @@ public class VIP extends Customer {
         rewardPoints = 0;
     }
 
-    public VIP(String id, String name, String address, String phone, String username, String password, List<String> rentalList) {
+    public VIP(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList) {
         super(id, name, address, phone, "VIP", username, password, rentalList);
         rewardPoints = 0;
     }

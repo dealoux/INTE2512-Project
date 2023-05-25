@@ -1,9 +1,8 @@
 package ducle.user.customer;
 
 import ducle.item.Item;
+import java.util.Map;
 import ducle.videoStore.StoreRepository;
-
-import java.util.List;
 
 public class Guest extends Customer {
     public Guest(){
@@ -14,7 +13,7 @@ public class Guest extends Customer {
         super(id, name, address, phone, "Guest", username, password);
     }
 
-    public Guest(String id, String name, String address, String phone, String username, String password, List<String> rentalList) {
+    public Guest(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList) {
         super(id, name, address, phone, "Guest", username, password, rentalList);
     }
 

@@ -169,6 +169,10 @@ public class Item implements Comparable<Item> {
         setRentalStatus("Available");
     }
 
+    public Item createCopy(){
+        return new Item(getId(), getTitle(), getRentalType(), getLoanType(), getStock(), getFee(), getGenre());
+    }
+
     @Override
     public int compareTo(Item item) {
         return getId().compareTo(item.getId());
