@@ -10,9 +10,10 @@
   Purpose: This class represents the blueprint for all VIP customers
 */
 
-package ducle.user.customer;
+package ducle.videoStore.user.customer;
 
-import ducle.item.Item;
+import ducle.videoStore.StoreRepository;
+import ducle.videoStore.item.Item;
 import java.util.Map;
 
 public class VIP extends Customer {
@@ -47,42 +48,21 @@ public class VIP extends Customer {
     }
 
     @Override
-    public String rent(String itemId) {
-        String result = super.rent(itemId);
-
-        if(result.startsWith("Rented")){
-            if(rewardPoints >= 100){
-                Item rented = rentalMap.get(itemId);
-                rented.setFee("Free");
-                rewardPoints -= 100;
-                result += ", for free";
-            }
-            else {
-                rewardPoints += 10;
-            }
-
-            result += ", total rewards point: " + rewardPoints;
-        }
-
-        return result;
-    }
-
-    @Override
     public String rent(Item item) {
         String result = super.rent(item);
 
         if(result.startsWith("Rented")){
             if(rewardPoints >= 100){
                 Item rented = rentalMap.get(item.getId());
-                rented.setFee("Free");
+                rented.setFee(rented.getFee()-item.getFee());
                 rewardPoints -= 100;
-                result += ", for free";
+                result += ", for free using 100 points";
             }
             else {
                 rewardPoints += 10;
             }
 
-            result += ", total rewards point: " + rewardPoints;
+            result += ", total reward points: " + rewardPoints;
         }
 
         return result;

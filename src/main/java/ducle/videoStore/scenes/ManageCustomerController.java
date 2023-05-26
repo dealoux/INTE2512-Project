@@ -12,11 +12,11 @@
 
 package ducle.videoStore.scenes;
 
-import ducle.item.Item;
-import ducle.user.customer.Customer;
-import ducle.user.customer.Guest;
-import ducle.user.customer.Regular;
-import ducle.user.customer.VIP;
+import ducle.videoStore.item.Item;
+import ducle.videoStore.user.customer.Customer;
+import ducle.videoStore.user.customer.Guest;
+import ducle.videoStore.user.customer.Regular;
+import ducle.videoStore.user.customer.VIP;
 import ducle.videoStore.StoreRepository;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;

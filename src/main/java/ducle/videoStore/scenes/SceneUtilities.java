@@ -12,7 +12,7 @@
 
 package ducle.videoStore.scenes;
 
-import ducle.item.Item;
+import ducle.videoStore.item.Item;
 import ducle.videoStore.StoreRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

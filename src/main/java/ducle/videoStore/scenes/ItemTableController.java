@@ -12,7 +12,7 @@
 
 package ducle.videoStore.scenes;
 
-import ducle.item.Item;
+import ducle.videoStore.item.Item;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;

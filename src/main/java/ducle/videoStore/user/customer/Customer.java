@@ -10,10 +10,10 @@
   Purpose: This class represents the base blueprint for all customers
 */
 
-package ducle.user.customer;
+package ducle.videoStore.user.customer;
 
-import ducle.item.Item;
-import ducle.user.User;
+import ducle.videoStore.item.Item;
+import ducle.videoStore.user.User;
 import ducle.videoStore.StoreRepository;
 
 import java.util.*;
@@ -86,10 +86,12 @@ public class Customer extends User {
             if(toBeRented == null){
                 toBeRented = item.createCopy();
                 toBeRented.setStock(0);
+                toBeRented.setFee(0);
                 rentalMap.put(toBeRented.getId(), toBeRented);
             }
 
             toBeRented.setStock(toBeRented.getStock()+1);
+            toBeRented.setFee(toBeRented.getFee()+item.getFee());
             item.decreaseStock();
 
             result = "Rented a copy of item " + item.print();
@@ -119,6 +121,7 @@ public class Customer extends User {
         Item itemInStore = StoreRepository.getItemManager().searchItem(itemRented.getId());
 
         itemRented.setStock(itemRented.getStock()-1);
+        itemRented.setFee(itemRented.getFee() - itemInStore.getFee());
         itemInStore.increaseStock();
 
         if(itemRented.getStock() == 0){
@@ -172,10 +175,10 @@ public class Customer extends User {
 
     @Override
     public String toString(){
-        String result = super.toString();
+        String result = getId() + "," + getName() + "," + getAddress() + "," + getPhone() + "," + rentalMap.size() + "," + getType() + ", " + getUsername() + ", " + getPassword();
 
-        for(String itemId : rentalMap.keySet()){
-            result += "\n" + itemId;
+        for(Item item : rentalMap.values()){
+            result += "\n" + item.getId() + "," + item.getStock() + "," + item.getFee();
         }
 
         return result;

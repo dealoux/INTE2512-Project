@@ -10,7 +10,7 @@
   Purpose: This class represents the blueprint for all Admin users
 */
 
-package ducle.user;
+package ducle.videoStore.user;
 
 public class Admin extends User {
     public Admin(){

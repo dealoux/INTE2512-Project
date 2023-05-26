@@ -12,13 +12,11 @@
 
 package ducle.videoStore;
 
-import ducle.item.DVD;
-import ducle.item.Game;
-import ducle.item.Record;
-import ducle.user.Admin;
-import ducle.item.ItemManager;
-import ducle.user.customer.*;
-import ducle.user.UserManager;
+import ducle.videoStore.item.*;
+import ducle.videoStore.item.Record;
+import ducle.videoStore.user.Admin;
+import ducle.videoStore.user.customer.*;
+import ducle.videoStore.user.UserManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -61,13 +59,13 @@ public class StoreRepository {
 
                 switch (itemArr[2]){
                     case "DVD":
-                        itemManager.addDvd(new DVD(itemArr[0], itemArr[1], itemArr[3], Integer.parseInt(itemArr[4]), itemArr[5], itemArr[6]));
+                        itemManager.addDvd(new DVD(itemArr[0], itemArr[1], itemArr[3], itemArr[4], itemArr[5], itemArr[6]));
                         break;
                     case "Record":
-                        itemManager.addRecord(new Record(itemArr[0], itemArr[1], itemArr[3], Integer.parseInt(itemArr[4]), itemArr[5], itemArr[6]));
+                        itemManager.addRecord(new Record(itemArr[0], itemArr[1], itemArr[3], itemArr[4], itemArr[5], itemArr[6]));
                         break;
                     case "Game":
-                        itemManager.addGame(new Game(itemArr[0], itemArr[1], itemArr[3], Integer.parseInt(itemArr[4]), itemArr[5]));
+                        itemManager.addGame(new Game(itemArr[0], itemArr[1], itemArr[3], itemArr[4], itemArr[5]));
                         break;
                 }
             }
@@ -116,7 +114,25 @@ public class StoreRepository {
                 }
 
                 for(int i=0; i < Integer.parseInt(customerArr[4]); i++){
-                    customer.rent(scanner.nextLine());
+                    String[] itemArr = scanner.nextLine().split(",");
+
+                    Item toBeRented = itemManager.searchItem(itemArr[0]);
+
+                    if(toBeRented != null){
+                        switch (itemArr.length){
+                            // 1st time input
+                            case 1:
+                                customer.rent(toBeRented);
+                                break;
+                            // database
+                            case 3:
+                                Item rented = toBeRented.createCopy();
+                                rented.setStock(itemArr[1]);
+                                rented.setFee(itemArr[2]);
+                                customer.getRentalMap().put(rented.getId(), rented);
+                                break;
+                        }
+                    }
                 }
             }
         }

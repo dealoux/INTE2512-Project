@@ -12,8 +12,8 @@
 
 package ducle.videoStore.scenes;
 
-import ducle.item.Item;
-import ducle.user.customer.Customer;
+import ducle.videoStore.item.Item;
+import ducle.videoStore.user.customer.Customer;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -118,8 +118,7 @@ public class RentalController {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-        refreshStoreTable();
-        refreshInventoryTable();
+        refreshTables();
     }
 
     public void refreshStoreTable(){
@@ -130,6 +129,11 @@ public class RentalController {
     public void refreshInventoryTable(){
         itemsInventory = FXCollections.observableArrayList(customer.getRentalList());
         SceneUtilities.itemFilter(itemsInventory, itemSearchInventory, itemTableInventory);
+    }
+
+    public void refreshTables(){
+        refreshStoreTable();
+        refreshInventoryTable();
     }
 
     @FXML

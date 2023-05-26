@@ -10,12 +10,12 @@
   Purpose: This class has the utilities functions to handle all the users data gained from the database (.txt files)
 */
 
-package ducle.user;
+package ducle.videoStore.user;
 
-import ducle.user.customer.Customer;
-import ducle.user.customer.Guest;
-import ducle.user.customer.Regular;
-import ducle.user.customer.VIP;
+import ducle.videoStore.user.customer.Customer;
+import ducle.videoStore.user.customer.Guest;
+import ducle.videoStore.user.customer.Regular;
+import ducle.videoStore.user.customer.VIP;
 
 import java.util.*;
 

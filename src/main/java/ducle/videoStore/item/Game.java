@@ -10,7 +10,7 @@
   Purpose: This class is the blueprint for every Game items
 */
 
-package ducle.item;
+package ducle.videoStore.item;
 
 public class Game extends Item{
     public Game(){
@@ -18,7 +18,11 @@ public class Game extends Item{
         this.rentalType.set(rentalTypeList.get(2));
     }
 
-    public Game(String id, String title, String loanType, int stock, String fee) {
+    public Game(String id, String title, String loanType, int stock, double fee) {
+        super(id, title, rentalTypeList.get(2), loanType, stock, fee, getGenreList().get(0));
+    }
+
+    public Game(String id, String title, String loanType, String stock, String fee) {
         super(id, title, rentalTypeList.get(2), loanType, stock, fee, getGenreList().get(0));
     }
 

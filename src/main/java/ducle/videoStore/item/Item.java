@@ -10,12 +10,9 @@
   Purpose: This class represents the base blueprint for all items
 */
 
-package ducle.item;
+package ducle.videoStore.item;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +25,7 @@ public class Item implements Comparable<Item> {
     protected StringProperty genre = new SimpleStringProperty();
     protected StringProperty loanType = new SimpleStringProperty();
     protected IntegerProperty stock = new SimpleIntegerProperty();
-    protected StringProperty fee = new SimpleStringProperty();
+    protected DoubleProperty fee = new SimpleDoubleProperty();
     protected StringProperty rentalStatus = new SimpleStringProperty();
 
     // treat as constants
@@ -55,19 +52,28 @@ public class Item implements Comparable<Item> {
         genre.set("");
         loanType.set("");
         stock.set(1);
-        fee.set("");
+        fee.set(0);
         rentalStatus.set(rentalStatusList.get(0)); // default to available
     }
 
-    public Item(String id, String title, String rentalType, String loanType, int stock, String fee, String genre) {
+    public Item(String id, String title, String rentalType, String loanType, int stock, double fee, String genre) {
         this.id.set(id);
         this.title.set(title);
         this.rentalType.set(rentalType);
         this.genre.set(genre);
         this.loanType.set(loanType);
-        this.stock.set(stock);
-        this.fee.set(fee);
-        rentalStatus.set(rentalStatusList.get(0)); // default to available
+        setStock(stock);
+        setFee(fee);
+    }
+
+    public Item(String id, String title, String rentalType, String loanType, String stock, String fee, String genre) {
+        this.id.set(id);
+        this.title.set(title);
+        this.rentalType.set(rentalType);
+        this.genre.set(genre);
+        this.loanType.set(loanType);
+        setStock(stock);
+        setFee(fee);
     }
 
     public String getId() {
@@ -131,16 +137,30 @@ public class Item implements Comparable<Item> {
     }
     public void setStock(int stock) {
         this.stock.set(stock);
+        determineRentalStatus(); // always determine the rental status when setting new stock
+    }
+    public void setStock(String stock) {
+        this.stock.set(Integer.parseInt(stock));
+        determineRentalStatus(); // always determine the rental status when setting new stock
+    }
+    public void decreaseStock(){
+        setStock(getStock()-1);
+    }
+    public void increaseStock(){
+        setStock(getStock()+1);
     }
 
-    public String getFee() {
+    public double getFee() {
         return fee.get();
     }
-    public StringProperty feeProperty() {
+    public DoubleProperty feeProperty() {
         return fee;
     }
+    public void setFee(double fee) {
+        this.fee.set(Math.round(fee * 100.0) / 100.0);
+    }
     public void setFee(String fee) {
-        this.fee.set(fee);
+        this.fee.set(Double.parseDouble(fee));
     }
 
     public String getRentalStatus() {
@@ -151,6 +171,9 @@ public class Item implements Comparable<Item> {
     }
     public void setRentalStatus(String rentalStatus) {
         this.rentalStatus.set(rentalStatus);
+    }
+    public void determineRentalStatus(){
+        setRentalStatus(getStock() > 0 ? rentalStatusList.get(0) : rentalStatusList.get(1));
     }
 
     public static List<String> getRentalTypeList() {
@@ -167,20 +190,6 @@ public class Item implements Comparable<Item> {
 
     public static List<String> getRentalStatusList() {
         return rentalStatusList;
-    }
-
-    public void decreaseStock(){
-        setStock(getStock()-1);
-
-        // if stock is 0, change the status to not available
-        if(getStock() == 0){
-            setRentalStatus(rentalStatusList.get(1));
-        }
-    }
-
-    public void increaseStock(){
-        setStock(getStock()+1);
-        setRentalStatus(rentalStatusList.get(0)); // item should be available for lend
     }
 
     // returns a shallow copy of this item

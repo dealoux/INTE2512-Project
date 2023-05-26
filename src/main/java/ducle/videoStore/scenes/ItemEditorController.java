@@ -12,7 +12,7 @@
 
 package ducle.videoStore.scenes;
 
-import ducle.item.Item;
+import ducle.videoStore.item.Item;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -58,7 +58,7 @@ public class ItemEditorController {
         itemGenreEditor.valueProperty().bindBidirectional(item.genreProperty());
         itemLoanTypeEditor.valueProperty().bindBidirectional(item.loanTypeProperty());
         itemStockEditor.textProperty().bindBidirectional(item.stockProperty(), NumberFormat.getCompactNumberInstance());
-        itemFeeEditor.textProperty().bindBidirectional(item.feeProperty());
+        itemFeeEditor.textProperty().bindBidirectional(item.feeProperty(), NumberFormat.getCompactNumberInstance());
         itemRentalStatusEditor.valueProperty().bindBidirectional(item.rentalStatusProperty());
     }
 }

@@ -46,7 +46,7 @@
                <TableColumn fx:id="itemRentalTypeInventory" prefWidth="100.0" text="Rental Type" />
                <TableColumn fx:id="itemGenreInventory" prefWidth="100.0" text="Genre" />
                <TableColumn fx:id="itemLoanTypeInventory" prefWidth="100.0" text="Loan Type" />
-               <TableColumn fx:id="itemFee" minWidth="7.0" prefWidth="60.0" text="Fee" />
+               <TableColumn fx:id="itemFee" minWidth="7.0" prefWidth="60.0" text="Total Fee" />
                <TableColumn fx:id="itemQuantity" minWidth="7.0" prefWidth="60.0" text="Quantity" />
             </columns>
          </TableView>

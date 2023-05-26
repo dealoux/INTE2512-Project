@@ -12,9 +12,9 @@
 
 package ducle.videoStore.scenes;
 
-import ducle.user.Admin;
-import ducle.user.User;
-import ducle.user.customer.Customer;
+import ducle.videoStore.user.Admin;
+import ducle.videoStore.user.User;
+import ducle.videoStore.user.customer.Customer;
 import ducle.videoStore.StoreApplication;
 import ducle.videoStore.StoreRepository;
 import javafx.application.Platform;

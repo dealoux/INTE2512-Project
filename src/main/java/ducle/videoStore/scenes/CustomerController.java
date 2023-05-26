@@ -12,8 +12,8 @@
 
 package ducle.videoStore.scenes;
 
-import ducle.user.User;
-import ducle.user.customer.Customer;
+import ducle.videoStore.user.User;
+import ducle.videoStore.user.customer.Customer;
 import ducle.videoStore.StoreRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

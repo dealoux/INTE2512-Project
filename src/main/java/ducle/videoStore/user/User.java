@@ -10,7 +10,7 @@
   Purpose: This class represents the base blueprint for all users
 */
 
-package ducle.user;
+package ducle.videoStore.user;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

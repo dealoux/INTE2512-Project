@@ -10,7 +10,7 @@
   Purpose: This class has the utilities functions to handle all the items data gained from the database (.txt files)
 */
 
-package ducle.item;
+package ducle.videoStore.item;
 
 import java.util.*;
 

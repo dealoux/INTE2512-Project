@@ -10,7 +10,7 @@
   Purpose: This class is the blueprint for every DVD items
 */
 
-package ducle.item;
+package ducle.videoStore.item;
 
 public class DVD extends Item {
     public DVD(){
@@ -18,7 +18,11 @@ public class DVD extends Item {
         this.rentalType.set(rentalTypeList.get(1));
     }
 
-    public DVD(String id, String title, String loanType, int stock, String fee, String genre) {
+    public DVD(String id, String title, String loanType, int stock, double fee, String genre) {
+        super(id, title, rentalTypeList.get(1), loanType, stock, fee, genre);
+    }
+
+    public DVD(String id, String title, String loanType, String stock, String fee, String genre) {
         super(id, title, rentalTypeList.get(1), loanType, stock, fee, genre);
     }
 

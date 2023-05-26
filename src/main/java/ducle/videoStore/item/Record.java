@@ -10,7 +10,7 @@
   Purpose: This class is the blueprint for every Record items
 */
 
-package ducle.item;
+package ducle.videoStore.item;
 
 public class Record extends Item {
     public Record(){
@@ -18,7 +18,11 @@ public class Record extends Item {
         this.rentalType.set(rentalTypeList.get(0));
     }
 
-    public Record(String id, String title, String loanType, int stock, String fee, String genre) {
+    public Record(String id, String title, String loanType, int stock, double fee, String genre) {
+        super(id, title, rentalTypeList.get(0), loanType, stock, fee, genre);
+    }
+
+    public Record(String id, String title, String loanType, String stock, String fee, String genre) {
         super(id, title, rentalTypeList.get(0), loanType, stock, fee, genre);
     }
 

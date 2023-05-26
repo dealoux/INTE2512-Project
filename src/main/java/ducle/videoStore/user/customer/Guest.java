@@ -10,9 +10,9 @@
   Purpose: This class represents the blueprint for all guest customers
 */
 
-package ducle.user.customer;
+package ducle.videoStore.user.customer;
 
-import ducle.item.Item;
+import ducle.videoStore.item.Item;
 import java.util.Map;
 import ducle.videoStore.StoreRepository;
 
