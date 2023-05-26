@@ -75,7 +75,7 @@ public class ManageCustomerController {
         cusUsernameAdmin.setCellValueFactory(new PropertyValueFactory<>("username"));
         cusPasswordAdmin.setCellValueFactory(new PropertyValueFactory<>("password"));
 
-        customers = FXCollections.observableArrayList(StoreRepository.getUserManager().getCustomerList());
+        customers = FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getCustomerList());
         customerFilter(customers);
 
         List<String> displayComboList = new ArrayList<>();
@@ -89,6 +89,11 @@ public class ManageCustomerController {
         cusUpdateButton.disableProperty().bind(Bindings.isNull(cusTableAdmin.getSelectionModel().selectedItemProperty()));
     }
 
+    /**
+     * This function creates a custom Customer search filter and apply it to the given ObservableList.
+     * Used by the search bar
+     * @param customers The Observablelist of customers to apply filter
+     * */
     private void customerFilter(ObservableList<Customer> customers){
         FilteredList<Customer> filteredCustomers = new FilteredList<>(customers, b -> true);
         cusSearch.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -156,7 +161,7 @@ public class ManageCustomerController {
 
             if(buttonHandler.get() == ButtonType.OK){
                 customers.add(customer);
-                manageCusOutput.setText(StoreRepository.getUserManager().addCustomer(customer));
+                manageCusOutput.setText(StoreRepository.Instance().getUserManager().addCustomer(customer));
             }
         } catch (IOException e ){
             System.out.println(e);
@@ -184,13 +189,13 @@ public class ManageCustomerController {
             if(!customer.getClass().toString().equalsIgnoreCase(customer.getType())){
                 switch (customer.getType()){
                     case "Regular":
-                        StoreRepository.getUserManager().addRegular(new Regular(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                        StoreRepository.Instance().getUserManager().addRegular(new Regular(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
                         break;
                     case "VIP":
-                        StoreRepository.getUserManager().addVip(new VIP(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                        StoreRepository.Instance().getUserManager().addVip(new VIP(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
                         break;
                     case "Guest":
-                        StoreRepository.getUserManager().addGuest(new Guest(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                        StoreRepository.Instance().getUserManager().addGuest(new Guest(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
                         break;
                 }
             }
@@ -205,13 +210,13 @@ public class ManageCustomerController {
     protected void onCusDeleteButton(ActionEvent event){
         Optional<ButtonType> confirmation = SceneUtilities.confirmationDialog(
                 "Confirm delete",
-                "Delete confirmation",
-                "Any items in the user inventory will be returned to the store\nAre you sure you would like to delete the selected customer?");
+                "Are you sure you would like to delete the selected customer?",
+                "Any items in the user inventory will be returned to the store\n");
 
         if(confirmation.get() == ButtonType.OK){
             Customer customer = cusTableAdmin.getSelectionModel().getSelectedItem();
             customers.remove(customer);
-            manageCusOutput.setText(StoreRepository.getUserManager().removeCustomer(customer));
+            manageCusOutput.setText(StoreRepository.Instance().getUserManager().removeCustomer(customer));
         }
     }
 
@@ -225,15 +230,15 @@ public class ManageCustomerController {
                 result += "customers";
                 break;
             case "Regular":
-                customerFilter(FXCollections.observableArrayList(StoreRepository.getUserManager().getRegularList()));
+                customerFilter(FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getRegularList()));
                 result += "regular customers";
                 break;
             case "VIP":
-                customerFilter(FXCollections.observableArrayList(StoreRepository.getUserManager().getVipList()));
+                customerFilter(FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getVipList()));
                 result += "VIP customers";
                 break;
             case "Guest":
-                customerFilter(FXCollections.observableArrayList(StoreRepository.getUserManager().getGuestList()));
+                customerFilter(FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getGuestList()));
                 result += "guest customers";
                 break;
         }

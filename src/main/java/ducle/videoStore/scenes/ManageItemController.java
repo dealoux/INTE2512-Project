@@ -92,7 +92,7 @@ public class ManageItemController {
             if(buttonHandler.get() == ButtonType.OK){
                 items.add(item);
                 item.determineRentalStatus();
-                manageItemOutput.setText(StoreRepository.getItemManager().addItem(item));
+                manageItemOutput.setText(StoreRepository.Instance().getItemManager().addItem(item));
             }
         } catch (IOException e ){
             System.out.println(e);
@@ -133,7 +133,7 @@ public class ManageItemController {
         if(confirmation.get() == ButtonType.OK){
             Item item = itemTableAdmin.getSelectionModel().getSelectedItem();
             items.remove(itemTableAdmin.getSelectionModel().getSelectedItem());
-            manageItemOutput.setText(StoreRepository.getItemManager().removeItem(item));
+            manageItemOutput.setText(StoreRepository.Instance().getItemManager().removeItem(item));
         }
     }
 

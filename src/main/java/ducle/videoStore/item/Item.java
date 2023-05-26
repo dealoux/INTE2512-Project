@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Item implements Comparable<Item> {
+    // Property for JavaFX bindings support
     protected StringProperty id = new SimpleStringProperty();
     protected StringProperty title = new SimpleStringProperty();
     protected StringProperty rentalType = new SimpleStringProperty();
@@ -28,20 +29,20 @@ public class Item implements Comparable<Item> {
     protected DoubleProperty fee = new SimpleDoubleProperty();
     protected StringProperty rentalStatus = new SimpleStringProperty();
 
-    // treat as constants
+    // treat as constants/enums
     protected static List<String> rentalTypeList = new ArrayList<>(
             Arrays.asList("Record", "DVD", "Game")
     );
 
-    private static List<String> genreList = new ArrayList<>(
+    protected static List<String> genreList = new ArrayList<>(
             Arrays.asList("","Action", "Horror", "Drama", "Comedy")
     );
 
-    private static List<String> loanTypeList = new ArrayList<>(
+    protected static List<String> loanTypeList = new ArrayList<>(
             Arrays.asList("2-day", "1-week")
     );
 
-    private static List<String> rentalStatusList = new ArrayList<>(
+    protected static List<String> rentalStatusList = new ArrayList<>(
             Arrays.asList("Available", "Not Available")
     );
 
@@ -136,7 +137,7 @@ public class Item implements Comparable<Item> {
         return stock;
     }
     public void setStock(int stock) {
-        this.stock.set(stock);
+        this.stock.set(Math.max(stock, 0));
         determineRentalStatus(); // always determine the rental status when setting new stock
     }
     public void setStock(String stock) {
@@ -157,6 +158,7 @@ public class Item implements Comparable<Item> {
         return fee;
     }
     public void setFee(double fee) {
+        fee = Math.max(fee, 0.0);
         this.fee.set(Math.round(fee * 100.0) / 100.0);
     }
     public void setFee(String fee) {
@@ -172,27 +174,46 @@ public class Item implements Comparable<Item> {
     public void setRentalStatus(String rentalStatus) {
         this.rentalStatus.set(rentalStatus);
     }
+    /**
+     * This function set the rental status based on the current stock.
+     * If the stock > 0, set status to Available.
+     * Else if the stock is <= 0, set status to Not Available.
+     * */
     public void determineRentalStatus(){
         setRentalStatus(getStock() > 0 ? rentalStatusList.get(0) : rentalStatusList.get(1));
     }
 
+    /**
+     * ["Record", "DVD", "Game"]
+     * */
     public static List<String> getRentalTypeList() {
         return rentalTypeList;
     }
 
+    /**
+     * ["","Action", "Horror", "Drama", "Comedy"]
+     * */
     public static List<String> getGenreList() {
         return genreList;
     }
 
+    /**
+     * ["2-day", "1-week"]
+     * */
     public static List<String> getLoanTypeList() {
         return loanTypeList;
     }
 
+    /**
+     * ["Available", "Not Available"]
+     * */
     public static List<String> getRentalStatusList() {
         return rentalStatusList;
     }
 
-    // returns a shallow copy of this item
+    /**
+     * This function creates and returns a shallow copy of this item
+     * */
     public Item createCopy(){
         return new Item(getId(), getTitle(), getRentalType(), getLoanType(), getStock(), getFee(), getGenre());
     }
@@ -203,6 +224,9 @@ public class Item implements Comparable<Item> {
         return getId().compareTo(item.getId());
     }
 
+    /**
+     * This function returns a string with the following format "[id] title"
+     * */
     public String print(){
         return "[" + getId() + "] " + getTitle();
     }

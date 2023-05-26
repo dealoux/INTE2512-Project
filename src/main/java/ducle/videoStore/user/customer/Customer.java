@@ -19,7 +19,9 @@ import ducle.videoStore.StoreRepository;
 import java.util.*;
 
 public class Customer extends User {
-    protected Map<String, Item> rentalMap;
+    protected Map<String, Item> rentalMap; // as customer has a map to keep track of their rental inventory
+
+    // treat as constants/enums
     protected static List<String> customerTypeList = new ArrayList<>(
             Arrays.asList("Guest", "Regular", "VIP")
     );
@@ -59,13 +61,29 @@ public class Customer extends User {
         return new ArrayList<>(rentalMap.values());
     }
 
+    /**
+     * ["Guest", "Regular", "VIP"]
+     * */
     public static List<String> getCustomerTypeList() {
         return customerTypeList;
     }
 
+    /**
+     * Shorthand function call to StoreRepository instance for searching items
+     * @param itemId item id for searching
+     * */
+    protected Item searchItem(String itemId){
+        return StoreRepository.Instance().getItemManager().searchItem(itemId);
+    }
+
+    /**
+     * This function handles the logic of renting the item with the given id.
+     * Returns a string indicating the result of the operation
+     * @param itemId id of the item to be rented
+     * */
     public String rent(String itemId){
         String result;
-        Item item = StoreRepository.getItemManager().searchItem(itemId);
+        Item item = searchItem(itemId);
 
         if(item != null){
             result = rent(item);
@@ -77,6 +95,11 @@ public class Customer extends User {
         return result;
     }
 
+    /**
+     * This function handles the logic of renting the Item instance.
+     * Returns a string indicating the result of the operation
+     * @param item reference of the item to be rented
+     * */
     public String rent(Item item){
         String result;
 
@@ -103,6 +126,11 @@ public class Customer extends User {
         return result;
     }
 
+    /**
+     * This function handles the logic of returning a copy the item with the given id.
+     * Returns a string indicating the result of the operation
+     * @param itemId id of the item to be returned
+     * */
     public String returnItem(String itemId){
         String result;
         Item item = rentalMap.get(itemId);
@@ -117,8 +145,13 @@ public class Customer extends User {
         return result;
     }
 
+    /**
+     * This function handles the logic of returning a copy the Item instance.
+     * Returns a string indicating the result of the operation
+     * @param itemRented reference of the item to be returned
+     * */
     public String returnItem(Item itemRented){
-        Item itemInStore = StoreRepository.getItemManager().searchItem(itemRented.getId());
+        Item itemInStore = searchItem(itemRented.getId());
 
         itemRented.setStock(itemRented.getStock()-1);
         itemRented.setFee(itemRented.getFee() - itemInStore.getFee());
@@ -131,6 +164,11 @@ public class Customer extends User {
         return "Returned a copy of item " + itemRented.print();
     }
 
+    /**
+     * This function handles the logic of returning all copies the item with the given id.
+     * Returns a string indicating the result of the operation
+     * @param itemId id of the item to be returned
+     * */
     public String returnItemMultiple(String itemId){
         String result;
         Item item = rentalMap.get(itemId);
@@ -145,9 +183,14 @@ public class Customer extends User {
         return result;
     }
 
+    /**
+     * This function handles the logic of returning all copies the Item instance.
+     * Returns a string indicating the result of the operation
+     * @param itemRented reference of the item to be returned
+     * */
     public String returnItemMultiple(Item itemRented){
         int count = 0;
-        Item itemInStore = StoreRepository.getItemManager().searchItem(itemRented.getId());
+        Item itemInStore = searchItem(itemRented.getId());
 
         while(itemRented.getStock() > 0){
             itemRented.setStock(itemRented.getStock()-1);
@@ -159,9 +202,13 @@ public class Customer extends User {
         return "Returned " + count + (count > 1 ? " copies" : " copy") + " of item " + itemRented.print();
     }
 
+    /**
+     * This function handles the logic of returning all items in this customer rental map.
+     * Returns a string indicating the result of the operation
+     * */
     public String returnAllItem(){
         for(Item itemRented: rentalMap.values()){
-            Item itemInStore = StoreRepository.getItemManager().searchItem(itemRented.getId());
+            Item itemInStore = searchItem(itemRented.getId());
 
             while(itemRented.getStock() > 0){
                 itemRented.setStock(itemRented.getStock()-1);

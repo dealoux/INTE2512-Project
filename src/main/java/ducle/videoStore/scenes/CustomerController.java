@@ -14,7 +14,6 @@ package ducle.videoStore.scenes;
 
 import ducle.videoStore.user.User;
 import ducle.videoStore.user.customer.Customer;
-import ducle.videoStore.StoreRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -69,7 +68,6 @@ public class CustomerController {
 
     @FXML
     protected void onLogoutCustomerView (ActionEvent event) throws IOException {
-        SceneUtilities.sceneSwitch(customerViewPane, "store-view.fxml");
-        StoreRepository.saveData();
+        SceneUtilities.logoutSave(customerViewPane);
     }
 }

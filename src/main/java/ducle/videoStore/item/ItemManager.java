@@ -37,24 +37,36 @@ public class ItemManager {
         return gameMap;
     }
 
+    /**
+     * This function returns a list of all Record instances
+     * */
     public List<Record> getRecordList(){
         List<Record> result = new ArrayList<>(recordMap.values());
         Collections.sort(result);
         return result;
     }
 
+    /**
+     * This function returns a list of all DVD instances
+     * */
     public List<DVD> getDvdList(){
         List<DVD> result = new ArrayList<>(dvdMap.values());
         Collections.sort(result);
         return result;
     }
 
+    /**
+     * This function returns a list of all Game instances
+     * */
     public List<Game> getGameList(){
         List<Game> result = new ArrayList<>(gameMap.values());
         Collections.sort(result);
         return result;
     }
 
+    /**
+     * This function returns a list of all items
+     * */
     public List<Item> getItemList(){
         List<Item> result = new ArrayList<>();
 
@@ -66,6 +78,9 @@ public class ItemManager {
         return result;
     }
 
+    /**
+     * This function returns a list of all out-of-stock items
+     * */
     public List<Item> getOOSItemList(){
         List<Item> result = new ArrayList<>();
 
@@ -91,6 +106,9 @@ public class ItemManager {
         return result;
     }
 
+    /**
+     * This function returns a list of all in-stock items
+     * */
     public List<Item> getISItemList(){
         List<Item> result = new ArrayList<>();
 
@@ -116,21 +134,41 @@ public class ItemManager {
         return result;
     }
 
+    /**
+     * This function adds the given Record instance to the map of records.
+     * Returns a string indicating the result of the operation
+     * @param item reference to the Record instance
+     * */
     public String addRecord(Record item){
         recordMap.put(item.getId(), item);
         return "Added Record " + item.getId();
     }
 
+    /**
+     * This function adds the given DVD instance to the map of DVDs.
+     * Returns a string indicating the result of the operation
+     * @param item reference to the DVD instance
+     * */
     public String addDvd(DVD item){
         dvdMap.put(item.getId(), item);
         return "Added DVD " + item.getId();
     }
 
+    /**
+     * This function adds the given Game instance to the map of games.
+     * Returns a string indicating the result of the operation
+     * @param item reference to the Game instance
+     * */
     public String addGame(Game item){
         gameMap.put(item.getId(), item);
         return "Added Game " + item.getId();
     }
 
+    /**
+     * This function adds the given Item instance to its respective map.
+     * Returns a string indicating the result of the operation
+     * @param item reference to the Item instance
+     * */
     public String addItem(Item item){
         String result = "";
 
@@ -149,6 +187,11 @@ public class ItemManager {
         return result;
     }
 
+    /**
+     * This function searches all maps to try and find the item with the given id.
+     * Returns the Item instance if found, otherwise returns null
+     * @param id id for searching
+     * */
     public Item searchItem(String id){
         Item result = recordMap.get(id);
 
@@ -163,6 +206,11 @@ public class ItemManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the record with the given id from the map of records if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the record to be removed
+     * */
     public String removeRecord(String id){
         String result;
         Record item = recordMap.remove(id);
@@ -177,6 +225,11 @@ public class ItemManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the DVD with the given id from the map of DVDs if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the dvd to be removed
+     * */
     public String removeDvd(String id){
         String result;
         DVD item = dvdMap.remove(id);
@@ -191,6 +244,11 @@ public class ItemManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the game with the given id from the map of games if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the game to be removed
+     * */
     public String removeGame(String id){
         String result;
         Game item = gameMap.remove(id);
@@ -205,6 +263,11 @@ public class ItemManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the given Item instance from its respective map if found.
+     * Returns a string indicating the result of the operation
+     * @param item reference of the item to be removed
+     * */
     public String removeItem(Item item){
         String result = "";
 
@@ -221,6 +284,11 @@ public class ItemManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the item with the given id from its respective map if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the item to be removed
+     * */
     public String removeItem(String id){
         String result;
         Item item = searchItem(id);

@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class User implements Comparable<User> {
+    // Property for JavaFX bindings support
     protected StringProperty id = new SimpleStringProperty();
     protected StringProperty name = new SimpleStringProperty();
     protected StringProperty address = new SimpleStringProperty();
@@ -28,6 +29,7 @@ public abstract class User implements Comparable<User> {
     protected StringProperty username = new SimpleStringProperty();
     protected StringProperty password = new SimpleStringProperty();
 
+    // treat as constants/enums
     protected static List<String> userTypeList = new ArrayList<>(
             Arrays.asList("Admin")
     );

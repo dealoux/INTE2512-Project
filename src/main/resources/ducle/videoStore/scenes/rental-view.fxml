@@ -24,7 +24,7 @@
       <bottom>
       </bottom>
    </BorderPane>
-   <Label fx:id="rentalOutput" prefHeight="15.0" prefWidth="1100" text="..." />
+   <Label fx:id="rentalOutput" prefHeight="15.0" prefWidth="1100" text="Welcome to Panpakapan, above is our store ware, below is your personal inventory, feel free to browse!" />
    <BorderPane fx:id="browseInventoryPane" minHeight="0.0" minWidth="0.0" prefHeight="375" prefWidth="1200">
       <top>
          <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">

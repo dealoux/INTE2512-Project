@@ -62,7 +62,7 @@ public class StoreController {
         String password = loginPassword.getText();
 
         if(!username.isEmpty() && !password.isEmpty()){
-            User user = StoreRepository.getUserManager().searchUserByUsername(username);
+            User user = StoreRepository.Instance().getUserManager().searchUserByUsername(username);
 
             if(user == null){
                 loginErrorMsg();

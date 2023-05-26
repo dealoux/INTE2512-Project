@@ -25,10 +25,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class StoreRepository {
-    private static ItemManager itemManager;
-    private static UserManager userManager;
+    private static StoreRepository instance;
+    private ItemManager itemManager;
+    private UserManager userManager;
 
-    public StoreRepository(){
+    private StoreRepository(){
         itemManager = new ItemManager();
         userManager = new UserManager();
 
@@ -41,14 +42,44 @@ public class StoreRepository {
         }
     }
 
+    /**
+     * This function returns the static instance of StoreRepository Singleton class
+     * */
+    public static StoreRepository Instance(){
+        if(instance == null){
+            instance = new StoreRepository();
+        }
+
+        return instance;
+    }
+
+    public ItemManager getItemManager() {
+        return itemManager;
+    }
+
+    public UserManager getUserManager() {
+        return userManager;
+    }
+
+    /**
+     * This function appends the path where the source inputs are at to the given file name
+     * @param fileName name of the file
+     * */
     private static String dataSourcePath(String fileName){
         return "src/main/resources/ducle/videoStore/" + fileName;
     }
 
+    /**
+     * This function appends the path where the output database files are at to the given file name
+     * @param fileName name of the file
+     * */
     private static String dataOutputPath(String fileName){
         return "src/main/resources/ducle/videoStore/output/" + fileName;
     }
 
+    /**
+     * This function reads and loads the items input/database file
+     * */
     private void initItems() throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(dataSourcePath("items.txt")));
         while (scanner.hasNextLine()){
@@ -72,11 +103,17 @@ public class StoreRepository {
         }
     }
 
+    /**
+     * This function reads and loads the admin and customers inputs/database files
+     * */
     private void initUsers() throws FileNotFoundException{
         initAdmins();
         initCustomers();
     }
 
+    /**
+     * This function reads and loads the admin input/database file
+     * */
     private void initAdmins() throws FileNotFoundException{
         Scanner scanner = new Scanner(new File(dataSourcePath("admins.txt")));
         while (scanner.hasNextLine()){
@@ -89,6 +126,9 @@ public class StoreRepository {
         }
     }
 
+    /**
+     * This function reads and loads the customers input/database file
+     * */
     private void initCustomers() throws FileNotFoundException{
         Scanner scanner = new Scanner(new File(dataSourcePath("customers.txt")));
         while (scanner.hasNextLine()){
@@ -138,12 +178,18 @@ public class StoreRepository {
         }
     }
 
-    public static void saveData(){
+    /**
+     * This function writes the memory stored items and users data to the specified output database files
+     * */
+    public void saveData(){
         saveItems();
         saveUser();
     }
 
-    public static void saveItems(){
+    /**
+     * This function writes the memory stored items data to the specified output database files
+     * */
+    public void saveItems(){
         try{
             File output = new File(dataOutputPath("items.txt"));
             output.createNewFile();
@@ -160,7 +206,10 @@ public class StoreRepository {
         }
     }
 
-    public static void saveUser(){
+    /**
+     * This function writes the memory stored users data to the specified output database files
+     * */
+    public void saveUser(){
         // customers
         try{
             File output = new File(dataOutputPath("customers.txt"));
@@ -195,13 +244,5 @@ public class StoreRepository {
             System.out.println("An error has occurred when trying save admins");
             e.printStackTrace();
         }
-    }
-
-    public static ItemManager getItemManager() {
-        return itemManager;
-    }
-
-    public static UserManager getUserManager() {
-        return userManager;
     }
 }

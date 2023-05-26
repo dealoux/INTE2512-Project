@@ -83,26 +83,51 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function adds the given Admin instance to the map of admins.
+     * Returns a string indicating the result of the operation
+     * @param admin reference to the Admin instance
+     * */
     public String addAdmin(Admin admin){
         adminMap.put(admin.getId(), admin);
         return "Added admin " + admin.getId();
     }
 
+    /**
+     * This function adds the given Regular instance to the map of regulars.
+     * Returns a string indicating the result of the operation
+     * @param customer reference to the Regular instance
+     * */
     public String addRegular(Regular customer){
         regularMap.put(customer.getId(), customer);
         return "Added regular customer " + customer.getId();
     }
 
+    /**
+     * This function adds the given VIP instance to the map of VIPs.
+     * Returns a string indicating the result of the operation
+     * @param customer reference to the VIP instance
+     * */
     public String addVip(VIP customer){
         vipMap.put(customer.getId(), customer);
         return "Added VIP customer " + customer.getId();
     }
 
+    /**
+     * This function adds the given Guest instance to the map of guests.
+     * Returns a string indicating the result of the operation
+     * @param customer reference to the Regular instance
+     * */
     public String addGuest(Guest customer){
         guestMap.put(customer.getId(), customer);
         return "Added Guest customer " + customer.getId();
     }
 
+    /**
+     * This function adds the given Customer instance to its respective map.
+     * Returns a string indicating the result of the operation
+     * @param customer reference to the customer instance
+     * */
     public String addCustomer(Customer customer){
         String result = "";
 
@@ -121,10 +146,20 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function searches the map of admins to try and find the admin with the given id.
+     * Returns the Admin instance if found, otherwise returns null
+     * @param id id for searching
+     * */
     public Admin searchAdmin(String id){
         return adminMap.get(id);
     }
 
+    /**
+     * This function searches all customers maps to try and find the customer with the given id.
+     * Returns the Customer instance if found, otherwise returns null
+     * @param id id for searching
+     * */
     public Customer searchCustomer(String id){
         Customer result = regularMap.get(id);
 
@@ -139,6 +174,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function searches all maps to try and find the user with the given id.
+     * Returns the User instance if found, otherwise returns null
+     * @param id id for searching
+     * */
     public User searchUser(String id){
         User result = searchAdmin(id);
 
@@ -149,6 +189,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function searches the map of admins to try and find the admin with the given username.
+     * Returns the Admin instance if found, otherwise returns null
+     * @param username username for searching
+     * */
     public Admin searchAdminByUsername(String username){
         Admin result = null;
 
@@ -162,6 +207,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function searches the map of regulars to try and find the regular with the given username.
+     * Returns the Regular instance if found, otherwise returns null
+     * @param username username for searching
+     * */
     public Regular searchRegularByUsername(String username){
         Regular result = null;
 
@@ -175,6 +225,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function searches the map of VIPs to try and find the VIP with the given username.
+     * Returns the VIP instance if found, otherwise returns null
+     * @param username username for searching
+     * */
     public VIP searchVipByUsername(String username){
         VIP result = null;
 
@@ -188,6 +243,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function searches the map of guests to try and find the guest with the given username.
+     * Returns the Guest instance if found, otherwise returns null
+     * @param username username for searching
+     * */
     public Guest searchGuestByUsername(String username){
         Guest result = null;
 
@@ -201,6 +261,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function searches all customers maps to try and find the customer with the given username.
+     * Returns the Customer instance if found, otherwise returns null
+     * @param username username for searching
+     * */
     public Customer searchCustomerByUsername(String username){
         Customer result = searchRegularByUsername(username);
 
@@ -215,16 +280,26 @@ public class UserManager {
         return result;
     }
 
-    public User searchUserByUsername(String id){
-        User result = searchAdminByUsername(id);
+    /**
+     * This function searches all maps to try and find the user with the given id.
+     * Returns the User instance if found, otherwise returns null
+     * @param username username for searching
+     * */
+    public User searchUserByUsername(String username){
+        User result = searchAdminByUsername(username);
 
         if(result == null){
-            result = searchCustomerByUsername(id);
+            result = searchCustomerByUsername(username);
         }
 
         return result;
     }
 
+    /**
+     * This function tries to remove the admin with the given id from the map of admins if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the admin to be removed
+     * */
     public String removeAdmin(String id){
         String result;
 
@@ -240,6 +315,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the regular with the given id from the map of regulars if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the regular to be removed
+     * */
     public String removeRegular(String id){
         String result;
         Regular customer = regularMap.remove(id);
@@ -255,6 +335,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the VIP with the given id from the map of VIPs if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the VIP to be removed
+     * */
     public String removeVip(String id){
         String result;
         VIP customer = vipMap.remove(id);
@@ -270,6 +355,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the guest with the given id from the map of guests if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the guest to be removed
+     * */
     public String removeGuest(String id){
         String result;
         Guest customer = guestMap.remove(id);
@@ -285,6 +375,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the given customer instance from its respective map if found
+     * Returns a string indicating the result of the operation
+     * @param customer reference to of the customer to be removed
+     * */
     public String removeCustomer(Customer customer){
         String result = "";
 
@@ -301,6 +396,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the customer with the given id from its respective map if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the customer to be removed
+     * */
     public String removeCustomer(String id){
         String result;
         Customer customer = searchCustomer(id);
@@ -315,6 +415,11 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function tries to remove the user with the given id from its respective map if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the user to be removed
+     * */
     public String removeUser(String id){
         String result = removeAdmin(id);
 
@@ -329,6 +434,9 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function returns a string with all admins data
+     * */
     public String printAdmins(){
         String result = "";
 
@@ -340,6 +448,9 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function returns a string with all customers data
+     * */
     public String printCustomers(){
         String result = "";
 
@@ -351,6 +462,9 @@ public class UserManager {
         return result;
     }
 
+    /**
+     * This function returns a string with all customers and admins data
+     * */
     public String toString(){
         String result = "";
 

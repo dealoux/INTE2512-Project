@@ -14,7 +14,6 @@ package ducle.videoStore.user.customer;
 
 import ducle.videoStore.item.Item;
 import java.util.Map;
-import ducle.videoStore.StoreRepository;
 
 public class Guest extends Customer {
     public Guest(){
@@ -37,7 +36,7 @@ public class Guest extends Customer {
     @Override
     public String rent(String itemId) {
         String result;
-        Item item = StoreRepository.getItemManager().searchItem(itemId);
+        Item item = searchItem(itemId);
 
         if(item != null){
             result = rent(item);
@@ -53,8 +52,8 @@ public class Guest extends Customer {
     public String rent(Item item) {
         String result;
 
-        if(item.getLoanType().equals("2-day")){
-            result = ("A guest customer can not borrow 2-day items, please choose a one-week item, thank you!");
+        if(item.getLoanType().equals(Item.getLoanTypeList().get(0))){
+            result = ("A guest customer can not borrow " + Item.getLoanTypeList().get(0) + " items, please choose a " + Item.getLoanTypeList().get(1) + " item, thank you!");
         }
         else{
             if(rentalMap.size() < 2){

@@ -13,7 +13,6 @@
 package ducle.videoStore.scenes;
 
 import ducle.videoStore.user.User;
-import ducle.videoStore.StoreRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +32,7 @@ public class AdminController {
         SceneUtilities.addTab(adminTabPane,"manageItem-view.fxml", "Manage Items");
         SceneUtilities.addTab(adminTabPane,"manageCustomer-view.fxml", "Manage Customers");
 
+        // manually add to get the controller
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(SceneUtilities.class.getResource("userProfile-view.fxml"));
@@ -41,7 +41,7 @@ public class AdminController {
             BorderPane profilePane = new BorderPane();
             profilePane.setTop(fxmlLoader.load());
             newTab.setContent(profilePane);
-            userProfileController = fxmlLoader.getController();
+            userProfileController = fxmlLoader.getController(); // get the controller
 
             adminTabPane.getTabs().add(newTab);
         } catch (IOException e ){
@@ -50,13 +50,12 @@ public class AdminController {
     }
 
     public void setUser(User user){
-        userProfileController.setUser(user);
+        userProfileController.setUser(user); // bind the current user to the profile
         userProfileController.disableTypeSelection();
     }
 
     @FXML
     protected void onLogoutAdminView (ActionEvent event) throws IOException {
-        SceneUtilities.sceneSwitch(adminViewPane, "store-view.fxml");
-        StoreRepository.saveData();
+        SceneUtilities.logoutSave(adminViewPane);
     }
 }
