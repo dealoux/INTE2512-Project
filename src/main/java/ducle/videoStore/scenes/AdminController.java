@@ -49,6 +49,10 @@ public class AdminController {
         }
     }
 
+    /**
+     * This function stores a reference to the current user
+     * @param user the user to be kept track
+     * */
     public void setUser(User user){
         userProfileController.setUser(user); // bind the current user to the profile
         userProfileController.disableTypeSelection();

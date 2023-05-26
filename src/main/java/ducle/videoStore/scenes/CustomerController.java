@@ -60,6 +60,10 @@ public class CustomerController {
         }
     }
 
+    /**
+     * This function stores a reference to the current user
+     * @param user the user to be kept track
+     * */
     public void setUser(User user){
         userProfileController.setUser(user);
         userProfileController.disableTypeSelection();
