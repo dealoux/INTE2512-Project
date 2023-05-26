@@ -91,6 +91,7 @@ public class ManageItemController {
 
             if(buttonHandler.get() == ButtonType.OK){
                 items.add(item);
+                item.determineRentalStatus();
                 manageItemOutput.setText(StoreRepository.getItemManager().addItem(item));
             }
         } catch (IOException e ){
@@ -113,9 +114,10 @@ public class ManageItemController {
             dialog.setDialogPane(itemEditorPane);
             dialog.setTitle("Update Item");
 
-            manageItemOutput.setText("Updated " + item.getRentalType() + " " + item.getId());
-
             dialog.showAndWait();
+
+            item.determineRentalStatus();
+            manageItemOutput.setText("Updated " + item.getRentalType() + " " + item.getId());
         } catch (IOException e ){
             System.out.println(e);
         }

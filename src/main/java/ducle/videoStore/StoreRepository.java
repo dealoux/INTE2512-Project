@@ -148,7 +148,9 @@ public class StoreRepository {
             File output = new File(dataOutputPath("items.txt"));
             output.createNewFile();
             FileWriter writer = new FileWriter(output.getPath());
-            String data = itemManager.toString();
+            String data = "# an item record has the following format\n" +
+                    "#ID,Title,Rent type,Loan type,Number of copies,rental fee,[genre] if it is a video record or a DVD\n";
+            data += itemManager.toString();
             writer.write(data);
             writer.close();
             System.out.println("Saved items data to " + output.getPath());
@@ -164,7 +166,10 @@ public class StoreRepository {
             File output = new File(dataOutputPath("customers.txt"));
             output.createNewFile();
             FileWriter writer = new FileWriter(output.getPath());
-            String data = userManager.printCustomers();
+            String data = "# a customer record has the following format\n" +
+                    "#ID,Name,Address,Phone,Number of rentals,customer type, username, password followed by a list of items with the following format\n" +
+                    "#ID,Quantity,Total Fee\n";
+            data += userManager.printCustomers();
             writer.write(data);
             writer.close();
             System.out.println("Saved customers data to " + output.getPath());
@@ -178,7 +183,11 @@ public class StoreRepository {
             File output = new File(dataOutputPath("admins.txt"));
             output.createNewFile();
             FileWriter writer = new FileWriter(output.getPath());
-            String data = userManager.printAdmins();
+            String data = "# an admin has the following format\n" +
+                    "# ID,Name,Address,Phone, username, password\n" +
+                    "# ID starts with A\n" +
+                    "# admin accounts can not be added when the program is running so feel free to add more here\n";
+            data += userManager.printAdmins();
             writer.write(data);
             writer.close();
             System.out.println("Saved admins data to " + output.getPath());

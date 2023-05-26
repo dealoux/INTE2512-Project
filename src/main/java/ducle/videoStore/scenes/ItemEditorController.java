@@ -49,6 +49,7 @@ public class ItemEditorController {
         itemGenreEditor.setItems(FXCollections.observableArrayList(Item.getGenreList()));
         itemLoanTypeEditor.setItems(FXCollections.observableArrayList(Item.getLoanTypeList()));
         itemRentalStatusEditor.setItems(FXCollections.observableArrayList(Item.getRentalStatusList()));
+        itemRentalStatusEditor.setDisable(true);
     }
 
     public void setItem(Item item){
