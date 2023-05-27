@@ -15,6 +15,8 @@ package ducle.videoStore.user.customer;
 import ducle.videoStore.item.Item;
 import ducle.videoStore.user.User;
 import ducle.videoStore.StoreRepository;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.util.*;
 
@@ -218,6 +220,19 @@ public class Customer extends User {
 
         rentalMap.clear();
         return "Returned all item";
+    }
+
+    /**
+     * This function returns a StringProperty of every item id in the rental map, each on a single line
+     * */
+    public String printRentalList(){
+        String result = "";
+
+        for(String itemId : rentalMap.keySet()){
+            result += itemId + "\n";
+        }
+
+        return result;
     }
 
     @Override

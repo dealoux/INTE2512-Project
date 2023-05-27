@@ -12,7 +12,6 @@
 
 package ducle.videoStore.user.customer;
 
-import ducle.videoStore.StoreRepository;
 import ducle.videoStore.item.Item;
 import java.util.Map;
 

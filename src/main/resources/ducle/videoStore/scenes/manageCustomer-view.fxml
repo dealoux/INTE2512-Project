@@ -24,13 +24,14 @@
       <center>
           <TableView fx:id="cusTableAdmin" prefHeight="655.0" prefWidth="1200.0">
               <columns>
-                  <TableColumn fx:id="cusIdAdmin" prefWidth="100.0" text="ID" />
-                  <TableColumn fx:id="cusNameAdmin" prefWidth="280.0" text="Name" />
-                  <TableColumn fx:id="cusAddressAdmin" prefWidth="290.0" text="Address" />
-                  <TableColumn fx:id="cusPhoneAdmin" prefWidth="150.0" text="Phone" />
-                  <TableColumn fx:id="cusTypeAdmin" prefWidth="70.0" text="Type" />
-                  <TableColumn fx:id="cusUsernameAdmin" prefWidth="150.0" text="Username" />
-                  <TableColumn fx:id="cusPasswordAdmin" prefWidth="150.0" text="Password" />
+                  <TableColumn fx:id="customerId" prefWidth="100.0" text="ID" />
+                  <TableColumn fx:id="customerName" prefWidth="250.0" text="Name" />
+                  <TableColumn fx:id="customerAddress" prefWidth="250.0" text="Address" />
+                  <TableColumn fx:id="customerPhone" prefWidth="100.0" text="Phone" />
+                  <TableColumn fx:id="customerType" prefWidth="100.0" text="Type" />
+                  <TableColumn fx:id="customerRentalList" prefWidth="100" text="Rental List" />
+                  <TableColumn fx:id="customerUsername" prefWidth="150.0" text="Username" />
+                  <TableColumn fx:id="customerPassword" prefWidth="150.0" text="Password" />
               </columns>
           </TableView>
       </center>

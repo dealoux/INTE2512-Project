@@ -21,6 +21,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -29,6 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class StoreController {
     @FXML
@@ -107,7 +109,14 @@ public class StoreController {
     }
 
     @FXML
-    protected void onLoginQuitButton(ActionEvent event){
-        Platform.exit();
+    protected void onExitButton(ActionEvent event){
+        Optional<ButtonType> confirmation = SceneUtilities.confirmationDialog(
+                "Confirm exit",
+                "Are you sure you would like to close the program?",
+                "");
+
+        if(confirmation.get() == ButtonType.OK){
+            Platform.exit();
+        }
     }
 }

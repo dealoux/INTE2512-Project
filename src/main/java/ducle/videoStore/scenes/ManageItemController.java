@@ -127,8 +127,8 @@ public class ManageItemController {
     protected void onItemDeleteButton(ActionEvent event){
         Optional<ButtonType> confirmation = SceneUtilities.confirmationDialog(
                 "Confirm delete",
-                "Delete confirmation",
-                "Are you sure you would like to delete the selected item?");
+                "Are you sure you would like to delete the selected item?",
+                "");
 
         if(confirmation.get() == ButtonType.OK){
             Item item = itemTableAdmin.getSelectionModel().getSelectedItem();

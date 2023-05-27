@@ -10,8 +10,8 @@
     <TableColumn fx:id="itemRentalTypeStore" prefWidth="100.0" text="Rental Type" />
     <TableColumn fx:id="itemGenreStore" prefWidth="100.0" text="Genre" />
     <TableColumn fx:id="itemLoanTypeStore" prefWidth="100.0" text="Loan Type" />
-    <TableColumn fx:id="itemStockStore" prefWidth="60.0" text="Stock" />
-    <TableColumn fx:id="itemFeeStore" prefWidth="65.0" text="Fee" />
-    <TableColumn fx:id="itemStatusStore" prefWidth="100.0" text="Status" />
+    <TableColumn fx:id="itemStockStore" prefWidth="50.0" text="Stock" />
+    <TableColumn fx:id="itemFeeStore" prefWidth="70.0" text="Fee" />
+    <TableColumn fx:id="itemStatusStore" prefWidth="120.0" text="Status" />
   </columns>
 </TableView>

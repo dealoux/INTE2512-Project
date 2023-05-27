@@ -19,6 +19,7 @@ import ducle.videoStore.user.customer.Regular;
 import ducle.videoStore.user.customer.VIP;
 import ducle.videoStore.StoreRepository;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -41,19 +42,21 @@ public class ManageCustomerController {
     @FXML
     private Label manageCusOutput;
     @FXML
-    private TableColumn<Item, String> cusIdAdmin;
+    private TableColumn<Customer, String> customerId;
     @FXML
-    private TableColumn<Item, String> cusNameAdmin;
+    private TableColumn<Customer, String> customerName;
     @FXML
-    private TableColumn<Item, String> cusAddressAdmin;
+    private TableColumn<Customer, String> customerAddress;
     @FXML
-    private TableColumn<Item, String> cusPhoneAdmin;
+    private TableColumn<Customer, String> customerPhone;
     @FXML
-    private TableColumn<Item, String> cusTypeAdmin;
+    private TableColumn<Customer, String> customerType;
     @FXML
-    private TableColumn<Item, String> cusUsernameAdmin;
+    private TableColumn<Customer, String> customerRentalList;
     @FXML
-    private TableColumn<Item, String> cusPasswordAdmin;
+    private TableColumn<Customer, String> customerUsername;
+    @FXML
+    private TableColumn<Customer, String> customerPassword;
     @FXML
     private TextField cusSearch;
     @FXML
@@ -67,13 +70,14 @@ public class ManageCustomerController {
 
     public void initialize(){
         // link the table cols to the items attributes
-        cusIdAdmin.setCellValueFactory(new PropertyValueFactory<>("id"));
-        cusNameAdmin.setCellValueFactory(new PropertyValueFactory<>("name"));
-        cusAddressAdmin.setCellValueFactory(new PropertyValueFactory<>("address"));
-        cusPhoneAdmin.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        cusTypeAdmin.setCellValueFactory(new PropertyValueFactory<>("type"));
-        cusUsernameAdmin.setCellValueFactory(new PropertyValueFactory<>("username"));
-        cusPasswordAdmin.setCellValueFactory(new PropertyValueFactory<>("password"));
+        customerId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        customerName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        customerAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        customerPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        customerType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        customerRentalList.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().printRentalList()));
+        customerUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+        customerPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
 
         customers = FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getCustomerList());
         customerFilter(customers);
@@ -211,7 +215,7 @@ public class ManageCustomerController {
         Optional<ButtonType> confirmation = SceneUtilities.confirmationDialog(
                 "Confirm delete",
                 "Are you sure you would like to delete the selected customer?",
-                "Any items in the user inventory will be returned to the store\n");
+                "Any rented items in their inventory will be returned to the store\n");
 
         if(confirmation.get() == ButtonType.OK){
             Customer customer = cusTableAdmin.getSelectionModel().getSelectedItem();
