@@ -57,15 +57,15 @@ public class ManageCustomerController {
     @FXML
     private TableColumn<Customer, String> customerPassword;
     @FXML
-    private TextField cusSearch;
+    private TextField customerSearch;
     @FXML
-    private Button cusAddButton;
+    private Button customerAddButton;
     @FXML
-    private Button cusUpdateButton;
+    private Button customerUpdateButton;
     @FXML
-    private Button cusDeleteButton;
+    private Button customerDeleteButton;
     @FXML
-    private ComboBox<String> cusDisplayComboBox;
+    private ComboBox<String> customerDisplayComboBox;
 
     public void initialize(){
         // link the table cols to the items attributes
@@ -84,12 +84,12 @@ public class ManageCustomerController {
         List<String> displayComboList = new ArrayList<>();
         displayComboList.add("All");
         displayComboList.addAll(Customer.getCustomerTypeList());
-        cusDisplayComboBox.setItems(FXCollections.observableArrayList(displayComboList));
-        cusDisplayComboBox.setValue("All");
+        customerDisplayComboBox.setItems(FXCollections.observableArrayList(displayComboList));
+        customerDisplayComboBox.setValue("All");
 
         // Disable the delete button if nothing is selected
-        cusDeleteButton.disableProperty().bind(Bindings.isNull(cusTableAdmin.getSelectionModel().selectedItemProperty()));
-        cusUpdateButton.disableProperty().bind(Bindings.isNull(cusTableAdmin.getSelectionModel().selectedItemProperty()));
+        customerDeleteButton.disableProperty().bind(Bindings.isNull(cusTableAdmin.getSelectionModel().selectedItemProperty()));
+        customerUpdateButton.disableProperty().bind(Bindings.isNull(cusTableAdmin.getSelectionModel().selectedItemProperty()));
     }
 
     /**
@@ -99,7 +99,7 @@ public class ManageCustomerController {
      * */
     private void customerFilter(ObservableList<Customer> customers){
         FilteredList<Customer> filteredCustomers = new FilteredList<>(customers, b -> true);
-        cusSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+        customerSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredCustomers.setPredicate(item -> {
                 // No search keywords
                 if(newValue.isBlank()){
@@ -224,10 +224,10 @@ public class ManageCustomerController {
     }
 
     @FXML
-    protected void onCusDisplayComboBox(ActionEvent event){
+    protected void onCustomerDisplayComboBox(ActionEvent event){
         String result = "Displayed all ";
 
-        switch (cusDisplayComboBox.getSelectionModel().getSelectedItem()){
+        switch (customerDisplayComboBox.getSelectionModel().getSelectedItem()){
             case "All":
                 customerFilter(customers);
                 result += "customers";

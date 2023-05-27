@@ -8,16 +8,16 @@
           <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
                   <Label text="Search" />
-                  <TextField fx:id="cusSearch" prefHeight="25.0" prefWidth="224.0" promptText="Keywords..." />
+                  <TextField fx:id="customerSearch" prefHeight="25.0" prefWidth="224.0" promptText="Keywords..." />
                   <Separator layoutX="52.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
-                  <Button fx:id="cusAddButton" mnemonicParsing="false" onAction="#onCusAddButton" text="Add" />
+                  <Button fx:id="customerAddButton" mnemonicParsing="false" onAction="#onCusAddButton" text="Add" />
                   <Separator orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
-                  <Button fx:id="cusUpdateButton" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onCusUpdateButton" text="Update" />
+                  <Button fx:id="customerUpdateButton" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onCusUpdateButton" text="Update" />
                   <Separator layoutX="52.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
-                  <Button fx:id="cusDeleteButton" layoutX="52.0" layoutY="13.0" mnemonicParsing="false" onAction="#onCusDeleteButton" text="Delete" />
+                  <Button fx:id="customerDeleteButton" layoutX="52.0" layoutY="13.0" mnemonicParsing="false" onAction="#onCusDeleteButton" text="Delete" />
                   <Separator layoutX="121.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
                   <Label text="Display" />
-                  <ComboBox fx:id="cusDisplayComboBox" onAction="#onCusDisplayComboBox" prefWidth="150.0" />
+                  <ComboBox fx:id="customerDisplayComboBox" onAction="#onCustomerDisplayComboBox" prefWidth="150.0" />
               </items>
           </ToolBar>
       </top>
