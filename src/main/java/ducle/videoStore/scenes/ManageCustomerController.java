@@ -12,7 +12,6 @@
 
 package ducle.videoStore.scenes;
 
-import ducle.videoStore.item.Item;
 import ducle.videoStore.user.customer.Customer;
 import ducle.videoStore.user.customer.Guest;
 import ducle.videoStore.user.customer.Regular;
