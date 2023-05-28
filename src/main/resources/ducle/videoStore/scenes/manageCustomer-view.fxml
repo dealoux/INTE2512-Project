@@ -17,12 +17,12 @@
                   <Button fx:id="customerDeleteButton" layoutX="52.0" layoutY="13.0" mnemonicParsing="false" onAction="#onCusDeleteButton" text="Delete" />
                   <Separator layoutX="121.0" layoutY="10.0" orientation="VERTICAL" prefHeight="10.0" prefWidth="0.0" />
                   <Label text="Display" />
-                  <ComboBox fx:id="customerDisplayComboBox" onAction="#onCustomerDisplayComboBox" prefWidth="150.0" />
+                  <ComboBox fx:id="customerDisplayComboBox" onAction="#onCusDisplayComboBox" prefWidth="150.0" />
               </items>
           </ToolBar>
       </top>
       <center>
-          <TableView fx:id="cusTableAdmin" prefHeight="655.0" prefWidth="1200.0">
+          <TableView fx:id="customerTable" prefHeight="655.0" prefWidth="1200.0">
               <columns>
                   <TableColumn fx:id="customerId" prefWidth="100.0" text="ID" />
                   <TableColumn fx:id="customerName" prefWidth="250.0" text="Name" />
@@ -38,7 +38,7 @@
       <bottom>
           <HBox prefHeight="20.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
               <children>
-                  <Label fx:id="manageCusOutput" prefHeight="15.0" prefWidth="1100" text="..." />
+                  <Label fx:id="manageCustomerOutput" prefHeight="15.0" prefWidth="1100" text="..." />
               </children>
           </HBox>
       </bottom>

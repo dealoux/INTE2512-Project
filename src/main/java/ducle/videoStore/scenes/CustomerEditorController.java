@@ -23,9 +23,9 @@ import java.util.Optional;
 public class CustomerEditorController {
     @FXML
     private DialogPane customerEditorPane;
-    private UserProfileController userProfileController;
     @FXML
     private Label customerEditorOutputLabel;
+    private UserProfileController userProfileController;
     private Customer customer;
 
     @FXML

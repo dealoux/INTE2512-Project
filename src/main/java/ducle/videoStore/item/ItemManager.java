@@ -135,6 +135,25 @@ public class ItemManager {
     }
 
     /**
+     * This function searches all maps to try and find the item with the given id.
+     * Returns the Item instance if found, otherwise returns null
+     * @param id id for searching
+     * */
+    public Item searchItem(String id){
+        Item result = recordMap.get(id);
+
+        if(result == null){
+            result = dvdMap.get(id);
+        }
+
+        if(result == null){
+            result = gameMap.get(id);
+        }
+
+        return result;
+    }
+
+    /**
      * This function adds the given Record instance to the map of records.
      * Returns a string indicating the result of the operation
      * @param item reference to the Record instance
@@ -182,25 +201,6 @@ public class ItemManager {
             case "Game":
                 result = addGame(new Game(item.getId(), item.getTitle(), item.getLoanType(), item.getStock(), item.getFee()));
                 break;
-        }
-
-        return result;
-    }
-
-    /**
-     * This function searches all maps to try and find the item with the given id.
-     * Returns the Item instance if found, otherwise returns null
-     * @param id id for searching
-     * */
-    public Item searchItem(String id){
-        Item result = recordMap.get(id);
-
-        if(result == null){
-            result = dvdMap.get(id);
-        }
-
-        if(result == null){
-            result = gameMap.get(id);
         }
 
         return result;

@@ -36,10 +36,10 @@ import java.util.Optional;
 
 public class ManageCustomerController {
     @FXML
-    private TableView<Customer> cusTableAdmin;
+    private TableView<Customer> customerTable;
     private ObservableList<Customer> customers;
     @FXML
-    private Label manageCusOutput;
+    private Label manageCustomerOutput;
     @FXML
     private TableColumn<Customer, String> customerId;
     @FXML
@@ -87,8 +87,8 @@ public class ManageCustomerController {
         customerDisplayComboBox.setValue(displayComboList.get(0));
 
         // Disable the delete button if nothing is selected
-        customerDeleteButton.disableProperty().bind(Bindings.isNull(cusTableAdmin.getSelectionModel().selectedItemProperty()));
-        customerUpdateButton.disableProperty().bind(Bindings.isNull(cusTableAdmin.getSelectionModel().selectedItemProperty()));
+        customerDeleteButton.disableProperty().bind(Bindings.isNull(customerTable.getSelectionModel().selectedItemProperty()));
+        customerUpdateButton.disableProperty().bind(Bindings.isNull(customerTable.getSelectionModel().selectedItemProperty()));
     }
 
     /**
@@ -139,8 +139,8 @@ public class ManageCustomerController {
         });
 
         SortedList<Customer> sortedCustomers = new SortedList<>(filteredCustomers);
-        sortedCustomers.comparatorProperty().bind(cusTableAdmin.comparatorProperty());
-        cusTableAdmin.setItems(sortedCustomers);
+        sortedCustomers.comparatorProperty().bind(customerTable.comparatorProperty());
+        customerTable.setItems(sortedCustomers);
     }
 
     @FXML
@@ -163,7 +163,7 @@ public class ManageCustomerController {
 
             if(buttonHandler.get() == ButtonType.OK){
                 customers.add(customer);
-                manageCusOutput.setText(StoreRepository.Instance().getUserManager().addCustomer(customer));
+                manageCustomerOutput.setText(StoreRepository.Instance().getUserManager().addCustomer(customer));
             }
         } catch (IOException e ){
             System.out.println(e);
@@ -171,7 +171,7 @@ public class ManageCustomerController {
     }
     @FXML
     protected void onCusUpdateButton(ActionEvent event){
-        Customer customer = cusTableAdmin.getSelectionModel().getSelectedItem();
+        Customer customer = customerTable.getSelectionModel().getSelectedItem();
 
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -207,7 +207,7 @@ public class ManageCustomerController {
                     StoreRepository.Instance().getUserManager().removeCustomer(customer, true); // remove old instance
                 }
 
-                manageCusOutput.setText("Updated " + customer.getType() + " customer " + customer.getId());
+                manageCustomerOutput.setText("Updated " + customer.getType() + " customer " + customer.getId());
             }
             else{
                 StoreRepository.Instance().getUserManager().addCustomer(oldCopy);
@@ -227,14 +227,14 @@ public class ManageCustomerController {
                 "Any rented items in their inventory will be returned to the store\n");
 
         if(confirmation.get() == ButtonType.OK){
-            Customer customer = cusTableAdmin.getSelectionModel().getSelectedItem();
+            Customer customer = customerTable.getSelectionModel().getSelectedItem();
             customers.remove(customer);
-            manageCusOutput.setText(StoreRepository.Instance().getUserManager().removeCustomer(customer));
+            manageCustomerOutput.setText(StoreRepository.Instance().getUserManager().removeCustomer(customer));
         }
     }
 
     @FXML
-    protected void onCustomerDisplayComboBox(ActionEvent event){
+    protected void onCusDisplayComboBox(ActionEvent event){
         String result = "Displayed all ";
 
         switch (customerDisplayComboBox.getSelectionModel().getSelectedItem()){
@@ -256,7 +256,7 @@ public class ManageCustomerController {
                 break;
         }
 
-        manageCusOutput.setText(result);
+        manageCustomerOutput.setText(result);
     }
 
     private void refreshCustomerTable(){

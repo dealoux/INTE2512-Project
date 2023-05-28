@@ -84,69 +84,6 @@ public class UserManager {
     }
 
     /**
-     * This function adds the given Admin instance to the map of admins.
-     * Returns a string indicating the result of the operation
-     * @param admin reference to the Admin instance
-     * */
-    public String addAdmin(Admin admin){
-        adminMap.put(admin.getId(), admin);
-        return "Added admin " + admin.getId();
-    }
-
-    /**
-     * This function adds the given Regular instance to the map of regulars.
-     * Returns a string indicating the result of the operation
-     * @param customer reference to the Regular instance
-     * */
-    public String addRegular(Regular customer){
-        regularMap.put(customer.getId(), customer);
-        return "Added regular customer " + customer.getId();
-    }
-
-    /**
-     * This function adds the given VIP instance to the map of VIPs.
-     * Returns a string indicating the result of the operation
-     * @param customer reference to the VIP instance
-     * */
-    public String addVip(VIP customer){
-        vipMap.put(customer.getId(), customer);
-        return "Added VIP customer " + customer.getId();
-    }
-
-    /**
-     * This function adds the given Guest instance to the map of guests.
-     * Returns a string indicating the result of the operation
-     * @param customer reference to the Regular instance
-     * */
-    public String addGuest(Guest customer){
-        guestMap.put(customer.getId(), customer);
-        return "Added Guest customer " + customer.getId();
-    }
-
-    /**
-     * This function adds the given Customer instance to its respective map.
-     * Returns a string indicating the result of the operation
-     * @param customer reference to the customer instance
-     * */
-    public String addCustomer(Customer customer){
-        String result = "";
-
-        switch (customer.getType()){
-            case "Regular":
-                result = addRegular(new Regular(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
-                break;
-            case "VIP":
-                result = addVip(new VIP(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
-                break;
-            case "Guest":
-                result = addGuest(new Guest(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
-                break;
-        }
-
-        return result;
-    }
-
-    /**
      * This function searches the map of admins to try and find the admin with the given id.
      * Returns the Admin instance if found, otherwise returns null
      * @param id id for searching
@@ -290,6 +227,69 @@ public class UserManager {
 
         if(result == null){
             result = searchCustomerByUsername(username);
+        }
+
+        return result;
+    }
+
+    /**
+     * This function adds the given Admin instance to the map of admins.
+     * Returns a string indicating the result of the operation
+     * @param admin reference to the Admin instance
+     * */
+    public String addAdmin(Admin admin){
+        adminMap.put(admin.getId(), admin);
+        return "Added admin " + admin.getId();
+    }
+
+    /**
+     * This function adds the given Regular instance to the map of regulars.
+     * Returns a string indicating the result of the operation
+     * @param customer reference to the Regular instance
+     * */
+    public String addRegular(Regular customer){
+        regularMap.put(customer.getId(), customer);
+        return "Added regular customer " + customer.getId();
+    }
+
+    /**
+     * This function adds the given VIP instance to the map of VIPs.
+     * Returns a string indicating the result of the operation
+     * @param customer reference to the VIP instance
+     * */
+    public String addVip(VIP customer){
+        vipMap.put(customer.getId(), customer);
+        return "Added VIP customer " + customer.getId();
+    }
+
+    /**
+     * This function adds the given Guest instance to the map of guests.
+     * Returns a string indicating the result of the operation
+     * @param customer reference to the Regular instance
+     * */
+    public String addGuest(Guest customer){
+        guestMap.put(customer.getId(), customer);
+        return "Added Guest customer " + customer.getId();
+    }
+
+    /**
+     * This function adds the given Customer instance to its respective map.
+     * Returns a string indicating the result of the operation
+     * @param customer reference to the customer instance
+     * */
+    public String addCustomer(Customer customer){
+        String result = "";
+
+        switch (customer.getType()){
+            case "Regular":
+                result = addRegular(new Regular(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                break;
+            case "VIP":
+                result = addVip(new VIP(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                break;
+            case "Guest":
+                result = addGuest(new Guest(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                break;
         }
 
         return result;
