@@ -148,6 +148,14 @@ public class SceneUtilities {
         return alert.showAndWait();
     }
 
+    public static Optional<ButtonType> warningDialog(String title, String header, String context){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(context);
+        return alert.showAndWait();
+    }
+
     /**
      * This function prompts the user for the confirmation of logging out.
      * If the user confirmed, switches to the store-view pane and saves all changes to the database

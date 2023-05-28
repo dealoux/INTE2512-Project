@@ -67,6 +67,7 @@ public class CustomerController {
     public void setUser(User user){
         userProfileController.setUser(user);
         userProfileController.disableTypeSelection();
+        userProfileController.disableIDEditor();
         rentalController.setCustomer((Customer) user);
     }
 

@@ -68,6 +68,10 @@ public class Customer extends User {
         return customerTypeList;
     }
 
+    public boolean validId(String str){
+        return str.matches("C\\d{3}");
+    }
+
     /**
      * Shorthand function call to StoreRepository instance for searching items
      * @param itemId item id for searching

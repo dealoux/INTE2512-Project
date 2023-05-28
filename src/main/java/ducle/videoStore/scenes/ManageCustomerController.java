@@ -149,11 +149,11 @@ public class ManageCustomerController {
 
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("userEditor-view.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("customerEditor-view.fxml"));
             DialogPane userEditorPane = fxmlLoader.load();
-            UserEditorController userEditorController = fxmlLoader.getController();
+            CustomerEditorController userEditorController = fxmlLoader.getController();
 
-            userEditorController.setUser(customer);
+            userEditorController.setCustomer(customer);
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(userEditorPane);
@@ -175,11 +175,11 @@ public class ManageCustomerController {
 
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("userEditor-view.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("customerEditor-view.fxml"));
             DialogPane userEditorPane = fxmlLoader.load();
-            UserEditorController userEditorController = fxmlLoader.getController();
+            CustomerEditorController userEditorController = fxmlLoader.getController();
 
-            userEditorController.setUser(customer);
+            userEditorController.setCustomer(customer);
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(userEditorPane);

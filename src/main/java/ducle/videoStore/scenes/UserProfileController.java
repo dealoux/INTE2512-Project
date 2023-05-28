@@ -65,4 +65,8 @@ public class UserProfileController {
     public void disableTypeSelection(){
         userTypeProfile.setDisable(true);
     }
+
+    public void disableIDEditor(){
+        userIdProfile.setDisable(true);
+    }
 }

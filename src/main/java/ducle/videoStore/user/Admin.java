@@ -21,4 +21,8 @@ public class Admin extends User {
     public Admin(String id, String name, String address, String phone, String username, String password) {
         super(id, name, address, phone, "Admin", username, password);
     }
+
+    public boolean validId(String str){
+        return str.matches("A\\d{3}");
+    }
 }

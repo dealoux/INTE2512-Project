@@ -56,6 +56,7 @@ public class AdminController {
     public void setUser(User user){
         userProfileController.setUser(user); // bind the current user to the profile
         userProfileController.disableTypeSelection();
+        userProfileController.disableIDEditor();
     }
 
     @FXML

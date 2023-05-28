@@ -89,8 +89,8 @@ public class ManageItemController {
             Optional<ButtonType> buttonHandler = dialog.showAndWait();
 
             if(buttonHandler.get() == ButtonType.OK){
+                item.validate();
                 items.add(item);
-                item.determineRentalStatus();
                 manageItemOutput.setText(StoreRepository.Instance().getItemManager().addItem(item));
             }
         } catch (IOException e ){
@@ -117,7 +117,7 @@ public class ManageItemController {
             Optional<ButtonType> buttonHandler = dialog.showAndWait();
 
             if(buttonHandler.get() == ButtonType.OK){
-                item.determineRentalStatus();
+                item.validate();
                 manageItemOutput.setText("Updated " + item.getRentalType() + " " + item.getId());
             }
             else{

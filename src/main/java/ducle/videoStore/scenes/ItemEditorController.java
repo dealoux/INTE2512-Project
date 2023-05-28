@@ -14,10 +14,12 @@ package ducle.videoStore.scenes;
 
 import ducle.videoStore.item.Item;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.text.NumberFormat;
+import java.util.Optional;
 
 public class ItemEditorController {
     @FXML
@@ -93,5 +95,18 @@ public class ItemEditorController {
         itemStockEditor.textProperty().bindBidirectional(item.stockProperty(), (NumberFormat.getCompactNumberInstance()));
         itemFeeEditor.textProperty().bindBidirectional(item.feeProperty(), NumberFormat.getNumberInstance());
         itemRentalStatusEditor.valueProperty().bindBidirectional(item.rentalStatusProperty());
+
+        Button okButton = (Button)itemEditorPane.lookupButton(ButtonType.OK);
+        okButton.addEventFilter(ActionEvent.ACTION, event -> {
+            if(!item.validId(item.getId())){
+                event.consume();
+                itemEditorOutputLabel.setText("Invalid ID input");
+
+                Optional<ButtonType> warning = SceneUtilities.warningDialog(
+                        "Warning",
+                        "Invalid ID input",
+                        "Please provide a correct ID with the following format Ixxx-xxxx");
+            }
+        });
     }
 }

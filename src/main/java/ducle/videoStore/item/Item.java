@@ -85,19 +85,13 @@ public class Item implements Comparable<Item> {
         return id;
     }
     public void setId(String id) {
-        this.id.set(validateId(id));
+        this.id.set(id);
     }
     public void setId(String code, String year) {
         this.id.set("I" + code + "_" + "year");
     }
     public boolean validId(String str){
-        return str.startsWith("I");
-    }
-    public String validateId(String str){
-        if(!validId(str)){
-            return "I"+str;
-        }
-        return str;
+        return str.matches("I\\d{3}\\-\\d{4}");
     }
 
     public String getTitle() {
@@ -259,6 +253,15 @@ public class Item implements Comparable<Item> {
     public double validateFee(double fee){
         fee = Math.max(fee, 0.0);
         return Math.round(fee * 100.0) / 100.0; // round to 2 decimal place
+    }
+
+    /**
+     * This function check and format properties of this item instance.
+     * */
+    public void validate(){
+        setStock(getStock());
+        setFee(getFee());
+        determineRentalStatus();
     }
 
     public String getRentalStatus() {
