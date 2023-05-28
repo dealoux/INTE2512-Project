@@ -49,6 +49,7 @@ public class ItemEditorController {
         itemRentalStatusEditor.setItems(FXCollections.observableArrayList(Item.getRentalStatusList()));
         itemRentalStatusEditor.setDisable(true);
 
+        // stock and fee text fields input validations
         itemStockEditor.setTextFormatter(new TextFormatter<>(change -> {
             if (!change.isContentChange()) {
                 return change;
