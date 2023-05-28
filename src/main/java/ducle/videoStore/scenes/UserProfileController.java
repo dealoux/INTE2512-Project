@@ -37,12 +37,15 @@ public class UserProfileController {
     private TextField userUsernameProfile;
     @FXML
     private PasswordField userPasswordProfile;
+    private User user; // reference to the current user
 
     /**
      * This function binds the given user attributes as the default values
      * @param user the user whose attributes be bind
      * */
     public void setUser(User user){
+        this.user = user;
+
         if(user instanceof Admin){
             userTypeProfile.setItems(FXCollections.observableArrayList(User.getUserTypeList()));
         }

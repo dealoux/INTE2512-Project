@@ -15,10 +15,7 @@ package ducle.videoStore.scenes;
 import ducle.videoStore.item.Item;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.text.NumberFormat;
 
@@ -43,6 +40,7 @@ public class ItemEditorController {
     private TextField itemFeeEditor;
     @FXML
     private ComboBox<String> itemRentalStatusEditor;
+    private Item item; // reference to the current item
 
     public void initialize(){
         itemRentalTypeEditor.setItems(FXCollections.observableArrayList(Item.getRentalTypeList()));
@@ -50,16 +48,49 @@ public class ItemEditorController {
         itemLoanTypeEditor.setItems(FXCollections.observableArrayList(Item.getLoanTypeList()));
         itemRentalStatusEditor.setItems(FXCollections.observableArrayList(Item.getRentalStatusList()));
         itemRentalStatusEditor.setDisable(true);
+
+        itemStockEditor.setTextFormatter(new TextFormatter<>(change -> {
+            if (!change.isContentChange()) {
+                return change;
+            }
+
+            String input = change.getControlNewText();
+
+            if(input.isBlank()){
+                change.setText("0");
+                return change;
+            }
+            else{
+                return item.validStock(input) ? change :  null;
+            }
+        }));
+
+        itemFeeEditor.setTextFormatter(new TextFormatter<>(change -> {
+            if (!change.isContentChange()) {
+                return change;
+            }
+
+            String input = change.getControlNewText();
+
+            if(input.isBlank()){
+                change.setText("0.0");
+                return change;
+            }
+            else{
+                return item.validFee(input) ? change :  null;
+            }
+        }));
     }
 
     public void setItem(Item item){
+        this.item = item;
         itemIdEditor.textProperty().bindBidirectional(item.idProperty());
         itemTitleEditor.textProperty().bindBidirectional(item.titleProperty());
         itemRentalTypeEditor.valueProperty().bindBidirectional(item.rentalTypeProperty());
         itemGenreEditor.valueProperty().bindBidirectional(item.genreProperty());
         itemLoanTypeEditor.valueProperty().bindBidirectional(item.loanTypeProperty());
-        itemStockEditor.textProperty().bindBidirectional(item.stockProperty(), NumberFormat.getCompactNumberInstance());
-        itemFeeEditor.textProperty().bindBidirectional(item.feeProperty(), NumberFormat.getCompactNumberInstance());
+        itemStockEditor.textProperty().bindBidirectional(item.stockProperty(), (NumberFormat.getCompactNumberInstance()));
+        itemFeeEditor.textProperty().bindBidirectional(item.feeProperty(), NumberFormat.getNumberInstance());
         itemRentalStatusEditor.valueProperty().bindBidirectional(item.rentalStatusProperty());
     }
 }

@@ -60,8 +60,7 @@ public class ManageItemController {
             System.out.println(e);
         }
 
-        items = SceneUtilities.getObsItemList();
-        SceneUtilities.itemFilter(items, itemSearchAdmin, itemTableAdmin);
+        refreshItemTable();
 
         itemDisplayComboBox.setItems(FXCollections.observableArrayList(displayComboList));
         itemDisplayComboBox.setValue("All");
@@ -114,10 +113,18 @@ public class ManageItemController {
             dialog.setDialogPane(itemEditorPane);
             dialog.setTitle("Update Item");
 
-            dialog.showAndWait();
+            Item oldCopy = item.createCopy();
+            Optional<ButtonType> buttonHandler = dialog.showAndWait();
 
-            item.determineRentalStatus();
-            manageItemOutput.setText("Updated " + item.getRentalType() + " " + item.getId());
+            if(buttonHandler.get() == ButtonType.OK){
+                item.determineRentalStatus();
+                manageItemOutput.setText("Updated " + item.getRentalType() + " " + item.getId());
+            }
+            else{
+                StoreRepository.Instance().getItemManager().addItem(oldCopy);
+            }
+
+            refreshItemTable();
         } catch (IOException e ){
             System.out.println(e);
         }
@@ -157,5 +164,10 @@ public class ManageItemController {
         }
 
         manageItemOutput.setText(result);
+    }
+
+    private void refreshItemTable(){
+        items = SceneUtilities.getObsItemList();
+        SceneUtilities.itemFilter(items, itemSearchAdmin, itemTableAdmin);
     }
 }

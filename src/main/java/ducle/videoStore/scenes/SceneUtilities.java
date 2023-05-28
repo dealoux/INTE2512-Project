@@ -164,4 +164,20 @@ public class SceneUtilities {
             StoreRepository.Instance().saveData();
         }
     }
+
+    /**
+     * This function returns true if the given string is numeric otherwise false
+     * @param str reference to the string
+     * */
+    public static boolean isNumeric(String str) {
+        if (str.isBlank()) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
 }

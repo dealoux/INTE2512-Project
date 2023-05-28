@@ -12,6 +12,7 @@
 
 package ducle.videoStore.item;
 
+import ducle.videoStore.scenes.SceneUtilities;
 import javafx.beans.property.*;
 
 import java.util.ArrayList;
@@ -58,21 +59,21 @@ public class Item implements Comparable<Item> {
     }
 
     public Item(String id, String title, String rentalType, String loanType, int stock, double fee, String genre) {
-        this.id.set(id);
+        setId(id);
         this.title.set(title);
-        this.rentalType.set(rentalType);
-        this.genre.set(genre);
-        this.loanType.set(loanType);
+        setRentalType(rentalType);
+        setGenre(genre);
+        setLoanType(loanType);
         setStock(stock);
         setFee(fee);
     }
 
     public Item(String id, String title, String rentalType, String loanType, String stock, String fee, String genre) {
-        this.id.set(id);
+        setId(id);
         this.title.set(title);
-        this.rentalType.set(rentalType);
-        this.genre.set(genre);
-        this.loanType.set(loanType);
+        setRentalType(rentalType);
+        setGenre(genre);
+        setLoanType(loanType);
         setStock(stock);
         setFee(fee);
     }
@@ -84,10 +85,19 @@ public class Item implements Comparable<Item> {
         return id;
     }
     public void setId(String id) {
-        this.id.set(id);
+        this.id.set(validateId(id));
     }
     public void setId(String code, String year) {
         this.id.set("I" + code + "_" + "year");
+    }
+    public boolean validId(String str){
+        return str.startsWith("I");
+    }
+    public String validateId(String str){
+        if(!validId(str)){
+            return "I"+str;
+        }
+        return str;
     }
 
     public String getTitle() {
@@ -107,7 +117,17 @@ public class Item implements Comparable<Item> {
         return rentalType;
     }
     public void setRentalType(String rentalType) {
-        this.rentalType.set(rentalType);
+        this.rentalType.set(validateRentalType(rentalType));
+    }
+    public boolean validRentalType(String str){
+        return getRentalTypeList().contains(str);
+    }
+    public String validateRentalType(String str){
+        if(!validRentalType(str)){
+            str = this.getClass().getName();
+        }
+
+        return str;
     }
 
     public String getGenre() {
@@ -117,7 +137,17 @@ public class Item implements Comparable<Item> {
         return genre;
     }
     public void setGenre(String genre) {
-        this.genre.set(genre);
+        this.genre.set(validateGenre(genre));
+    }
+    public boolean validGenre(String str){
+        return getGenreList().contains(str);
+    }
+    public String validateGenre(String str){
+        if(!validGenre(str)){
+            str = getGenreList().get(0);
+        }
+
+        return str;
     }
 
     public String getLoanType() {
@@ -127,7 +157,17 @@ public class Item implements Comparable<Item> {
         return loanType;
     }
     public void setLoanType(String loanType) {
-        this.loanType.set(loanType);
+        this.loanType.set(validateLoanType(loanType));
+    }
+    public boolean validLoanType(String str){
+        return getLoanTypeList().contains(str);
+    }
+    public String validateLoanType(String str){
+        if(!validLoanType(str)){
+            str = getLoanTypeList().get(0);
+        }
+
+        return str;
     }
 
     public int getStock() {
@@ -137,12 +177,40 @@ public class Item implements Comparable<Item> {
         return stock;
     }
     public void setStock(int stock) {
-        this.stock.set(Math.max(stock, 0));
+        this.stock.set(validateStock(stock));
         determineRentalStatus(); // always determine the rental status when setting new stock
     }
     public void setStock(String stock) {
         this.stock.set(Integer.parseInt(stock));
         determineRentalStatus(); // always determine the rental status when setting new stock
+    }
+    public boolean validStock(String str){
+        boolean result = false;
+
+        if(SceneUtilities.isNumeric(str)){
+            try{
+                result = validStock(Integer.parseInt(str));
+            }catch (Exception e){
+                result = false;
+            }
+        }
+
+        return result;
+    }
+    public boolean validStock(int stock){
+        return stock >= 0;
+    }
+    public int validateStock(String str){
+        int result = 0;
+
+        if(SceneUtilities.isNumeric(str)){
+            result = validateStock(Integer.parseInt(str));
+        }
+
+        return result;
+    }
+    public int validateStock(int stock){
+        return Math.max(stock, 0);
     }
     public void decreaseStock(){
         setStock(getStock()-1);
@@ -158,11 +226,39 @@ public class Item implements Comparable<Item> {
         return fee;
     }
     public void setFee(double fee) {
-        fee = Math.max(fee, 0.0);
-        this.fee.set(Math.round(fee * 100.0) / 100.0);
+        this.fee.set(validateFee(fee));
     }
     public void setFee(String fee) {
         this.fee.set(Double.parseDouble(fee));
+    }
+    public boolean validFee(String str){
+        boolean result = false;
+
+        if(SceneUtilities.isNumeric(str)){
+            try{
+                result = validFee(Double.parseDouble(str));
+            }catch (Exception e){
+                result = false;
+            }
+        }
+
+        return result;
+    }
+    public boolean validFee(double fee){
+        return fee >= 0.0;
+    }
+    public double validateFee(String str){
+        double result = 0.0;
+
+        if(SceneUtilities.isNumeric(str)){
+            result = validateFee(Double.parseDouble(str));
+        }
+
+        return result;
+    }
+    public double validateFee(double fee){
+        fee = Math.max(fee, 0.0);
+        return Math.round(fee * 100.0) / 100.0; // round to 2 decimal place
     }
 
     public String getRentalStatus() {

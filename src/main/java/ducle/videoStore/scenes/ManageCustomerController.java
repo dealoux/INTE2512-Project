@@ -78,14 +78,13 @@ public class ManageCustomerController {
         customerUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
         customerPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
 
-        customers = FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getCustomerList());
-        customerFilter(customers);
+        refreshCustomerTable();
 
         List<String> displayComboList = new ArrayList<>();
         displayComboList.add("All");
         displayComboList.addAll(Customer.getCustomerTypeList());
         customerDisplayComboBox.setItems(FXCollections.observableArrayList(displayComboList));
-        customerDisplayComboBox.setValue("All");
+        customerDisplayComboBox.setValue(displayComboList.get(0));
 
         // Disable the delete button if nothing is selected
         customerDeleteButton.disableProperty().bind(Bindings.isNull(cusTableAdmin.getSelectionModel().selectedItemProperty()));
@@ -186,24 +185,35 @@ public class ManageCustomerController {
             dialog.setDialogPane(userEditorPane);
             dialog.setTitle("Update Customer");
 
-            dialog.showAndWait();
+            Customer oldCopy = customer.createCopy();
+            Optional<ButtonType> buttonHandler = dialog.showAndWait();
 
-            // handle class change if needed
-            if(!customer.getClass().toString().equalsIgnoreCase(customer.getType())){
-                switch (customer.getType()){
-                    case "Regular":
-                        StoreRepository.Instance().getUserManager().addRegular(new Regular(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
-                        break;
-                    case "VIP":
-                        StoreRepository.Instance().getUserManager().addVip(new VIP(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
-                        break;
-                    case "Guest":
-                        StoreRepository.Instance().getUserManager().addGuest(new Guest(customer.getId(), customer.getUsername(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
-                        break;
+            if(buttonHandler.get() == ButtonType.OK){
+
+                // handle class change if needed
+                if(!customer.getClass().toString().equalsIgnoreCase(customer.getType())){
+                    // add new type changed instance
+                    switch (customer.getType()){
+                        case "Regular":
+                            StoreRepository.Instance().getUserManager().addRegular(new Regular(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                            break;
+                        case "VIP":
+                            StoreRepository.Instance().getUserManager().addVip(new VIP(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                            break;
+                        case "Guest":
+                            StoreRepository.Instance().getUserManager().addGuest(new Guest(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                            break;
+                    }
+                    StoreRepository.Instance().getUserManager().removeCustomer(customer, true); // remove old instance
                 }
+
+                manageCusOutput.setText("Updated " + customer.getType() + " customer " + customer.getId());
+            }
+            else{
+                StoreRepository.Instance().getUserManager().addCustomer(oldCopy);
             }
 
-            manageCusOutput.setText("Updated " + customer.getType() + " customer " + customer.getId());
+            refreshCustomerTable();
         } catch (IOException e ){
             System.out.println(e);
         }
@@ -247,5 +257,10 @@ public class ManageCustomerController {
         }
 
         manageCusOutput.setText(result);
+    }
+
+    private void refreshCustomerTable(){
+        customers = FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getCustomerList());
+        customerFilter(customers);
     }
 }

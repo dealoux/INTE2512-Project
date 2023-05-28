@@ -15,8 +15,6 @@ package ducle.videoStore.user.customer;
 import ducle.videoStore.item.Item;
 import ducle.videoStore.user.User;
 import ducle.videoStore.StoreRepository;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 import java.util.*;
 
@@ -45,9 +43,9 @@ public class Customer extends User {
         rentalMap = new HashMap<>();
     }
 
-    public Customer(String id, String name, String address, String phone, String type, String username, String password, Map<String, Item> rentalList) {
+    public Customer(String id, String name, String address, String phone, String type, String username, String password, Map<String, Item> rentalMap) {
         super(id, name, address, phone, type, username, password);
-        this.rentalMap = rentalList;
+        this.rentalMap = rentalMap;
     }
 
     public Customer(String id, String name, String address, String phone, String type) {
@@ -233,6 +231,13 @@ public class Customer extends User {
         }
 
         return result;
+    }
+
+    /**
+     * This function creates and returns a shallow copy of this customer
+     * */
+    public Customer createCopy(){
+        return new Customer(getId(), getName(), getAddress(), getPhone(), getType(), getUsername(), getPassword(), getRentalMap());
     }
 
     @Override

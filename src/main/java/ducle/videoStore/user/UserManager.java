@@ -320,13 +320,15 @@ public class UserManager {
      * Returns a string indicating the result of the operation
      * @param id id of the regular to be removed
      * */
-    public String removeRegular(String id){
+    public String removeRegular(String id, boolean keepIventory){
         String result;
         Regular customer = regularMap.remove(id);
 
         if(customer != null){
             result = "Removed Regular " + customer.getId();
-            customer.returnAllItem();
+
+            if(!keepIventory)
+                customer.returnAllItem();
         }
         else{
             result = "Could not find any Regular with id " + id;
@@ -340,13 +342,15 @@ public class UserManager {
      * Returns a string indicating the result of the operation
      * @param id id of the VIP to be removed
      * */
-    public String removeVip(String id){
+    public String removeVip(String id, boolean keepIventory){
         String result;
         VIP customer = vipMap.remove(id);
 
         if(customer != null){
             result = "Removed VIP " + customer.getId();
-            customer.returnAllItem();
+
+            if(!keepIventory)
+                customer.returnAllItem();
         }
         else{
             result = "Could not find any VIP with id " + id;
@@ -360,13 +364,15 @@ public class UserManager {
      * Returns a string indicating the result of the operation
      * @param id id of the guest to be removed
      * */
-    public String removeGuest(String id){
+    public String removeGuest(String id, boolean keepIventory){
         String result;
         Guest customer = guestMap.remove(id);
 
         if(customer != null){
             result = "Removed Guest " + customer.getId();
-            customer.returnAllItem();
+
+            if(!keepIventory)
+                customer.returnAllItem();
         }
         else{
             result = "Could not find any Guest with id " + id;
@@ -379,18 +385,48 @@ public class UserManager {
      * This function tries to remove the given customer instance from its respective map if found
      * Returns a string indicating the result of the operation
      * @param customer reference to of the customer to be removed
+     * @param keepIventory keep the customer inventory if set to true
      * */
-    public String removeCustomer(Customer customer){
+    public String removeCustomer(Customer customer, boolean keepIventory){
         String result = "";
 
         if(customer instanceof Regular){
-            result = removeRegular(customer.getId());
+            result = removeRegular(customer.getId(), keepIventory);
         }
         else if(customer instanceof VIP){
-            result = removeVip(customer.getId());
+            result = removeVip(customer.getId(), keepIventory);
         }
         else if(customer instanceof Guest){
-            result = removeGuest(customer.getId());
+            result = removeGuest(customer.getId(), keepIventory);
+        }
+
+        return result;
+    }
+
+    /**
+     * This function tries to remove the given customer instance from its respective map if found
+     * Returns a string indicating the result of the operation
+     * @param customer reference to of the customer to be removed
+     * */
+    public String removeCustomer(Customer customer){
+        return removeCustomer(customer, false);
+    }
+
+    /**
+     * This function tries to remove the customer with the given id from its respective map if found.
+     * Returns a string indicating the result of the operation
+     * @param id id of the customer to be removed
+     * @param keepInventory keep the customer inventory if set to true
+     * */
+    public String removeCustomer(String id, boolean keepInventory){
+        String result;
+        Customer customer = searchCustomer(id);
+
+        if(customer != null){
+            result = removeCustomer(customer, keepInventory);
+        }
+        else{
+            result = "Could not find customer with id " + id;
         }
 
         return result;
@@ -402,17 +438,7 @@ public class UserManager {
      * @param id id of the customer to be removed
      * */
     public String removeCustomer(String id){
-        String result;
-        Customer customer = searchCustomer(id);
-
-        if(customer != null){
-            result = removeCustomer(customer);
-        }
-        else{
-            result = "Could not find customer with id " + id;
-        }
-
-        return result;
+        return removeCustomer(id, false);
     }
 
     /**

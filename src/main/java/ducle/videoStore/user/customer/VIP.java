@@ -33,6 +33,11 @@ public class VIP extends Customer {
         rewardPoints = 0;
     }
 
+    public VIP(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList, int rewardPoints) {
+        super(id, name, address, phone, "VIP", username, password, rentalList);
+        setRewardPoints(rewardPoints);
+    }
+
     public VIP(String id, String name, String address, String phone) {
         super(id, name, address, phone, "VIP");
         rewardPoints = 0;
@@ -43,7 +48,7 @@ public class VIP extends Customer {
     }
 
     public void setRewardPoints(int rewardPoints) {
-        this.rewardPoints = rewardPoints;
+        this.rewardPoints = Math.max(rewardPoints, 0);
     }
 
     @Override
@@ -65,5 +70,10 @@ public class VIP extends Customer {
         }
 
         return result;
+    }
+
+    @Override
+    public VIP createCopy(){
+        return new VIP(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap(), getRewardPoints());
     }
 }

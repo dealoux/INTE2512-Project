@@ -31,4 +31,9 @@ public class Regular extends Customer {
     public Regular(String id, String name, String address, String phone) {
         super(id, name, address, phone, "Regular");
     }
+
+    @Override
+    public Regular createCopy(){
+        return new Regular(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap());
+    }
 }

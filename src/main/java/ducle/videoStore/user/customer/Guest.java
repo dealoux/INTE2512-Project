@@ -66,4 +66,9 @@ public class Guest extends Customer {
 
         return  result;
     }
+
+    @Override
+    public Guest createCopy(){
+        return new Guest(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap());
+    }
 }
