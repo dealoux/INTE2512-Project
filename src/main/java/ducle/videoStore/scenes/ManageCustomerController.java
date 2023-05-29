@@ -207,6 +207,7 @@ public class ManageCustomerController {
                     StoreRepository.Instance().getUserManager().removeCustomer(customer, true); // remove old instance
                 }
 
+                StoreRepository.Instance().getUserManager().validateMaps();
                 manageCustomerOutput.setText("Updated " + customer.getType() + " customer " + customer.getId());
             }
             else{

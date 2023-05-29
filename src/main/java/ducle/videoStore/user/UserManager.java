@@ -474,6 +474,23 @@ public class UserManager {
         return result;
     }
 
+    public void validateMaps(){
+        regularMap.forEach((id, customer) ->{
+            if(!id.equals(customer.getId()))
+                removeCustomer(customer);
+        });
+
+        guestMap.forEach((id, customer) ->{
+            if(!id.equals(customer.getId()))
+                removeCustomer(customer);
+        });
+
+        vipMap.forEach((id, customer) ->{
+            if(!id.equals(customer.getId()))
+                removeCustomer(customer);
+        });
+    }
+
     /**
      * This function returns a string with all customers data
      * */

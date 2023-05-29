@@ -303,6 +303,22 @@ public class ItemManager {
         return  result;
     }
 
+    public void validateMaps(){
+        dvdMap.forEach((id, item) ->{
+            if(!id.equals(item.getId()))
+                removeItem(item);
+        });
+        recordMap.forEach((id, item) ->{
+            if(!id.equals(item.getId()))
+                removeItem(item);
+        });
+        gameMap.forEach((id, item) ->{
+            if(!id.equals(item.getId()))
+                removeItem(item);
+        });
+
+    }
+
     public String toString(){
         String result = "";
 

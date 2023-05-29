@@ -118,6 +118,7 @@ public class ManageItemController {
 
             if(buttonHandler.get() == ButtonType.OK){
                 item.validate();
+                StoreRepository.Instance().getItemManager().validateMaps();
                 manageItemOutput.setText("Updated " + item.getRentalType() + " " + item.getId());
             }
             else{
