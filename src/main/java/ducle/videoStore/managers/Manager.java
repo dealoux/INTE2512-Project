@@ -7,7 +7,7 @@
   ID: s4000577
   Created  date: 29/05/2023
   Acknowledgement: I have acknowledged that all the resources here are the course materials as well as my own experiences
-  Purpose: This class has the utilities functions to handle all the items data gained from the database (.txt files)
+  Purpose: this class is the base structure for all managers
 */
 
 package ducle.videoStore.managers;

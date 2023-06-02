@@ -70,7 +70,7 @@ public class Guest extends Customer {
     }
 
     private String promotionCheck(){
-        String result = ". Rent and return " + (UNTIL_PROMOTION - stats.getReturnCount()) + " more items to be promoted to Regular.";
+        String result = ". Rent and return " + (UNTIL_PROMOTION - stats.getReturnCount()) + " more item(s) to be promoted to Regular.";
         if(stats.getReturnCount() >= UNTIL_PROMOTION){
             StoreRepository.Instance().getCustomerManager().add(new Regular(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap(), getStats()));
             result = ". Congrats you have been promoted to Regular!";

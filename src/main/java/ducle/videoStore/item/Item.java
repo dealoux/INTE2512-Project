@@ -22,7 +22,6 @@ import java.util.List;
 
 public class Item extends Entity{
     // Property for JavaFX bindings support
-    protected StringProperty id = new SimpleStringProperty();
     protected StringProperty title = new SimpleStringProperty();
     protected StringProperty rentalType = new SimpleStringProperty();
     protected StringProperty genre = new SimpleStringProperty();

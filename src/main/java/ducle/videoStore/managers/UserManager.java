@@ -7,7 +7,7 @@
   ID: s4000577
   Created  date: 29/05/2023
   Acknowledgement: I have acknowledged that all the resources here are the course materials as well as my own experiences
-  Purpose: This class has the utilities functions to handle all the users data gained from the database (.txt files)
+  Purpose: This class has the utilities functions to handle all basic users data gained from the database (.txt files)
 */
 
 package ducle.videoStore.managers;

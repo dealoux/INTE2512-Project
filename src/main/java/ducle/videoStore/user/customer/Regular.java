@@ -40,7 +40,7 @@ public class Regular extends Customer {
     }
 
     private String promotionCheck(){
-        String result = ". Rent and return " + (UNTIL_PROMOTION - stats.getReturnCount()) + " more items to be promoted to VIP.";
+        String result = ". Rent and return " + (UNTIL_PROMOTION - stats.getReturnCount()) + " more item(s) to be promoted to VIP.";
         if(stats.getReturnCount() > UNTIL_PROMOTION){
             StoreRepository.Instance().getCustomerManager().add(new VIP(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap(), getStats()));
             result = ". Congrats you have been promoted to VIP, please enjoy our rewards program!";
