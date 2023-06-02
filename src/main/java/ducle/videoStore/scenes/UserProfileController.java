@@ -22,30 +22,30 @@ import javafx.scene.layout.GridPane;
 
 public class UserProfileController {
     @FXML
-    private GridPane userProfilePane;
+    protected GridPane userProfilePane;
     @FXML
-    private TextField userIdProfile;
+    protected TextField userIdProfile;
     @FXML
-    private TextField userNameProfile;
+    protected TextField userNameProfile;
     @FXML
-    private TextField userAddressProfile;
+    protected TextField userAddressProfile;
     @FXML
-    private TextField userPhoneProfile;
+    protected TextField userPhoneProfile;
     @FXML
-    private ComboBox<String> userTypeProfile;
+    protected ComboBox<String> userTypeProfile;
     @FXML
-    private TextField userUsernameProfile;
+    protected TextField userUsernameProfile;
     @FXML
-    private PasswordField userPasswordProfile;
-    private User user; // reference to the current user
+    protected PasswordField userPasswordProfile;
+    protected String userId; // id reference to the current user
+
 
     /**
      * This function binds the given user attributes as the default values
      * @param user the user whose attributes be bind
      * */
     public void setUser(User user){
-        this.user = user;
-
+        userId = user.getId();
         if(user instanceof Admin){
             userTypeProfile.setItems(FXCollections.observableArrayList(User.getUserTypeList()));
         }

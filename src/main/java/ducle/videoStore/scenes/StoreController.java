@@ -17,14 +17,12 @@ import ducle.videoStore.user.User;
 import ducle.videoStore.user.customer.Customer;
 import ducle.videoStore.StoreApplication;
 import ducle.videoStore.StoreRepository;
+import ducle.videoStore.user.customer.Guest;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -64,7 +62,7 @@ public class StoreController {
         String password = loginPassword.getText();
 
         if(!username.isEmpty() && !password.isEmpty()){
-            User user = StoreRepository.Instance().getUserManager().searchUserByUsername(username);
+            User user = StoreRepository.Instance().searchUserByUsername(username);
 
             if(user == null){
                 loginErrorMsg();
@@ -93,7 +91,7 @@ public class StoreController {
                             fxmlLoader.setLocation(SceneUtilities.class.getResource("customer-view.fxml"));
                             BorderPane customerViewPane = fxmlLoader.load();
                             CustomerController customerViewController = fxmlLoader.getController();
-                            customerViewController.setUser(user);
+                            customerViewController.setUser((Customer) user);
 
                             SceneUtilities.sceneSwitch(storeViewPane, customerViewPane);
                         } catch (IOException e ){
@@ -105,6 +103,34 @@ public class StoreController {
         }
         else{
             loginErrorMsg();
+        }
+    }
+
+    @FXML
+    protected void onRegisterButton(ActionEvent event){
+        Guest customer = new Guest();
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("customerEditor-view.fxml"));
+            DialogPane userEditorPane = fxmlLoader.load();
+            CustomerEditorController userEditorController = fxmlLoader.getController();
+
+            userEditorController.setCustomer(customer);
+            userEditorController.disableTypeEditor();
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(userEditorPane);
+            dialog.setTitle("Register");
+
+            Optional<ButtonType> buttonHandler = dialog.showAndWait();
+
+            if(buttonHandler.get() == ButtonType.OK){
+                StoreRepository.Instance().getCustomerManager().add(customer);
+                loginOutputLabel.setText("Account created");
+            }
+        } catch (IOException e ){
+            System.out.println(e);
         }
     }
 

@@ -117,7 +117,7 @@ public class SceneUtilities {
      * This function returns an ObservableList instance of the list of all items
      * */
     public static ObservableList<Item> getObsItemList(){
-        return FXCollections.observableArrayList(StoreRepository.Instance().getItemManager().getItemList());
+        return FXCollections.observableArrayList(StoreRepository.Instance().getItemManager().getList());
     }
 
     /**

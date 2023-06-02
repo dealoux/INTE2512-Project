@@ -16,4 +16,6 @@ module ducle {
 
     exports ducle.videoStore.scenes;
     opens ducle.videoStore.scenes to javafx.fxml;
+    exports ducle.videoStore.managers;
+    opens ducle.videoStore.managers to javafx.fxml;
 }

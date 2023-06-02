@@ -91,7 +91,7 @@ public class ManageItemController {
             if(buttonHandler.get() == ButtonType.OK){
                 item.validate();
                 items.add(item);
-                manageItemOutput.setText(StoreRepository.Instance().getItemManager().addItem(item));
+                manageItemOutput.setText(StoreRepository.Instance().getItemManager().add(item));
             }
         } catch (IOException e ){
             System.out.println(e);
@@ -118,11 +118,10 @@ public class ManageItemController {
 
             if(buttonHandler.get() == ButtonType.OK){
                 item.validate();
-                StoreRepository.Instance().getItemManager().validateMaps();
                 manageItemOutput.setText("Updated " + item.getRentalType() + " " + item.getId());
             }
             else{
-                StoreRepository.Instance().getItemManager().addItem(oldCopy);
+                StoreRepository.Instance().getItemManager().add(oldCopy);
             }
 
             refreshItemTable();
@@ -141,7 +140,7 @@ public class ManageItemController {
         if(confirmation.get() == ButtonType.OK){
             Item item = itemTableAdmin.getSelectionModel().getSelectedItem();
             items.remove(itemTableAdmin.getSelectionModel().getSelectedItem());
-            manageItemOutput.setText(StoreRepository.Instance().getItemManager().removeItem(item));
+            manageItemOutput.setText(StoreRepository.Instance().getItemManager().remove(item));
         }
     }
 

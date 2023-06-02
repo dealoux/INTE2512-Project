@@ -20,8 +20,9 @@ import java.util.*;
 
 public class Customer extends User {
     protected Map<String, Item> rentalMap; // as customer has a map to keep track of their rental inventory
-
     // treat as constants/enums
+
+    protected RentalStats stats;
     protected static List<String> customerTypeList = new ArrayList<>(
             Arrays.asList("Guest", "Regular", "VIP")
     );
@@ -29,27 +30,32 @@ public class Customer extends User {
     public Customer(){
         super();
         setType("");
+        stats = new RentalStats();
         rentalMap = new HashMap<>();
     }
 
     public Customer(String type){
         super();
         setType(type);
+        stats = new RentalStats();
         rentalMap = new HashMap<>();
     }
 
     public Customer(String id, String name, String address, String phone, String type, String username, String password) {
         super(id, name, address, phone, type, username, password);
+        stats = new RentalStats();
         rentalMap = new HashMap<>();
     }
 
-    public Customer(String id, String name, String address, String phone, String type, String username, String password, Map<String, Item> rentalMap) {
+    public Customer(String id, String name, String address, String phone, String type, String username, String password, Map<String, Item> rentalMap, RentalStats stats) {
         super(id, name, address, phone, type, username, password);
+        this.stats = stats;
         this.rentalMap = rentalMap;
     }
 
     public Customer(String id, String name, String address, String phone, String type) {
         super(id, name, address, phone, type);
+        stats = new RentalStats();
         rentalMap = new HashMap<>();
     }
 
@@ -68,6 +74,10 @@ public class Customer extends User {
         return customerTypeList;
     }
 
+    public RentalStats getStats(){
+        return stats;
+    }
+
     public boolean validId(String str){
         return str.matches("C\\d{3}");
     }
@@ -77,7 +87,7 @@ public class Customer extends User {
      * @param itemId item id for searching
      * */
     protected Item searchItem(String itemId){
-        return StoreRepository.Instance().getItemManager().searchItem(itemId);
+        return StoreRepository.Instance().getItemManager().search(itemId);
     }
 
     /**
@@ -120,6 +130,7 @@ public class Customer extends User {
             toBeRented.setStock(toBeRented.getStock()+1);
             toBeRented.setFee(toBeRented.getFee()+item.getFee());
             item.decreaseStock();
+            stats.increaseRentCount(1);
 
             result = "Rented a copy of item " + item.print();
         }
@@ -159,6 +170,7 @@ public class Customer extends User {
 
         itemRented.setStock(itemRented.getStock()-1);
         itemRented.setFee(itemRented.getFee() - itemInStore.getFee());
+        stats.increaseReturnCount(1);
         itemInStore.increaseStock();
 
         if(itemRented.getStock() == 0){
@@ -202,6 +214,7 @@ public class Customer extends User {
             count++;
         }
 
+        stats.increaseReturnCount(count);
         rentalMap.remove(itemRented.getId());
         return "Returned " + count + (count > 1 ? " copies" : " copy") + " of item " + itemRented.print();
     }
@@ -211,15 +224,19 @@ public class Customer extends User {
      * Returns a string indicating the result of the operation
      * */
     public String returnAllItem(){
+        int count = 0;
+
         for(Item itemRented: rentalMap.values()){
             Item itemInStore = searchItem(itemRented.getId());
 
             while(itemRented.getStock() > 0){
                 itemRented.setStock(itemRented.getStock()-1);
                 itemInStore.increaseStock();
+                count++;
             }
         }
 
+        stats.increaseReturnCount(count);
         rentalMap.clear();
         return "Returned all item";
     }
@@ -237,11 +254,15 @@ public class Customer extends User {
         return result;
     }
 
+    public String rentalStats(){
+        return "Total rents: " + stats.getRentCount() + ", total returns: " + stats.getReturnCount() + ", total reward points: " + stats.getRewardPoints();
+    }
+
     /**
      * This function creates and returns a shallow copy of this customer
      * */
     public Customer createCopy(){
-        return new Customer(getId(), getName(), getAddress(), getPhone(), getType(), getUsername(), getPassword(), getRentalMap());
+        return new Customer(getId(), getName(), getAddress(), getPhone(), getType(), getUsername(), getPassword(), getRentalMap(), stats);
     }
 
     @Override

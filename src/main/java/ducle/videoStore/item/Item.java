@@ -12,6 +12,7 @@
 
 package ducle.videoStore.item;
 
+import ducle.videoStore.Entity;
 import ducle.videoStore.scenes.SceneUtilities;
 import javafx.beans.property.*;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Item implements Comparable<Item> {
+public class Item extends Entity{
     // Property for JavaFX bindings support
     protected StringProperty id = new SimpleStringProperty();
     protected StringProperty title = new SimpleStringProperty();
@@ -78,15 +79,6 @@ public class Item implements Comparable<Item> {
         setFee(fee);
     }
 
-    public String getId() {
-        return id.get();
-    }
-    public StringProperty idProperty() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id.set(id);
-    }
     public void setId(String code, String year) {
         this.id.set("I" + code + "_" + "year");
     }
@@ -317,17 +309,12 @@ public class Item implements Comparable<Item> {
         return new Item(getId(), getTitle(), getRentalType(), getLoanType(), getStock(), getFee(), getGenre());
     }
 
-    // items are sorted by ID
-    @Override
-    public int compareTo(Item item) {
-        return getId().compareTo(item.getId());
-    }
 
     /**
      * This function returns a string with the following format "[id] title"
      * */
     public String print(){
-        return "[" + getId() + "] " + getTitle();
+        return super.print() + " " + getTitle();
     }
 
     @Override

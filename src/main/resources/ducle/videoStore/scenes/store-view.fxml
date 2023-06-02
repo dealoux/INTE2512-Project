@@ -37,7 +37,9 @@
                        <items>
                            <Button mnemonicParsing="false" onAction="#onLoginButton" text="Login" />
                            <Separator orientation="VERTICAL" />
-                           <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onExitButton" text="Exit" />
+                           <Button mnemonicParsing="false" onAction="#onRegisterButton" text="Register" />
+                           <Separator orientation="VERTICAL" />
+                           <Button mnemonicParsing="false" onAction="#onExitButton" text="Exit" />
                        </items>
                    </ToolBar>
                </children>

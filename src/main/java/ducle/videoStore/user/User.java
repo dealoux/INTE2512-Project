@@ -12,6 +12,7 @@
 
 package ducle.videoStore.user;
 
+import ducle.videoStore.Entity;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -19,9 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class User implements Comparable<User> {
+public abstract class User extends Entity {
     // Property for JavaFX bindings support
-    protected StringProperty id = new SimpleStringProperty();
     protected StringProperty name = new SimpleStringProperty();
     protected StringProperty address = new SimpleStringProperty();
     protected StringProperty phone = new SimpleStringProperty();
@@ -60,16 +60,6 @@ public abstract class User implements Comparable<User> {
         this.address.set(address);
         this.phone.set(phone);
         this.type.set(type);
-    }
-
-    public String getId() {
-        return id.get();
-    }
-    public StringProperty idProperty() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id.set(id);
     }
 
     public String getName() {
@@ -136,10 +126,11 @@ public abstract class User implements Comparable<User> {
         return userTypeList;
     }
 
-    // users are sorted based on their IDs
-    @Override
-    public int compareTo(User user) {
-        return getId().compareTo(user.getId());
+    /**
+     * This function returns a string with the following format "[id] title"
+     * */
+    public String print(){
+        return super.print() + " " + getName();
     }
 
     @Override

@@ -12,6 +12,7 @@
 
 package ducle.videoStore.user.customer;
 
+import ducle.videoStore.StoreRepository;
 import ducle.videoStore.item.Item;
 import java.util.Map;
 
@@ -19,13 +20,14 @@ public class Guest extends Customer {
     public Guest(){
         super("Guest");
     }
+    private static final int UNTIL_PROMOTION = 3;
 
     public Guest(String id, String name, String address, String phone, String username, String password) {
         super(id, name, address, phone, "Guest", username, password);
     }
 
-    public Guest(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList) {
-        super(id, name, address, phone, "Guest", username, password, rentalList);
+    public Guest(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList, RentalStats stats) {
+        super(id, name, address, phone, "Guest", username, password, rentalList, stats);
     }
 
     public Guest(String id, String name, String address, String phone) {
@@ -67,8 +69,35 @@ public class Guest extends Customer {
         return  result;
     }
 
+    private String promotionCheck(){
+        String result = ". Rent and return " + (UNTIL_PROMOTION - stats.getReturnCount()) + " more items to be promoted to Regular.";
+        if(stats.getReturnCount() >= UNTIL_PROMOTION){
+            StoreRepository.Instance().getCustomerManager().add(new Regular(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap(), getStats()));
+            result = ". Congrats you have been promoted to Regular!";
+        }
+        return result;
+    }
+
+    @Override
+    public String returnItem(Item item) {
+        String result = super.returnItem(item);
+        return result + promotionCheck();
+    }
+
+    @Override
+    public String returnItemMultiple(Item itemRented){
+        String result = super.returnItemMultiple(itemRented);
+        return result + promotionCheck();
+    }
+
+    @Override
+    public String returnAllItem(){
+        String result = super.returnAllItem();
+        return result + promotionCheck();
+    }
+
     @Override
     public Guest createCopy(){
-        return new Guest(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap());
+        return new Guest(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap(), getStats());
     }
 }

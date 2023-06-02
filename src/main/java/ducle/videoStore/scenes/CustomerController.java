@@ -12,7 +12,6 @@
 
 package ducle.videoStore.scenes;
 
-import ducle.videoStore.user.User;
 import ducle.videoStore.user.customer.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +26,7 @@ public class CustomerController {
     private BorderPane customerViewPane;
     @FXML
     private TabPane customerTabPane;
-    private UserProfileController userProfileController;
+    private CustomerProfileController customerProfileController;
     private RentalController rentalController;
 
     public void initialize(){
@@ -46,13 +45,13 @@ public class CustomerController {
 
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(SceneUtilities.class.getResource("userProfile-view.fxml"));
+            fxmlLoader.setLocation(SceneUtilities.class.getResource("customerProfile-view.fxml"));
 
             Tab newTab = new Tab("Profile");
             BorderPane profilePane = new BorderPane();
             profilePane.setTop(fxmlLoader.load());
             newTab.setContent(profilePane);
-            userProfileController = fxmlLoader.getController();
+            customerProfileController = fxmlLoader.getController();
 
             customerTabPane.getTabs().add(newTab);
         } catch (IOException e ){
@@ -64,11 +63,11 @@ public class CustomerController {
      * This function stores a reference to the current user
      * @param user the user to be kept track
      * */
-    public void setUser(User user){
-        userProfileController.setUser(user);
-        userProfileController.disableTypeSelection();
-        userProfileController.disableIDEditor();
-        rentalController.setCustomer((Customer) user);
+    public void setUser(Customer user){
+        customerProfileController.setUser(user);
+        customerProfileController.disableTypeSelection();
+        customerProfileController.disableIDEditor();
+        rentalController.setCustomer(user);
     }
 
     @FXML

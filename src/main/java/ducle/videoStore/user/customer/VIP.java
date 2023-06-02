@@ -13,42 +13,29 @@
 package ducle.videoStore.user.customer;
 
 import ducle.videoStore.item.Item;
+import ducle.videoStore.scenes.SceneUtilities;
+import javafx.scene.control.ButtonType;
+
 import java.util.Map;
+import java.util.Optional;
 
 public class VIP extends Customer {
-    protected int rewardPoints;
 
     public VIP() {
         super("VIP");
-        rewardPoints = 0;
     }
 
     public VIP(String id, String name, String address, String phone, String username, String password) {
         super(id, name, address, phone, "VIP", username, password);
-        rewardPoints = 0;
     }
 
-    public VIP(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList) {
-        super(id, name, address, phone, "VIP", username, password, rentalList);
-        rewardPoints = 0;
+    public VIP(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList, RentalStats stats) {
+        super(id, name, address, phone, "VIP", username, password, rentalList, stats);
     }
 
-    public VIP(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList, int rewardPoints) {
-        super(id, name, address, phone, "VIP", username, password, rentalList);
-        setRewardPoints(rewardPoints);
-    }
 
     public VIP(String id, String name, String address, String phone) {
         super(id, name, address, phone, "VIP");
-        rewardPoints = 0;
-    }
-
-    public int getRewardPoints() {
-        return rewardPoints;
-    }
-
-    public void setRewardPoints(int rewardPoints) {
-        this.rewardPoints = Math.max(rewardPoints, 0);
     }
 
     @Override
@@ -56,24 +43,73 @@ public class VIP extends Customer {
         String result = super.rent(item);
 
         if(result.startsWith("Rented")){
-            if(rewardPoints >= 100){
-                Item rented = rentalMap.get(item.getId());
-                rented.setFee(rented.getFee()-item.getFee());
-                rewardPoints -= 100;
-                result += ", for free using 100 points";
-            }
-            else {
-                rewardPoints += 10;
-            }
+            if(stats.rewardsAvailable()){
+                Optional<ButtonType> buttonHandler = SceneUtilities.confirmationDialog(
+                        "Confirm rent",
+                        "Would you like exchange 100 points to rent this item free of charge?",
+                        "Current points: " + stats.getRewardPoints());
 
-            result += ", total reward points: " + rewardPoints;
+                if(buttonHandler.get() == ButtonType.OK){
+                    Item rented = rentalMap.get(item.getId());
+                    rented.setFee(rented.getFee()-item.getFee());
+                    stats.decreaseRewards();
+                    result += ", for free using 100 points";
+                }
+            }
         }
 
         return result;
     }
 
     @Override
+    public String returnItem(Item item) {
+        String result = super.returnItem(item);
+        stats.increaseRewards();
+        return result + ", total reward points: " + stats.getRewardPoints();
+    }
+
+    @Override
+    public String returnItemMultiple(Item itemRented){
+        int count = 0;
+        Item itemInStore = searchItem(itemRented.getId());
+
+        while(itemRented.getStock() > 0){
+            itemRented.setStock(itemRented.getStock()-1);
+            itemInStore.increaseStock();
+            count++;
+            stats.increaseRewards();
+        }
+
+        stats.increaseReturnCount(count);
+        rentalMap.remove(itemRented.getId());
+        return "Returned " + count + (count > 1 ? " copies" : " copy") + " of item " + itemRented.print() + ", total reward points: " + stats.getRewardPoints();
+    }
+
+    /**
+     * This function handles the logic of returning all items in this customer rental map.
+     * Returns a string indicating the result of the operation
+     * */
+    public String returnAllItem(){
+        int count = 0;
+
+        for(Item itemRented: rentalMap.values()){
+            Item itemInStore = searchItem(itemRented.getId());
+
+            while(itemRented.getStock() > 0){
+                itemRented.setStock(itemRented.getStock()-1);
+                itemInStore.increaseStock();
+                count++;
+                stats.increaseRewards();
+            }
+        }
+
+        stats.increaseReturnCount(count);
+        rentalMap.clear();
+        return "Returned all item, total reward points: " + stats.getRewardPoints();
+    }
+
+    @Override
     public VIP createCopy(){
-        return new VIP(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap(), getRewardPoints());
+        return new VIP(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap(), getStats());
     }
 }

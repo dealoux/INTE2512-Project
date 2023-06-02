@@ -163,7 +163,7 @@ public class ManageCustomerController {
 
             if(buttonHandler.get() == ButtonType.OK){
                 customers.add(customer);
-                manageCustomerOutput.setText(StoreRepository.Instance().getUserManager().addCustomer(customer));
+                manageCustomerOutput.setText(StoreRepository.Instance().getCustomerManager().add(customer));
             }
         } catch (IOException e ){
             System.out.println(e);
@@ -195,23 +195,21 @@ public class ManageCustomerController {
                     // add new type changed instance
                     switch (customer.getType()){
                         case "Regular":
-                            StoreRepository.Instance().getUserManager().addRegular(new Regular(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                            StoreRepository.Instance().getCustomerManager().add(new Regular(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap(), customer.getStats()));
                             break;
                         case "VIP":
-                            StoreRepository.Instance().getUserManager().addVip(new VIP(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                            StoreRepository.Instance().getCustomerManager().add(new VIP(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap(), customer.getStats()));
                             break;
                         case "Guest":
-                            StoreRepository.Instance().getUserManager().addGuest(new Guest(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap()));
+                            StoreRepository.Instance().getCustomerManager().add(new Guest(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getUsername(), customer.getPassword(), customer.getRentalMap(), customer.getStats()));
                             break;
                     }
-                    StoreRepository.Instance().getUserManager().removeCustomer(customer, true); // remove old instance
                 }
 
-                StoreRepository.Instance().getUserManager().validateMaps();
                 manageCustomerOutput.setText("Updated " + customer.getType() + " customer " + customer.getId());
             }
             else{
-                StoreRepository.Instance().getUserManager().addCustomer(oldCopy);
+                StoreRepository.Instance().getCustomerManager().add(oldCopy);
             }
 
             refreshCustomerTable();
@@ -230,7 +228,7 @@ public class ManageCustomerController {
         if(confirmation.get() == ButtonType.OK){
             Customer customer = customerTable.getSelectionModel().getSelectedItem();
             customers.remove(customer);
-            manageCustomerOutput.setText(StoreRepository.Instance().getUserManager().removeCustomer(customer));
+            manageCustomerOutput.setText(StoreRepository.Instance().getCustomerManager().remove(customer));
         }
     }
 
@@ -244,15 +242,15 @@ public class ManageCustomerController {
                 result += "customers";
                 break;
             case "Regular":
-                customerFilter(FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getRegularList()));
+                customerFilter(FXCollections.observableArrayList(StoreRepository.Instance().getCustomerManager().getRegularList()));
                 result += "regular customers";
                 break;
             case "VIP":
-                customerFilter(FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getVipList()));
+                customerFilter(FXCollections.observableArrayList(StoreRepository.Instance().getCustomerManager().getVIPList()));
                 result += "VIP customers";
                 break;
             case "Guest":
-                customerFilter(FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getGuestList()));
+                customerFilter(FXCollections.observableArrayList(StoreRepository.Instance().getCustomerManager().getGuestList()));
                 result += "guest customers";
                 break;
         }
@@ -261,7 +259,7 @@ public class ManageCustomerController {
     }
 
     private void refreshCustomerTable(){
-        customers = FXCollections.observableArrayList(StoreRepository.Instance().getUserManager().getCustomerList());
+        customers = FXCollections.observableArrayList(StoreRepository.Instance().getCustomerManager().getList());
         customerFilter(customers);
     }
 }

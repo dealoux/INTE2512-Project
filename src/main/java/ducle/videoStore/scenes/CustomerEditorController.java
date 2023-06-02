@@ -25,16 +25,16 @@ public class CustomerEditorController {
     private DialogPane customerEditorPane;
     @FXML
     private Label customerEditorOutputLabel;
-    private UserProfileController userProfileController;
+    private CustomerProfileController customerProfileController;
     private Customer customer;
 
     @FXML
     public void initialize(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("userProfile-view.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("customerProfile-view.fxml"));
             customerEditorPane.setContent(fxmlLoader.load());
-            userProfileController = fxmlLoader.getController();
+            customerProfileController = fxmlLoader.getController();
         } catch (IOException e ){
             System.out.println(e);
         }
@@ -42,7 +42,7 @@ public class CustomerEditorController {
 
     public void setCustomer(Customer customer){
         this.customer = customer;
-        userProfileController.setUser(customer);
+        customerProfileController.setUser(customer);
 
         Button okButton = (Button) customerEditorPane.lookupButton(ButtonType.OK);
         okButton.addEventFilter(ActionEvent.ACTION, event -> {
@@ -57,5 +57,9 @@ public class CustomerEditorController {
                         "Please provide a correct ID with the following format Cxxx");
             }
         });
+    }
+
+    public void disableTypeEditor(){
+        customerProfileController.disableTypeSelection();
     }
 }

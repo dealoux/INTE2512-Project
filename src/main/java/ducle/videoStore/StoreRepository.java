@@ -14,29 +14,36 @@ package ducle.videoStore;
 
 import ducle.videoStore.item.*;
 import ducle.videoStore.item.Record;
+import ducle.videoStore.managers.CustomerManager;
+import ducle.videoStore.managers.ItemManager;
 import ducle.videoStore.user.Admin;
+import ducle.videoStore.user.User;
 import ducle.videoStore.user.customer.*;
-import ducle.videoStore.user.UserManager;
+import ducle.videoStore.managers.UserManager;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class StoreRepository {
     private static StoreRepository instance;
     private ItemManager itemManager;
-    private UserManager userManager;
+    private CustomerManager customerManager;
+    private UserManager<Admin> adminManager;
+    private Properties configProps;
 
     private StoreRepository(){
         itemManager = new ItemManager();
-        userManager = new UserManager();
+        customerManager = new CustomerManager();
+        adminManager = new UserManager<>();
 
         try {
+            configProps = new Properties();
+            configProps.load(new FileInputStream("config.properties"));
             initItems();
-            initUsers();
-        } catch (FileNotFoundException e){
+            initAdmins();
+            initCustomers();
+        } catch (Exception e){
             System.out.println("Database files not found");
             e.printStackTrace();
         }
@@ -57,31 +64,20 @@ public class StoreRepository {
         return itemManager;
     }
 
-    public UserManager getUserManager() {
-        return userManager;
+    public CustomerManager getCustomerManager() {
+        return customerManager;
     }
 
-    /**
-     * This function appends the path where the source inputs are at to the given file name
-     * @param fileName name of the file
-     * */
-    private static String dataSourcePath(String fileName){
-        return "src/main/resources/ducle/videoStore/" + fileName;
+    public UserManager<Admin> getAdminManager() {
+        return adminManager;
     }
 
-    /**
-     * This function appends the path where the output database files are at to the given file name
-     * @param fileName name of the file
-     * */
-    private static String dataOutputPath(String fileName){
-        return "src/main/resources/ducle/videoStore/output/" + fileName;
-    }
 
     /**
      * This function reads and loads the items input/database file
      * */
     private void initItems() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File(dataSourcePath("items.txt")));
+        Scanner scanner = new Scanner(new File(configProps.getProperty("INPUT_PATH")+configProps.getProperty("ITEM_DATA")));
         while (scanner.hasNextLine()){
             String line = scanner.nextLine();
 
@@ -90,13 +86,13 @@ public class StoreRepository {
 
                 switch (itemArr[2]){
                     case "DVD":
-                        itemManager.addDvd(new DVD(itemArr[0], itemArr[1], itemArr[3], itemArr[4], itemArr[5], itemArr[6]));
+                        itemManager.add(new DVD(itemArr[0], itemArr[1], itemArr[3], itemArr[4], itemArr[5], itemArr[6]));
                         break;
                     case "Record":
-                        itemManager.addRecord(new Record(itemArr[0], itemArr[1], itemArr[3], itemArr[4], itemArr[5], itemArr[6]));
+                        itemManager.add(new Record(itemArr[0], itemArr[1], itemArr[3], itemArr[4], itemArr[5], itemArr[6]));
                         break;
                     case "Game":
-                        itemManager.addGame(new Game(itemArr[0], itemArr[1], itemArr[3], itemArr[4], itemArr[5]));
+                        itemManager.add(new Game(itemArr[0], itemArr[1], itemArr[3], itemArr[4], itemArr[5]));
                         break;
                 }
             }
@@ -104,24 +100,16 @@ public class StoreRepository {
     }
 
     /**
-     * This function reads and loads the admin and customers inputs/database files
-     * */
-    private void initUsers() throws FileNotFoundException{
-        initAdmins();
-        initCustomers();
-    }
-
-    /**
      * This function reads and loads the admin input/database file
      * */
     private void initAdmins() throws FileNotFoundException{
-        Scanner scanner = new Scanner(new File(dataSourcePath("admins.txt")));
+        Scanner scanner = new Scanner(new File(configProps.getProperty("INPUT_PATH")+configProps.getProperty("ADMIN_DATA")));
         while (scanner.hasNextLine()){
             String line = scanner.nextLine();
 
             if (line.startsWith("A")) {
                 String[] adminArr = line.split(",");
-                userManager.addAdmin(new Admin(adminArr[0], adminArr[1], adminArr[2], adminArr[3], adminArr[4], adminArr[5]));
+                adminManager.add(new Admin(adminArr[0], adminArr[1], adminArr[2], adminArr[3], adminArr[4], adminArr[5]));
             }
         }
     }
@@ -130,7 +118,7 @@ public class StoreRepository {
      * This function reads and loads the customers input/database file
      * */
     private void initCustomers() throws FileNotFoundException{
-        Scanner scanner = new Scanner(new File(dataSourcePath("customers.txt")));
+        Scanner scanner = new Scanner(new File(configProps.getProperty("INPUT_PATH")+configProps.getProperty("CUSTOMER_DATA")));
         while (scanner.hasNextLine()){
             String line = scanner.nextLine();
 
@@ -141,22 +129,21 @@ public class StoreRepository {
                 switch (customerArr[5]){
                     case "Guest":
                         customer = new Guest(customerArr[0], customerArr[1], customerArr[2], customerArr[3], customerArr[6], customerArr[7]);
-                        userManager.addGuest((Guest) customer);
                         break;
                     case "Regular":
                         customer = new Regular(customerArr[0], customerArr[1], customerArr[2], customerArr[3], customerArr[6], customerArr[7]);
-                        userManager.addRegular((Regular) customer);
                         break;
                     case "VIP":
                         customer = new VIP(customerArr[0], customerArr[1], customerArr[2], customerArr[3], customerArr[6], customerArr[7]);
-                        userManager.addVip((VIP) customer);
                         break;
                 }
+
+                customerManager.add(customer);
 
                 for(int i=0; i < Integer.parseInt(customerArr[4]); i++){
                     String[] itemArr = scanner.nextLine().split(",");
 
-                    Item toBeRented = itemManager.searchItem(itemArr[0]);
+                    Item toBeRented = itemManager.search(itemArr[0]);
 
                     if(toBeRented != null){
                         switch (itemArr.length){
@@ -178,6 +165,16 @@ public class StoreRepository {
         }
     }
 
+    public User searchUserByUsername(String username){
+        User result = customerManager.searchUserByUsername(username);
+
+        if(result == null){
+            result = adminManager.searchUserByUsername(username);
+        }
+
+        return result;
+    }
+
     /**
      * This function writes the memory stored items and users data to the specified output database files
      * */
@@ -191,7 +188,7 @@ public class StoreRepository {
      * */
     public void saveItems(){
         try{
-            File output = new File(dataOutputPath("items.txt"));
+            File output = new File(configProps.getProperty("OUTPUT_PATH")+configProps.getProperty("ITEM_DATA"));
             output.createNewFile();
             FileWriter writer = new FileWriter(output.getPath());
             String data = "# an item record has the following format\n" +
@@ -212,13 +209,13 @@ public class StoreRepository {
     public void saveUser(){
         // customers
         try{
-            File output = new File(dataOutputPath("customers.txt"));
+            File output = new File(configProps.getProperty("OUTPUT_PATH")+configProps.getProperty("CUSTOMER_DATA"));
             output.createNewFile();
             FileWriter writer = new FileWriter(output.getPath());
             String data = "# a customer record has the following format\n" +
                     "#ID,Name,Address,Phone,Number of rentals,customer type, username, password followed by a list of items with the following format\n" +
                     "#ID,Quantity,Total Fee\n";
-            data += userManager.printCustomers();
+            data += customerManager.toString();
             writer.write(data);
             writer.close();
             System.out.println("Saved customers data to " + output.getPath());
@@ -229,14 +226,14 @@ public class StoreRepository {
 
         // admins
         try{
-            File output = new File(dataOutputPath("admins.txt"));
+            File output = new File(configProps.getProperty("OUTPUT_PATH")+configProps.getProperty("ADMIN_DATA"));
             output.createNewFile();
             FileWriter writer = new FileWriter(output.getPath());
             String data = "# an admin has the following format\n" +
                     "# ID,Name,Address,Phone, username, password\n" +
                     "# ID starts with A\n" +
                     "# admin accounts can not be added when the program is running so feel free to add more here\n";
-            data += userManager.printAdmins();
+            data += adminManager.toString();
             writer.write(data);
             writer.close();
             System.out.println("Saved admins data to " + output.getPath());

@@ -12,10 +12,12 @@
 
 package ducle.videoStore.user.customer;
 
+import ducle.videoStore.StoreRepository;
 import ducle.videoStore.item.Item;
 import java.util.Map;
 
 public class Regular extends Customer {
+    private static final int UNTIL_PROMOTION = 5;
     public Regular(){
         super("Regular");
     }
@@ -24,8 +26,8 @@ public class Regular extends Customer {
         super(id, name, address, phone, "Regular", username, password);
     }
 
-    public Regular(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList) {
-        super(id, name, address, phone, "Regular", username, password, rentalList);
+    public Regular(String id, String name, String address, String phone, String username, String password, Map<String, Item> rentalList, RentalStats stats) {
+        super(id, name, address, phone, "Regular", username, password, rentalList, stats);
     }
 
     public Regular(String id, String name, String address, String phone) {
@@ -34,6 +36,33 @@ public class Regular extends Customer {
 
     @Override
     public Regular createCopy(){
-        return new Regular(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap());
+        return new Regular(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap(), getStats());
+    }
+
+    private String promotionCheck(){
+        String result = ". Rent and return " + (UNTIL_PROMOTION - stats.getReturnCount()) + " more items to be promoted to VIP.";
+        if(stats.getReturnCount() > UNTIL_PROMOTION){
+            StoreRepository.Instance().getCustomerManager().add(new VIP(getId(), getName(), getAddress(), getPhone(), getUsername(), getPassword(), getRentalMap(), getStats()));
+            result = ". Congrats you have been promoted to VIP, please enjoy our rewards program!";
+        }
+        return result;
+    }
+
+    @Override
+    public String returnItem(Item item) {
+        String result = super.returnItem(item);
+        return result + promotionCheck();
+    }
+
+    @Override
+    public String returnItemMultiple(Item itemRented){
+        String result = super.returnItemMultiple(itemRented);
+        return result + promotionCheck();
+    }
+
+    @Override
+    public String returnAllItem(){
+        String result = super.returnAllItem();
+        return result + promotionCheck();
     }
 }

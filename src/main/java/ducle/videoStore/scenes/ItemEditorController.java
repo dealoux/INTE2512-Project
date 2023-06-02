@@ -83,6 +83,16 @@ public class ItemEditorController {
                 return item.validFee(input) ? change :  null;
             }
         }));
+
+        itemRentalTypeEditor.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if(newValue == Item.getRentalTypeList().get(2)){
+                itemGenreEditor.setValue("");
+                itemGenreEditor.setDisable(true);
+            }
+            else {
+                itemGenreEditor.setDisable(false);
+            }
+        });
     }
 
     public void setItem(Item item){
@@ -92,7 +102,7 @@ public class ItemEditorController {
         itemRentalTypeEditor.valueProperty().bindBidirectional(item.rentalTypeProperty());
         itemGenreEditor.valueProperty().bindBidirectional(item.genreProperty());
         itemLoanTypeEditor.valueProperty().bindBidirectional(item.loanTypeProperty());
-        itemStockEditor.textProperty().bindBidirectional(item.stockProperty(), (NumberFormat.getCompactNumberInstance()));
+        itemStockEditor.textProperty().bindBidirectional(item.stockProperty(), NumberFormat.getCompactNumberInstance());
         itemFeeEditor.textProperty().bindBidirectional(item.feeProperty(), NumberFormat.getNumberInstance());
         itemRentalStatusEditor.valueProperty().bindBidirectional(item.rentalStatusProperty());
 
