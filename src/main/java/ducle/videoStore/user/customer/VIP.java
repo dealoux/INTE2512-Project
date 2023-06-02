@@ -55,6 +55,9 @@ public class VIP extends Customer {
                     stats.decreaseRewards();
                     result += ", for free using 100 points";
                 }
+                else{
+                    stats.increaseRewards();
+                }
             }
         }
 
